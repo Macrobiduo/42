@@ -758,5 +758,4 @@ libft/*.o
 .vscode/tasks.json
 libft/a.out
 libft/ft_substr
-libft/a.out
-libft/a.out
+
