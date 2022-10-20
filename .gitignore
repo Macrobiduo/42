@@ -1,5 +1,5 @@
-/.editorconfig
-/github
+libft/.vscode/settings.json
+libft/.vscode/tasks.json
 libft/WARMACHINE/.gitattributes
 libft/WARMACHINE/#my_config.sh#
 libft/WARMACHINE/changelog
@@ -750,8 +750,7 @@ libft/WARMACHINE/tests/Part2_functions/ft_substr/test02.output
 libft/WARMACHINE/tests/Part2_functions/ft_substr/test03.output
 libft/WARMACHINE/tests/Part2_functions/ft_substr/test04.output
 libft/WARMACHINE/tests/Part2_functions/ft_substr/test05.output
-libft/.vscode/settings.json
-libft/.vscode/tasks.json
-libft/.libft.h.swp
 libft/.ft_strlcpy.c.swp
+libft/.libft.h.swp
 libft/libft.h.gch
+.editorconfig
