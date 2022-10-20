@@ -14,21 +14,19 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-char *ft_substr(char const *s, unsigned int start, size_t len)
+char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-    char    *p;
-    size_t   i;
+	char	*p;
+	size_t	i;
 
-    i = len;
-    p = (char *) malloc (sizeof(char) * (int)len);
-    if(p == 0)
-        return(NULL);    
-    while (i-- > 0 && s)
-            *p++ = *(s++ + start);
-            
-    return ((p-len));
+	i = len;
+	p = (char *) malloc (sizeof (char) * (int)len);
+	if (p == 0)
+		return (NULL);
+	while (i-- > 0 && s)
+		*p++ = *(s++ + start);
+	return (p - len);
 }
-
 /*int     main()
 {
     char    s[] = "Stringa di prova";

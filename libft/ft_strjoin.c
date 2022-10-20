@@ -14,34 +14,32 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-int     ft_strlen(char const *src)
+int	ft_strlen(char const *src)
 {
-    int     i;
+	int	i;
 
-    i = 0;
-    while(*src++)
-    {
-        i++;
-    }
-    return (i);
-}
-char    *ft_strjoin(char const *s1, char const *s2)
-{
-    char    *p;
-    char    *temp;
-
-    p = (char *)malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
-    temp = p;
-    if(p == 0)
-        return (NULL);
-    while(*s1)
-        *p++ = *s1++;
-    while(*s2)
-        *p++ = *s2++;
-    *p = '\0';
-    return (temp);
+	i = 0;
+	while (*src++)
+		i++;
+	return (i);
 }
 
+char	*ft_strjoin(char const *s1, char const *s2)
+{
+	char	*p;
+	char	*temp;
+
+	p = (char *)malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
+	temp = p;
+	if (p == 0)
+		return (NULL);
+	while (*s1)
+		*p++ = *s1++;
+	while (*s2)
+		*p++ = *s2++;
+	*p = '\0';
+	return (temp);
+}
 /*int     main()
 {
     char    s[] = "Zio come";
