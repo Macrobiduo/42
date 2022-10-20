@@ -757,3 +757,5 @@ libft/*.o
 .editorconfig
 .vscode/tasks.json
 libft/a.out
+libft/ft_substr
+libft/a.out
