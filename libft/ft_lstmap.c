@@ -13,5 +13,8 @@
 #include "libft.h"
 
 int main () {
+
+
+int	i;
 	
 }
