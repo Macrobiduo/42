@@ -87,7 +87,7 @@ char	*ft_strtrim(char const *s1, char const *set)
 	len = ft_strlen(s1);
 	st = start(s1, set);
 	en = end(s1, set);
-	p = (char *)malloc(len - (st + en));
+	p = (char *)malloc(len - (st + en) + 1);
 	if (p == 0)
 		return (NULL);
 	while (i < (len - en - st))
@@ -98,15 +98,14 @@ char	*ft_strtrim(char const *s1, char const *set)
 	p[i] = '\0';
 	return (p);
 }
-
 /*int    main()
 {
     char    *p;
-    char const *s = "ab Ciao Mamma bcab";
-    char const *set = "abc";
+    char const *s = "lorem ipsum dolor sit amet";
+    char const *set = "tel";
 
     printf("%d\n", start(s, set));
     printf("%d\n", end(s, set));
     p = ft_strtrim(s, set);
-    printf("%s", p);
+    printf("%s\n", p);
 }*/
