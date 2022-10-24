@@ -10,21 +10,24 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 #include <stdio.h>
 #include <stdlib.h>
 
 int	count(char const *s, char c)
 {
-	int	i;
+	int		i;
 
 	i = 0;
-	while (*s)
+	if (*s && *s != c)
+		i++;
+	while (*s && *(s + 1))
 	{
-		if (*s == c)
+		if (*s == c && *(s + 1) != c)
 			i++;
 		s++;
 	}
-	return (i);
+	return (i + 1);
 }
 
 int	leng(char const *s, char c)
@@ -32,10 +35,8 @@ int	leng(char const *s, char c)
 	int	i;
 
 	i = 0;
-	while (*s)
+	while (*s && *s != c)
 	{
-		if (*s == c)
-			break ;
 		i++;
 		s++;
 	}
@@ -50,34 +51,31 @@ char	**ft_split(char const *s, char c)
 	int		i;
 
 	i = 0;
-	total = count(s, c) + 1;
-	arr = malloc (total * sizeof(char *));
-	while (*s && i < total)
+	total = count(s, c);
+	arr = ft_calloc(total * sizeof(char *), 1);
+	while (*s && i < total - 1 && total != 1)
 	{
-		len = leng(s, c);
-		arr[i] = malloc (len);
-		while (*s != c && *s)
-			*arr[i]++ = *s++;
-		if (*s == c)
+		while (*s == c)
 			s++;
-		*arr[i] = '\0';
-		arr[i] -= (len - 1);
+		len = leng(s, c);
+		arr[i] = malloc(len);
+		ft_strlcpy(arr[i], s, len);
 		i++;
+		s += len - 1;
 	}
 	return (arr);
 }
-int     main() 
+/*int     main()
 {
     char    **arr;
-    char    *s = "  ";
+    char    *s = "          ";
     char    t = ' ';
     int     i = 0;
-    int     divis = count(s, t);
     arr = ft_split(s, t);
-   while(i < divis + 1)
+    while(arr[i])
    {    
         printf("%s\n", arr[i]);
         i++;
    }
     return (0);    
-}
+}*/
