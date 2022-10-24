@@ -758,4 +758,10 @@ libft/*.o
 .vscode/tasks.json
 libft/a.out
 libft/ft_substr
+<<<<<<< HEAD
 
+=======
+libft/a.out
+libft/a.out
+.vscode/settings.json
+>>>>>>> origin/HEAD
