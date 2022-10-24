@@ -66,10 +66,10 @@ char	**ft_split(char const *s, char c)
 	}
 	return (arr);
 }
-/*int     main() 
+int     main() 
 {
     char    **arr;
-    char    *s = " Ciccio  paguri Come va?";
+    char    *s = "  ";
     char    t = ' ';
     int     i = 0;
     int     divis = count(s, t);
@@ -80,4 +80,4 @@ char	**ft_split(char const *s, char c)
         i++;
    }
     return (0);    
-}*/
+}
