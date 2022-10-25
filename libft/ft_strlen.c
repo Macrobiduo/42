@@ -13,21 +13,11 @@
 #include <stdio.h>
 
 int	ft_strlen(const char *s)
-{	
+{
 	int	i;
 
 	i = 0;
-	while (*s != '\0')
-	{
+	while (*s++)
 		i++;
-		s++;
-	}
 	return (i);
 }
-/*int	main()
-{
-	char s[] = "Ciao Bello tutto bene????";
-	printf("%d", ft_strlen(s));
-	
-}
-*/

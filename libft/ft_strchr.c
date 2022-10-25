@@ -11,9 +11,12 @@
 /* ************************************************************************** */
 
 #include <stdio.h>
+#include "libft.h"
 
 char	*ft_strchr(const char *s, int c)
 {
+	if (c < 0 || c > 255)
+		return ((char *)s);
 	while (*s)
 	{
 		if (*s == c)
@@ -21,16 +24,6 @@ char	*ft_strchr(const char *s, int c)
 		s++;
 	}
 	if (c == '\0')
-		return ((char *) s + 1);
+		return ((char *)s);
 	return (NULL);
 }
-/*int	main()
-{
-	char	s[] = "eeeeeeeeeeeeeexeeeeeee";
-	char	*t;
-	int	p = 0;
-	
-	t = ft_strchr(s, p);
-	printf("%s", t);
-	return(0);
-}*/

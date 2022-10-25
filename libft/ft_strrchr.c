@@ -9,7 +9,9 @@
 /*   Updated: 2022/10/05 16:50:14 by dballini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include <stdio.h>
+#include "libft.h"
 
 char	*ft_strrchr(const char *s, int c)
 {
@@ -29,13 +31,3 @@ char	*ft_strrchr(const char *s, int c)
 	else
 		return ((char *)p);
 }
-/*int	main()
-{
-	char	s[] = "";
-	char	*t;
-	int	p = 's';
-	
-	t = ft_strrchr(s, p);
-	printf("%s", t);
-	return(0);
-}*/

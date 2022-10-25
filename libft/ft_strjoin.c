@@ -13,23 +13,14 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
-
-int	ft_strlen(char const *src)
-{
-	int	i;
-
-	i = 0;
-	while (*src++)
-		i++;
-	return (i);
-}
+#include "libft.h"
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
 	char	*p;
 	char	*temp;
 
-	p = (char *)malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
+	p = (char *)malloc((ft_strlen(s1) + ft_strlen(s2)) + 1);
 	temp = p;
 	if (p == 0)
 		return (NULL);
@@ -40,11 +31,3 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	*p = '\0';
 	return (temp);
 }
-/*int     main()
-{
-    char    s[] = "Zio come";
-    char    t[] = "va?";
-    char    *p = ft_strjoin(s, t);
-    printf("%s", p);
-    return (0);
-}*/

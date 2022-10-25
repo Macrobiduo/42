@@ -14,7 +14,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int	count(char const *s, char c)
+int	ft_counter(char const *s, char c)
 {
 	int		i;
 
@@ -51,7 +51,7 @@ char	**ft_split(char const *s, char c)
 	int		i;
 
 	i = 0;
-	total = count(s, c);
+	total = ft_counter(s, c);
 	arr = ft_calloc(total * sizeof(char *), 1);
 	while (*s && i < total - 1 && total != 1)
 	{

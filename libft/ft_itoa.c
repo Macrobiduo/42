@@ -14,7 +14,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int	count(long int n)
+int	ft_count(long int n)
 {
 	int		i;
 
@@ -38,7 +38,7 @@ char	*ft_itoa(int n)
 	char			*p;
 
 	num = n;
-	i = count(num);
+	i = ft_count(num);
 	if (n < 0)
 	{
 		p = (char *) malloc (i + 2);
@@ -59,9 +59,3 @@ char	*ft_itoa(int n)
 	}
 	return (p);
 }
-/*int main (){
-    int n = -2147483648LL;
-    char *p = ft_itoa(n);
-    printf("%s", p);
-    return (0);
-}*/

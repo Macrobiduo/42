@@ -18,6 +18,8 @@ void	*ft_memcpy(void *dest, const void *src, size_t n)
 	char	*csrc;
 	char	*cdest;
 
+	if (!src && !dest)
+		return (dest);
 	csrc = (char *)src;
 	cdest = (char *)dest;
 	i = 0;
@@ -29,13 +31,3 @@ void	*ft_memcpy(void *dest, const void *src, size_t n)
 	}
 	return (dest);
 }
-/*int	main()
-{
-	char	s[] = "Hola hola hola";
-	char	t[] = "Regina";
-	
-	char	*p;
-	p = ft_memcpy(s, t, 4);
-	printf("%s", p);
-	return (0);
-}*/

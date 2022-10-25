@@ -13,16 +13,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
-
-int	ft_strlen(const char *s)
-{
-	int	i;
-
-	i = 0;
-	while (*s++ != '\0')
-		i++;
-	return (i);
-}
+#include "libft.h"
 
 int	start(char const *s1, char const *set)
 {

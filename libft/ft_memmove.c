@@ -9,36 +9,32 @@
 /*   Updated: 2022/10/05 12:33:02 by dballini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include <stdio.h>
 #include <string.h>
 #include "libft.h"
 
 void	*ft_memmove(void *dest, const void *src, size_t n)
 {
-	char	temp[50];
+	char	*s;
+	char	*d;
 	size_t	i;
 
+	s = (char *)src;
+	d = (char *)dest;
 	i = 0;
-	while (i < n)
+	if (!dest && !src)
+		return (dest);
+	if (d > s)
+		while (n-- > 0)
+			d[n] = s[n];
+	else
 	{
-		temp[i] = ((char *)src)[i];
-		i++;
-	}
-	i = 0;
-	while (i < n)
-	{
-		((char *)dest)[i] = temp[i];
-		i++;
+		while (i < n)
+		{
+			d[i] = s[i];
+			i++;
+		}
 	}
 	return (dest);
 }
-/*int	main()
-{
-	char	s[] = "oh asjkfnajnfajs";
-	char	t[] = "comadasd";
-	
-	ft_memmove(s, t, 2);
-	printf ("%s\n", s);
-	puts(memmove(s, t, 2));
-	return (0);
-}*/

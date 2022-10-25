@@ -13,13 +13,14 @@
 #include <stdlib.h>
 #include "libft.h"
 
-t_list  *ft_lstnew(void *content)
+t_list	*ft_lstnew(void *content)
 {
-    t_list *p;
+	t_list	*p;
 
-    if(!(p = (t_list *)malloc(sizeof(*p))))
-        return (NULL);
-    p->content = content;
-    p->next = NULL;
-    return (p);
+	p = (t_list *) malloc (sizeof(*p));
+	if (!p)
+		return (NULL);
+	p->content = content;
+	p->next = NULL;
+	return (p);
 }
