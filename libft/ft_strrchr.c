@@ -18,7 +18,9 @@ char	*ft_strrchr(const char *s, int c)
 	const char	*p;
 
 	p = NULL;
-	while (*s != '\0')
+	if (c < 0 || c > 255)
+		return ((char *)s);
+	while (*s)
 	{
 		if (*s == c)
 			p = s;

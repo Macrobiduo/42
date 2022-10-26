@@ -78,8 +78,13 @@ char	*ft_strtrim(char const *s1, char const *set)
 	len = ft_strlen(s1);
 	st = start(s1, set);
 	en = end(s1, set);
-	p = (char *)malloc(len - (st + en) + 1);
-	if (p == 0)
+	if (st + en > len)
+	{
+		p = (char *)malloc(1);
+	}
+	else
+		p = (char *)malloc(len - (st + en) + 1);
+	if (!p)
 		return (NULL);
 	while (i < (len - en - st))
 	{
@@ -92,8 +97,8 @@ char	*ft_strtrim(char const *s1, char const *set)
 /*int    main()
 {
     char    *p;
-    char const *s = "lorem ipsum dolor sit amet";
-    char const *set = "tel";
+    char const *s = "  \t \t \n   \n\n\n\t";
+    char const *set = " \n\t";
 
     printf("%d\n", start(s, set));
     printf("%d\n", end(s, set));

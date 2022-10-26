@@ -20,16 +20,24 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	char	*p;
 	size_t	i;
 
-	i = len;
+	i = 0;
+	if (len > (size_t)ft_strlen(s))
+		len = ft_strlen(s);
 	if (start > (unsigned int)ft_strlen(s))
+	{
+		start = ft_strlen(s);
 		len = 0;
-	p = (char *) malloc ((sizeof (char) * (int)len) + 1);
-	if (p == 0)
+	}
+	p = malloc (len + 1);
+	if (!p)
 		return (NULL);
-	while (i-- > 0 && s)
-		*p++ = *(s++ + start);
-	*p = '\0';
-	return (p - len);
+	while (i < len && s[i + start])
+	{
+		p[i] = s[i + start];
+		i++;
+	}
+	p[i] = '\0';
+	return (p);
 }
 /*int     main()
 {

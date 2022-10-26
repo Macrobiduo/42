@@ -31,6 +31,19 @@ int	ft_count(long int n)
 	return (i);
 }
 
+char	*ft_divide(char *p, long int num, int i)
+{
+	while (num >= 0 && i >= 0)
+	{
+		i--;
+		p[i] = (num % 10) + '0';
+		num /= 10;
+		if (num == 0)
+			break ;
+	}
+	return (p);
+}
+
 char	*ft_itoa(int n)
 {
 	long int		num;
@@ -42,20 +55,19 @@ char	*ft_itoa(int n)
 	if (n < 0)
 	{
 		p = (char *) malloc (i + 2);
+		if (!p)
+			return (NULL);
 		p[0] = '-';
 		num *= -1;
 		i++;
 	}
 	else
-		p = (char *) malloc (i + 1);
-	p[i] = '\0';
-	while (num >= 0 && i >= 0)
 	{
-		i--;
-		p[i] = (num % 10) + '0';
-		num /= 10;
-		if (num == 0)
-			break ;
+		p = (char *) malloc (i + 1);
+		if (!p)
+			return (NULL);
 	}
+	p[i] = '\0';
+	p = ft_divide(p, num, i);
 	return (p);
 }

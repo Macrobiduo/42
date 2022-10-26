@@ -53,12 +53,16 @@ char	**ft_split(char const *s, char c)
 	i = 0;
 	total = ft_counter(s, c);
 	arr = ft_calloc(total * sizeof(char *), 1);
+	if (!arr)
+		return (NULL);
 	while (*s && i < total - 1 && total != 1)
 	{
 		while (*s == c)
 			s++;
 		len = leng(s, c);
 		arr[i] = malloc(len);
+		if (!arr[i])
+			return (NULL);
 		ft_strlcpy(arr[i], s, len);
 		i++;
 		s += len - 1;
@@ -68,7 +72,7 @@ char	**ft_split(char const *s, char c)
 /*int     main()
 {
     char    **arr;
-    char    *s = "          ";
+    char    *s = "      split		this for   me  !       ";
     char    t = ' ';
     int     i = 0;
     arr = ft_split(s, t);
