@@ -102,21 +102,21 @@ void	ft_putstr(char *c)
 	}
 }
 
-void	ft_putchar(char c) 
+void	ft_putchar(char c, t_list *tab) 
 {
-	write(1, &c, 1);
+	tab->len += write(1, &c, 1);
 }
 
-void	ft_putnbr(int nb) {
+void	ft_putnbr(int nb, t_list *tab) {
 	if (nb < 0) {
-		ft_putchar('-');
+		ft_putchar('-', tab);
 		nb = -nb;
 	}
 	if (nb >= 10) {
-		ft_putnbr(nb / 10);
+		ft_putnbr(nb / 10, tab);
 		nb = nb % 10;
 	}
-	if (nb < 10) ft_putchar(nb + 48);
+	if (nb < 10) ft_putchar(nb + 48, tab);
 }
 
 /*---------------------------------------------------------------------------------------------*/
@@ -134,13 +134,13 @@ void	ft_puthex(unsigned long num, t_list *tab, const char c)
 	else
 	{
 		if (num <= 9)
-			ft_putchar(num + '0');
+			ft_putchar(num + '0', tab);
 		else
 		{
 			if (c == 'x')
-				ft_putchar(num - 10 + 'a');
+				ft_putchar(num - 10 + 'a', tab);
 			if (c == 'X')
-				ft_putchar(num - 10 + 'A');
+				ft_putchar(num - 10 + 'A', tab);
 		}
 	}
 }
@@ -167,9 +167,7 @@ void	ft_is_d(va_list args, t_list *tab)
 	int	d;
 
 	d = va_arg(args, int);
-
-	tab->len += ft_strlen(ft_itoa(d));
-	ft_putnbr(d);
+	ft_putnbr(d, tab);
 }
 
 void	ft_is_p(va_list args, t_list *tab)
@@ -256,12 +254,12 @@ int	main ()
 	char		*p = "WE bielo";
 	int	n1;
 	int	n2;
-	int	numero = 42;
+	int	numero = 3556;
 
 	printf("\n");
-	n1 = ft_printf("Occhio all puntatore %p e %d", p, numero);
+	n1 = ft_printf("Occhio all %% puntatore %p %d", p, numero);
 	printf("\n");
-	n2 = printf("Occhio al puntatore %p , e %d", p, numero);
+	n2 = printf("Occhio all %% puntatore %p %d", p, numero);
 	printf("\n");
 	printf("QUESTO è N1: %d, QUESTO è n2: %d", n1, n2);
 	printf("\n");
