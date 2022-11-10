@@ -2,7 +2,12 @@ CC=cc
 NAME=libftprintf.a
 CFLAGS=-Wall -Wextra -Werror
 OPTIONS=-c -I.
-SRC=ft_printf.c utils.c utils2.c libft/*.c
+SRC=	ft_printf.c \
+	ft_printf_util.c \
+	ft_printf_util2.c \
+	../libft/ft_itoa.c \
+	../libft/ft_strlen.c \
+
 OBJ=*.o
 
 all: $(NAME)

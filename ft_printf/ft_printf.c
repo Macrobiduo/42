@@ -10,199 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdarg.h>
-#include <stdio.h>
-#include <unistd.h>
-#include <stdlib.h>
-
-typedef struct s_list
-{
-	int		len;
-}	t_list;
-
-/*---------------------------------------------------------------------------------------------*/
-
-int	ft_count(long int n)
-{
-	int		i;
-
-	i = 0;
-	if (n < 0)
-		n *= -1;
-	if (n == 0)
-		i++;
-	while (n > 0)
-	{
-		n /= 10;
-		i++;
-	}
-	return (i);
-}
-
-char	*ft_divide(char *p, long int num, int i)
-{
-	while (num >= 0 && i >= 0)
-	{
-		i--;
-		p[i] = (num % 10) + '0';
-		num /= 10;
-		if (num == 0)
-			break ;
-	}
-	return (p);
-}
-
-char	*ft_itoa(int n)
-{
-	long int		num;
-	int				i;
-	char			*p;
-
-	num = n;
-	i = ft_count(num);
-	if (n < 0)
-	{
-		p = (char *) malloc (i + 2);
-		if (!p)
-			return (NULL);
-		p[0] = '-';
-		num *= -1;
-		i++;
-	}
-	else
-	{
-		p = (char *) malloc (i + 1);
-		if (!p)
-			return (NULL);
-	}
-	p[i] = '\0';
-	p = ft_divide(p, num, i);
-	return (p);
-}
-
-int	ft_strlen(char *s)
-{
-	int	i;
-
-	i = 0;
-	while (*s++)
-		i++;
-	return (i);
-}
-
-void	ft_putstr(char *c) 
-{
-	int	i;
-
-	i = 0;
-	while(c[i])
-	{
-		write(1, &c[i], 1);
-		i++;
-	}
-}
-
-void	ft_putchar(char c, t_list *tab) 
-{
-	tab->len += write(1, &c, 1);
-}
-
-void	ft_putnbr(int nb, t_list *tab) {
-	if (nb < 0) {
-		ft_putchar('-', tab);
-		nb = -nb;
-	}
-	if (nb >= 10) {
-		ft_putnbr(nb / 10, tab);
-		nb = nb % 10;
-	}
-	if (nb < 10) ft_putchar(nb + 48, tab);
-}
-
-void	ft_putUnbr(unsigned int nb, t_list *tab) {
-	if (nb < 0) {
-		ft_putchar('-', tab);
-		nb = -nb;
-	}
-	if (nb >= 10) {
-		ft_putUnbr(nb / 10, tab);
-		nb = nb % 10;
-	}
-	if (nb < 10) ft_putchar(nb + 48, tab);
-}
-
-/*---------------------------------------------------------------------------------------------*/
-
-void	ft_puthex(unsigned long num, t_list *tab, const char c)
-{
-	char	*hexa;
-	int		i;
-
-	if (num >= 16)
-	{
-		ft_puthex(num / 16, tab, c);
-		ft_puthex(num % 16, tab, c);
-	}
-	else
-	{
-		if (num <= 9)
-			ft_putchar(num + '0', tab);
-		else
-		{
-			if (c == 'x')
-				ft_putchar(num - 10 + 'a', tab);
-			if (c == 'X')
-				ft_putchar(num - 10 + 'A', tab);
-		}
-	}
-}
-
-void	ft_is_c(va_list args, t_list *tab)
-{
-	int	c;
-
-	c = va_arg(args, int);
-	tab->len += write(1, &c, 1);
-}
-
-void	ft_is_s(va_list args, t_list *tab)
-{
-	char	*s;
-
-	s = va_arg(args, char *);
-	tab->len += ft_strlen(s);
-	ft_putstr(s);
-}
-
-void	ft_is_d(va_list args, t_list *tab)
-{
-	int	d;
-
-	d = va_arg(args, int);
-	ft_putnbr(d, tab);
-}
-
-void	ft_is_p(va_list args, t_list *tab)
-{
-	unsigned long	p;
-
-	p = va_arg(args, unsigned long);
-	if (!p)
-		tab->len += (1, "(nil)", 5);
-	else
-	{
-		tab->len += write(1, "0x", 2);
-		ft_puthex(p, tab, 'x');
-	}	
-}
-
-void	ft_is_x(va_list args, t_list *tab, const char *format)
-{
-	unsigned int	x;
-
-	x = va_arg(args, unsigned int);
-	ft_puthex(x, tab, *format);
-}
+#include "ft_printf.h"
 
 void	ft_is_u(va_list args, t_list *tab)
 {
@@ -211,11 +19,11 @@ void	ft_is_u(va_list args, t_list *tab)
 
 	max = 4294967295;
 	u = va_arg(args, unsigned int);
-	if (u < 0)
+	if ((int)u < 0)
 	{
-		u += max;
+		u += max + 1;
 	}
-	ft_putUnbr(u, tab);
+	ft_putunbr(u, tab);
 }
 
 void	ft_what_arg(va_list args, const char *format, t_list *tab)
@@ -233,19 +41,19 @@ void	ft_what_arg(va_list args, const char *format, t_list *tab)
 	if (*format == 'x' || *format == 'X')
 		ft_is_x(args, tab, format);
 	if (*format == '%')
-		tab->len +=	write(1, "%", 1);
+		tab-> len += write(1, "%", 1);
 }
 
 int	ft_printf(const char *format, ...)
 {
-	va_list	args;
-	t_list	tab;
 	int			i;
+	va_list		args;
+	t_list		tab;
 
 	va_start(args, format);
 	tab.len = 0;
 	i = 0;
-	while(format[i])
+	while (format[i])
 	{
 		if (format[i] == '%')
 		{
@@ -257,30 +65,10 @@ int	ft_printf(const char *format, ...)
 		if (!format[i])
 		{
 			tab.len += write(1, "(NULL)", 6);
-			va_end(args);
-			return (tab.len);
+			break ;
 		}
 		i++;
 	}
-
 	va_end(args);
 	return (tab.len);
-}
-
-int	main () 
-{
-	char		*p = "WE bielo";
-	int	n1;
-	int	n2;
-	int	numero = 3556;
-	unsigned int u = -456605464;
-
-	printf("\n");
-	n1 = ft_printf("Occhio all %% numero %u", u);
-	printf("\n");
-	n2 = printf("Occhio all %% numero %u", u);
-	printf("\n");
-	printf("QUESTO è N1: %d, QUESTO è n2: %d", n1, n2);
-	printf("\n");
-	return (0);
 }
