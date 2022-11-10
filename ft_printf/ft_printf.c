@@ -119,6 +119,18 @@ void	ft_putnbr(int nb, t_list *tab) {
 	if (nb < 10) ft_putchar(nb + 48, tab);
 }
 
+void	ft_putUnbr(unsigned int nb, t_list *tab) {
+	if (nb < 0) {
+		ft_putchar('-', tab);
+		nb = -nb;
+	}
+	if (nb >= 10) {
+		ft_putUnbr(nb / 10, tab);
+		nb = nb % 10;
+	}
+	if (nb < 10) ft_putchar(nb + 48, tab);
+}
+
 /*---------------------------------------------------------------------------------------------*/
 
 void	ft_puthex(unsigned long num, t_list *tab, const char c)
@@ -195,9 +207,15 @@ void	ft_is_x(va_list args, t_list *tab, const char *format)
 void	ft_is_u(va_list args, t_list *tab)
 {
 	unsigned int	u;
+	unsigned int	max;
 
+	max = 4294967295;
 	u = va_arg(args, unsigned int);
-
+	if (u < 0)
+	{
+		u += max;
+	}
+	ft_putUnbr(u, tab);
 }
 
 void	ft_what_arg(va_list args, const char *format, t_list *tab)
@@ -255,11 +273,12 @@ int	main ()
 	int	n1;
 	int	n2;
 	int	numero = 3556;
+	unsigned int u = -456605464;
 
 	printf("\n");
-	n1 = ft_printf("Occhio all %% puntatore %p %d", p, numero);
+	n1 = ft_printf("Occhio all %% numero %u", u);
 	printf("\n");
-	n2 = printf("Occhio all %% puntatore %p %d", p, numero);
+	n2 = printf("Occhio all %% numero %u", u);
 	printf("\n");
 	printf("QUESTO è N1: %d, QUESTO è n2: %d", n1, n2);
 	printf("\n");
