@@ -5,8 +5,7 @@ OPTIONS=-c -I.
 SRC=	ft_printf.c \
 	ft_printf_util.c \
 	ft_printf_util2.c \
-	../libft/ft_itoa.c \
-	../libft/ft_strlen.c \
+	ft_printf_util3.c \
 
 OBJ=*.o
 

@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-void	ft_is_u(va_list args, t_list *tab)
+void	ft_is_u(va_list args, t_p *tab)
 {
 	unsigned int	u;
 	unsigned int	max;
@@ -26,7 +26,7 @@ void	ft_is_u(va_list args, t_list *tab)
 	ft_putunbr(u, tab);
 }
 
-void	ft_what_arg(va_list args, const char *format, t_list *tab)
+void	ft_what_arg(va_list args, const char *format, t_p *tab)
 {
 	if (*format == 'c')
 		ft_is_c(args, tab);
@@ -48,7 +48,7 @@ int	ft_printf(const char *format, ...)
 {
 	int			i;
 	va_list		args;
-	t_list		tab;
+	t_p			tab;
 
 	va_start(args, format);
 	tab.len = 0;

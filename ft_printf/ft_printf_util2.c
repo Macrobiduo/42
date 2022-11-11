@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-void	ft_is_c(va_list args, t_list *tab)
+void	ft_is_c(va_list args, t_p *tab)
 {
 	int	c;
 
@@ -20,7 +20,7 @@ void	ft_is_c(va_list args, t_list *tab)
 	tab->len += write(1, &c, 1);
 }
 
-void	ft_is_s(va_list args, t_list *tab)
+void	ft_is_s(va_list args, t_p *tab)
 {
 	char	*s;
 
@@ -29,7 +29,7 @@ void	ft_is_s(va_list args, t_list *tab)
 	ft_putstr(s);
 }
 
-void	ft_is_d(va_list args, t_list *tab)
+void	ft_is_d(va_list args, t_p *tab)
 {
 	int	d;
 
@@ -37,7 +37,7 @@ void	ft_is_d(va_list args, t_list *tab)
 	ft_putnbr(d, tab);
 }
 
-void	ft_is_p(va_list args, t_list *tab)
+void	ft_is_p(va_list args, t_p *tab)
 {
 	unsigned long	p;
 
@@ -51,7 +51,7 @@ void	ft_is_p(va_list args, t_list *tab)
 	}	
 }
 
-void	ft_is_x(va_list args, t_list *tab, const char *format)
+void	ft_is_x(va_list args, t_p *tab, const char *format)
 {
 	unsigned int	x;
 

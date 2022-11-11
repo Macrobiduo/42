@@ -24,12 +24,12 @@ void	ft_putstr(char *c)
 	}
 }
 
-void	ft_putchar(char c, t_list *tab)
+void	ft_putchar(char c, t_p *tab)
 {
 	tab->len += write(1, &c, 1);
 }
 
-void	ft_putnbr(int nb, t_list *tab)
+void	ft_putnbr(int nb, t_p *tab)
 {
 	if (nb < 0)
 	{
@@ -45,7 +45,7 @@ void	ft_putnbr(int nb, t_list *tab)
 		ft_putchar(nb + 48, tab);
 }
 
-void	ft_putunbr(unsigned int nb, t_list *tab)
+void	ft_putunbr(unsigned int nb, t_p *tab)
 {
 	if (nb >= 10)
 	{
@@ -56,7 +56,7 @@ void	ft_putunbr(unsigned int nb, t_list *tab)
 		ft_putchar(nb + 48, tab);
 }
 
-void	ft_puthex(unsigned long num, t_list *tab, const char c)
+void	ft_puthex(unsigned long num, t_p *tab, const char c)
 {
 	if (num >= 16)
 	{
