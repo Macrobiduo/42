@@ -7,15 +7,13 @@ SRC=	ft_printf.c \
 	ft_printf_util2.c \
 	ft_printf_util3.c \
 
-OBJ=*.o
+OBJ= $(SRC:.c=.o)
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	ar -crs $(NAME) $(OBJ)
-
-$(OBJ): $(SRC)
 	$(CC) $(CFLAGS) $(OPTIONS) $(SRC)
+	ar -crs $(NAME) $(OBJ)
 
 clean:
 	rm -f $(OBJ)
