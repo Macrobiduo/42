@@ -25,16 +25,24 @@ void	ft_is_s(va_list args, t_p *tab)
 	char	*s;
 
 	s = va_arg(args, char *);
-	tab->len += ft_strlen(s);
-	ft_putstr(s);
+	if (!s)
+		tab->len += write(1, "(null)", 6);
+	else
+	{
+		tab->len += ft_strlen(s);
+		ft_putstr(s);
+	}
 }
 
 void	ft_is_d(va_list args, t_p *tab)
 {
-	int	d;
+	long int	d;
 
-	d = va_arg(args, int);
-	ft_putnbr(d, tab);
+	d = (long int) va_arg(args, int);
+	if (d == -2147483648)
+		tab->len += write(1, "-2147483648", 11);
+	else
+		ft_putnbr(d, tab);
 }
 
 void	ft_is_p(va_list args, t_p *tab)

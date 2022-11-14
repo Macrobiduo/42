@@ -72,3 +72,14 @@ int	ft_printf(const char *format, ...)
 	va_end(args);
 	return (tab.len);
 }
+/*int main ()
+{
+	int	d = 2147483647;
+	int   min = -2147483648;
+	ft_printf("%d\n", d);
+	printf("%d\n", d);
+
+	ft_printf("%d\n", min);
+	printf("%d\n", min);
+	return (0);
+}*/
