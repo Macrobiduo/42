@@ -14,9 +14,9 @@
 
 char	*ft_ellipse(char *t)
 {
-	char	*s;
-	unsigned int		i;
-	unsigned int		j;
+	unsigned int			i;
+	unsigned int			j;
+	char					*s;
 
 	i = 0;
 	j = 0;
@@ -42,10 +42,10 @@ char	*ft_ellipse(char *t)
 
 char	*get_next_line(int fd)
 {
-	char	*str;
-	char	*temp;
-	static char	*extra;
-	int		i;
+	char			*str;
+	char			*temp;
+	static char		*extra;
+	int				i;
 
 	if (!fd || BUFFER_SIZE <= 0)
 		return (NULL);
@@ -57,7 +57,6 @@ char	*get_next_line(int fd)
 		str = (char *)ft_calloc((BUFFER_SIZE + 1), 1);
 		if (!str)
 			return (0);
-		
 		read(fd, str, BUFFER_SIZE);
 		temp = ft_strjoin(temp, str);
 		if (ft_strchr(str, '\n') != NULL && ft_strchr(str, '\0') != NULL)
@@ -80,7 +79,6 @@ char	*get_next_line(int fd)
 	temp[i] = '\0';
 	return (temp);
 }
-
 int main ()
 {
 	int		i = 0; 
