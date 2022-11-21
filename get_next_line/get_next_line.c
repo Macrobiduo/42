@@ -40,9 +40,28 @@ char	*ft_ellipse(char *t)
 	return (s);
 }
 
-char	*get_next_line(int fd)
+char	*ft_process(char *temp, int fd)
 {
 	char			*str;
+
+	while (1)
+	{
+		str = (char *)ft_calloc((BUFFER_SIZE + 1), 1);
+		if (!str)
+			break ;
+		read(fd, str, BUFFER_SIZE);
+		temp = ft_strjoin(temp, str);
+		if (ft_strchr(str, '\n') != NULL && ft_strchr(str, '\0') != NULL)
+		{
+			free(str);
+			break ;
+		}
+	}
+	return (temp);
+}
+
+char	*get_next_line(int fd)
+{
 	char			*temp;
 	static char		*extra;
 	int				i;
@@ -52,19 +71,7 @@ char	*get_next_line(int fd)
 	temp = ft_calloc(1, 1);
 	if (extra != NULL)
 			temp = ft_strjoin(temp, extra);
-	while (1)
-	{
-		str = (char *)ft_calloc((BUFFER_SIZE + 1), 1);
-		if (!str)
-			return (0);
-		read(fd, str, BUFFER_SIZE);
-		temp = ft_strjoin(temp, str);
-		if (ft_strchr(str, '\n') != NULL && ft_strchr(str, '\0') != NULL)
-		{
-			free(str);
-			break ;
-		}
-	}
+	temp = ft_process(temp, fd);
 	i = 0;
 	while (temp[i])
 	{
@@ -79,14 +86,14 @@ char	*get_next_line(int fd)
 	temp[i] = '\0';
 	return (temp);
 }
-int main ()
+int	main()
 {
 	int		i = 0; 
 	char	*s;
 	int	fd = open("test.txt", O_RDONLY);
 	if (fd == -1)
 		return (0);
-	while (i <= 6)
+	while (i < 15)
 	{
 		s = get_next_line(fd);
 		printf("%s", s);
