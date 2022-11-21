@@ -43,15 +43,17 @@ char	*ft_ellipse(char *t)
 char	*ft_process(char *temp, int fd)
 {
 	char			*str;
-
+	int			check;
 	while (1)
 	{
 		str = (char *)ft_calloc((BUFFER_SIZE + 1), 1);
 		if (!str)
 			break ;
-		read(fd, str, BUFFER_SIZE);
+		check = read(fd, str, BUFFER_SIZE);
+		if (check == 0)
+			return (str);
 		temp = ft_strjoin(temp, str);
-		if (ft_strchr(str, '\n') != NULL && ft_strchr(str, '\0') != NULL)
+		if (ft_strchr(str, '\n') != NULL)
 		{
 			free(str);
 			break ;
