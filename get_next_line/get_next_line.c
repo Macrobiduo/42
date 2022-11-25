@@ -5,101 +5,118 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: dballini <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/17 14:41:01 by dballini          #+#    #+#             */
-/*   Updated: 2022/11/17 14:41:01 by dballini         ###   ########.fr       */
+/*   Created: 2022/11/25 15:39:12 by dballini          #+#    #+#             */
+/*   Updated: 2022/11/25 15:39:12 by dballini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*ft_ellipse(char *t)
+char	*ft_read(int fd)
 {
-	unsigned int			i;
-	unsigned int			j;
-	char					*s;
+	char		*str;
+	int			check;
 
-	i = 0;
-	j = 0;
-	while (t[i] != '\n')
-		i++;
-	while (t[i] != '\0')
+	str = (char *)ft_calloc((BUFFER_SIZE + 1), 1);
+	if (!str)
+		return (NULL);
+	check = read(fd, str, BUFFER_SIZE);
+	if (check == 0)
+		return (NULL);
+	str[check] = '\0';
+	return (str);
+}
+
+char	*ft_getextra(char *src)
+{
+	while (*src)
 	{
-		j++;
-		i++;
+		if (*src == '\n')
+		{
+			src++;
+			break ;
+		}
+		src++;
 	}
-	s = (char *) malloc (j);
-	i -= j - 1;
-	j = 0;
-	while (t[i])
+	if (*src == '\n')
+		src++;
+	return (src);
+}
+
+char	*ft_update_extra(char *extra)
+{
+	char	*s;
+
+	while (*extra)
 	{
-		s[j] = t[i];
-		i++;
-		j++;
+		if (*extra == '\n')
+		{
+			extra++;
+			break ;
+		}
+		extra++;
 	}
-	s[j] = '\0';
+	s = extra;
 	return (s);
 }
 
-char	*ft_process(char *temp, int fd)
+char	*ft_process(int fd, char *ret, char *temp)
 {
-	char			*str;
-	int			check;
+	static char		*extra;
+
 	while (1)
 	{
-		str = (char *)ft_calloc((BUFFER_SIZE + 1), 1);
-		if (!str)
-			break ;
-		check = read(fd, str, BUFFER_SIZE);
-		if (check == 0)
-			return (str);
-		temp = ft_strjoin(temp, str);
-		if (ft_strchr(str, '\n') != NULL)
+		if (extra != NULL)
 		{
-			free(str);
+			ret = ft_strjoin(ret, ft_cut(extra));
+			extra = ft_update_extra(extra);
+		}
+		if (ft_strchr(ret, '\n') == NULL)
+		{
+			ret = ft_strjoin(ret, temp);
+			temp = ft_read(fd);
+		}
+		if (temp == 0 || ft_strchr(ret, '\n') != NULL)
+			break ;
+		if (ft_strchr(temp, '\n') != NULL)
+		{
+			ret = ft_strjoin(ret, ft_cut(temp));
+			extra = ft_getextra(temp);
 			break ;
 		}
 	}
-	return (temp);
+	return (ret);
 }
 
 char	*get_next_line(int fd)
 {
 	char			*temp;
-	static char		*extra;
-	int				i;
+	char			*ret;
 
-	if (!fd || BUFFER_SIZE <= 0)
-		return (NULL);
+	ret = ft_calloc(1, 1);
 	temp = ft_calloc(1, 1);
-	if (extra != NULL)
-			temp = ft_strjoin(temp, extra);
-	temp = ft_process(temp, fd);
-	i = 0;
-	while (temp[i])
-	{
-		if (temp[i] == '\n')
-		{
-			i++;
-			extra = ft_ellipse(temp);
-			break ;
-		}
-		i++;
-	}
-	temp[i] = '\0';
-	return (temp);
+	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
+		return (NULL);
+	ret = ft_process(fd, ret, temp);
+	return (ret);
 }
-int	main()
+
+/*int	main(void)
 {
-	int		i = 0; 
+	int		i;
+	int		fd;
 	char	*s;
-	int	fd = open("test.txt", O_RDONLY);
+
+	i = 0;
+	fd = open("test.txt", O_RDONLY);
 	if (fd == -1)
 		return (0);
 	while (i < 15)
 	{
 		s = get_next_line(fd);
 		printf("%s", s);
+		free(s);
 		i++;
 	}
 	return (0);
-}
+}*/

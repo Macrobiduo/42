@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: dballini <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/19 15:36:26 by dballini          #+#    #+#             */
-/*   Updated: 2022/11/19 15:36:26 by dballini         ###   ########.fr       */
+/*   Created: 2022/11/25 16:15:54 by dballini          #+#    #+#             */
+/*   Updated: 2022/11/25 16:15:54 by dballini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,19 @@ int	ft_strlen(const char *s)
 	int	i;
 
 	i = 0;
+	if (s == NULL)
+		return (0);
 	while (s[i])
 		i++;
 	return (i);
 }
 
-char	*ft_strchr(const char *s, int c)
+char	*ft_strchr(char *s, int c)
 {
 	if (c < 0 || c > 255)
 		return ((char *)s);
+	if (!s)
+		return (NULL);
 	while (*s)
 	{
 		if (*s == c)
@@ -37,36 +41,21 @@ char	*ft_strchr(const char *s, int c)
 	return (NULL);
 }
 
-void	ft_bzero(void *s, size_t n)
+void	*ft_calloc(size_t count, size_t size)
 {
-	char	*p;
+	char	*memory;
+	size_t	i;
 
-	p = s;
-	while (n > 0)
+	i = 0;
+	memory = malloc(count * size);
+	if (memory == NULL)
+		return (0);
+	while (i < count * size)
 	{
-		*p = '\0';
-		p++;
-		n--;
+		memory[i] = 0;
+		i++;
 	}
-}
-
-void	*ft_calloc(size_t nelem, size_t elsize)
-{
-	void	*p;
-
-	if (nelem == 0 || elsize == 0)
-	{
-		p = malloc (1);
-		return (p);
-	}
-	else
-	{
-		p = malloc (nelem * elsize);
-		if (!p)
-			return (NULL);
-		ft_bzero(p, nelem * elsize);
-		return (p);
-	}
+	return (memory);
 }
 
 char	*ft_strjoin(char const *s1, char const *s2)
@@ -82,6 +71,34 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		*p++ = *s1++;
 	while (*s2)
 		*p++ = *s2++;
-	*p = '\0';
+	*p++ = '\0';
 	return (temp);
+}
+
+char	*ft_cut(char *extra)
+{
+	char		*ret;
+	int			i;
+
+	i = 0;
+	ret = (char *)ft_calloc(ft_strlen(extra) + 1, 1);
+	if (!ret)
+		return (NULL);
+	while (*extra)
+	{
+		if (*extra != '\n')
+		{
+			ret[i] = *extra;
+			i++;
+		}
+		else
+		{
+			ret[i] = *extra;
+			break ;
+		}
+		extra++;
+	}
+	i++;
+	ret[i] = '\0';
+	return (ret);
 }
