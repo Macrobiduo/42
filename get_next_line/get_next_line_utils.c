@@ -26,8 +26,6 @@ int	ft_strlen(const char *s)
 
 char	*ft_strchr(char *s, int c)
 {
-	if (c < 0 || c > 255)
-		return ((char *)s);
 	if (!s)
 		return (NULL);
 	while (*s)
@@ -71,9 +69,10 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		*p++ = *s1++;
 	while (*s2)
 		*p++ = *s2++;
-	*p++ = '\0';
+	*p = '\0';
 	return (temp);
 }
+
 
 char	*ft_cut(char *extra)
 {
