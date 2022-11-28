@@ -59,20 +59,26 @@ void	*ft_calloc(size_t count, size_t size)
 char	*ft_strjoin(char const *s1, char const *s2)
 {
 	char	*p;
-	char	*temp;
+	int		i;
+	int		j;
 
+	j = -1;
+	i = -1;
 	p = (char *)malloc((ft_strlen(s1) + ft_strlen(s2)) + 1);
-	temp = p;
 	if (p == 0)
 		return (NULL);
-	while (*s1)
-		*p++ = *s1++;
-	while (*s2)
-		*p++ = *s2++;
-	*p = '\0';
-	return (temp);
+	while (s1[++i])
+		p[i] = s1[i];
+	while (s2[++j])
+	{
+		p[i] = s2[j];
+		i++;
+	}
+	p[i] = '\0';
+	free((char *)s1);
+	free((char *)s2);
+	return (p);
 }
-
 
 char	*ft_cut(char *extra)
 {

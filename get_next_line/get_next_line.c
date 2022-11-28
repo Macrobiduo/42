@@ -38,26 +38,7 @@ char	*ft_getextra(char *src)
 		}
 		src++;
 	}
-	if (*src == '\n')
-		src++;
 	return (src);
-}
-
-char	*ft_update_extra(char *extra)
-{
-	char	*s;
-
-	while (*extra)
-	{
-		if (*extra == '\n')
-		{
-			extra++;
-			break ;
-		}
-		extra++;
-	}
-	s = extra;
-	return (s);
 }
 
 char	*ft_process(int fd, char *ret, char *temp)
@@ -69,7 +50,7 @@ char	*ft_process(int fd, char *ret, char *temp)
 		if (extra != NULL)
 		{
 			ret = ft_strjoin(ret, ft_cut(extra));
-			extra = ft_update_extra(extra);
+			extra = ft_getextra(extra);
 		}
 		if (ft_strchr(ret, '\n') == NULL && temp != 0)
 		{
@@ -102,7 +83,7 @@ char	*get_next_line(int fd)
 	ret = ft_process(fd, ret, temp);
 	return (ret);
 }
-/*int	main(void)
+int	main(void)
 {
 	int		i;
 	int		fd;
@@ -120,4 +101,4 @@ char	*get_next_line(int fd)
 		i++;
 	}
 	return (0);
-}*/
+}
