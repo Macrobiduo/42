@@ -41,6 +41,18 @@ char	*ft_getextra(char *src)
 	return (src);
 }
 
+char	*ft_process1(int fd, char *ret, char *temp)
+{
+	if (ft_strchr(ret, '\n') == NULL && temp != 0)
+	{
+		ret = ft_strjoin(ret, temp);
+		temp = ft_read(fd);
+	}
+	if (temp == 0 && ret[0] == '\0')
+		return (0);
+	return (ret);
+}
+
 char	*ft_process(int fd, char *ret, char *temp)
 {
 	static char		*extra;
@@ -52,13 +64,9 @@ char	*ft_process(int fd, char *ret, char *temp)
 			ret = ft_strjoin(ret, ft_cut(extra));
 			extra = ft_getextra(extra);
 		}
-		if (ft_strchr(ret, '\n') == NULL && temp != 0)
-		{
-			ret = ft_strjoin(ret, temp);
-			temp = ft_read(fd);
-		}
-		if (temp == 0 && ret[0] == '\0')
-			return (temp);
+		ret = ft_process1(fd, ret, temp);
+		if (ret == 0)
+			break ;
 		if (ft_strchr(ret, '\n') == NULL && temp == 0)
 			break ;
 		if (ft_strchr(temp, '\n') != NULL)
@@ -73,8 +81,8 @@ char	*ft_process(int fd, char *ret, char *temp)
 
 char	*get_next_line(int fd)
 {
-	char			*temp;
-	char			*ret;
+	static char			*temp;
+	char				*ret;
 
 	ret = ft_calloc(1, 1);
 	temp = ft_calloc(1, 1);
@@ -83,7 +91,7 @@ char	*get_next_line(int fd)
 	ret = ft_process(fd, ret, temp);
 	return (ret);
 }
-int	main(void)
+/*int	main(void)
 {
 	int		i;
 	int		fd;
@@ -101,4 +109,4 @@ int	main(void)
 		i++;
 	}
 	return (0);
-}
+}*/
