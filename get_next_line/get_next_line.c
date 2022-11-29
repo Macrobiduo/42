@@ -12,6 +12,20 @@
 
 #include "get_next_line.h"
 
+char	*ft_getextra(char *src)
+{
+	while (*src)
+	{
+		if (*src == '\n')
+		{
+			src++;
+			break ;
+		}
+		src++;
+	}
+	return (src);
+}
+
 char	*ft_read(int fd)
 {
 	char		*str;
@@ -27,69 +41,40 @@ char	*ft_read(int fd)
 	return (str);
 }
 
-char	*ft_getextra(char *src)
-{
-	while (*src)
-	{
-		if (*src == '\n')
-		{
-			src++;
-			break ;
-		}
-		src++;
-	}
-	return (src);
-}
-
-char	*ft_process1(int fd, char *ret, char *temp)
-{
-	if (ft_strchr(ret, '\n') == NULL && temp != 0)
-	{
-		ret = ft_strjoin(ret, temp);
-		temp = ft_read(fd);
-	}
-	if (temp == 0 && ret[0] == '\0')
-		return (0);
-	return (ret);
-}
-
-char	*ft_process(int fd, char *ret, char *temp)
+char	*ft_process(int fd, char *temp)
 {
 	static char		*extra;
+	char			*str;
 
 	while (1)
 	{
-		if (extra != NULL)
+		if (extra && temp[0] == '\0')
+			temp = ft_strjoin(ft_cut(extra), temp);
+		if (ft_strchr(temp, '\n') == NULL)
 		{
-			ret = ft_strjoin(ret, ft_cut(extra));
-			extra = ft_getextra(extra);
+			str = ft_read(fd);
+			if (str == 0 && temp[0] != 0)
+				return (temp);
+			if (str == 0 && temp[0] == 0)
+				return (str);
+			temp = ft_strjoin(temp, ft_cut(str));
+			extra = ft_getextra(str);
 		}
-		ret = ft_process1(fd, ret, temp);
-		if (ret == 0)
+		else
 			break ;
-		if (ft_strchr(ret, '\n') == NULL && temp == 0)
-			break ;
-		if (ft_strchr(temp, '\n') != NULL)
-		{
-			ret = ft_strjoin(ret, ft_cut(temp));
-			extra = ft_getextra(temp);
-			break ;
-		}
 	}
-	return (ret);
+	return (temp);
 }
 
 char	*get_next_line(int fd)
 {
-	static char			*temp;
-	char				*ret;
+	char			*temp;
 
-	ret = ft_calloc(1, 1);
 	temp = ft_calloc(1, 1);
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
 		return (NULL);
-	ret = ft_process(fd, ret, temp);
-	return (ret);
+	temp = ft_process(fd, temp);
+	return (temp);
 }
 /*int	main(void)
 {
@@ -98,7 +83,7 @@ char	*get_next_line(int fd)
 	char	*s;
 
 	i = 0;
-	fd = open("test.txt", O_RDONLY);
+	fd = open("/nfs/homes/dballini/Documents/libft/42/get_next_line/t.txt", O_RDONLY);
 	if (fd == -1)
 		return (0);
 	while (i < 15)

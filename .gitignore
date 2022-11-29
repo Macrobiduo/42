@@ -755,7 +755,7 @@ libft/.libft.h.swp
 libft/libft.h.gch
 libft/*.o
 .editorconfig
-.vscode/tasks.json
+
 libft/a.out
 libft/ft_substr
 <<<<<<< HEAD
@@ -763,7 +763,4 @@ libft/ft_substr
 =======
 libft/a.out
 libft/a.out
-.vscode/settings.json
 >>>>>>> origin/HEAD
-libft/libft.a
-.vscode/launch.json

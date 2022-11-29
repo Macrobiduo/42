@@ -30,6 +30,6 @@ char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_cut(char *extra);
 char	*ft_read(int fd);
 char	*ft_getextra(char *src);
-char	*ft_process(int fd, char *ret, char *temp);
+char	*ft_process(int fd, char *temp);
 
 #endif
