@@ -49,12 +49,15 @@ char	*ft_process(int fd, char *temp)
 	while (1)
 	{
 		if (extra && temp[0] == '\0')
+		{
 			temp = ft_strjoin(ft_cut(extra), temp);
+			extra = ft_getextra(extra);
+		}
 		if (ft_strchr(temp, '\n') == NULL)
 		{
 			str = ft_read(fd);
 			if (str == 0 && temp[0] != 0)
-				return (temp);
+				break ;
 			if (str == 0 && temp[0] == 0)
 				return (str);
 			temp = ft_strjoin(temp, ft_cut(str));
@@ -76,7 +79,7 @@ char	*get_next_line(int fd)
 	temp = ft_process(fd, temp);
 	return (temp);
 }
-/*int	main(void)
+int	main(void)
 {
 	int		i;
 	int		fd;
@@ -94,4 +97,4 @@ char	*get_next_line(int fd)
 		i++;
 	}
 	return (0);
-}*/
+}
