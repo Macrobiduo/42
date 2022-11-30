@@ -14,6 +14,8 @@
 
 char	*ft_getextra(char *src)
 {
+	if (ft_strchr(src, '\n') == NULL)
+		return (NULL);
 	while (*src)
 	{
 		if (*src == '\n')
@@ -31,20 +33,18 @@ char	*ft_read(int fd)
 	char		*str;
 	int			check;
 
-	str = (char *)ft_calloc((BUFFER_SIZE + 1), 1);
+	str = (char *)ft_calloc(BUFFER_SIZE, 1);
 	if (!str)
 		return (NULL);
 	check = read(fd, str, BUFFER_SIZE);
 	if (check == 0)
 		return (NULL);
-	str[check] = '\0';
 	return (str);
 }
 
-char	*ft_process(int fd, char *temp)
+char	*ft_process(int fd, char *temp, char *red)
 {
 	static char		*extra;
-	char			*str;
 
 	while (1)
 	{
@@ -53,15 +53,14 @@ char	*ft_process(int fd, char *temp)
 			temp = ft_strjoin(ft_cut(extra), temp);
 			extra = ft_getextra(extra);
 		}
-		if (ft_strchr(temp, '\n') == NULL)
+		if (ft_strchr(temp, '\n') == NULL && red)
 		{
-			str = ft_read(fd);
-			if (str == 0 && temp[0] != 0)
+			red = ft_read(fd);
+			if (red == 0 && temp[0] == 0)
 				break ;
-			if (str == 0 && temp[0] == 0)
-				return (str);
-			temp = ft_strjoin(temp, ft_cut(str));
-			extra = ft_getextra(str);
+			temp = ft_strjoin(temp, red);
+			extra = ft_getextra(temp);
+			temp = ft_cut(temp);
 		}
 		else
 			break ;
@@ -72,14 +71,19 @@ char	*ft_process(int fd, char *temp)
 char	*get_next_line(int fd)
 {
 	char			*temp;
+	char			*red;
 
-	temp = ft_calloc(1, 1);
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
 		return (NULL);
-	temp = ft_process(fd, temp);
+	temp = ft_calloc(1, 1);
+	red = ft_calloc(1, 1);
+	temp = ft_process(fd, temp, red);
+	if (temp[0] == 0)
+		temp = 0;
+	free (red);
 	return (temp);
 }
-int	main(void)
+/*int	main(void)
 {
 	int		i;
 	int		fd;
@@ -97,4 +101,4 @@ int	main(void)
 		i++;
 	}
 	return (0);
-}
+}*/
