@@ -14,18 +14,27 @@
 
 char	*ft_getextra(char *src)
 {
+	char		*p;
+	int		i;
+	int		k;
+
+	k = ft_strlen(src);
+	i = 0;
 	if (ft_strchr(src, '\n') == NULL)
 		return (NULL);
 	while (*src)
 	{
 		if (*src == '\n')
-		{
-			src++;
 			break ;
-		}
 		src++;
+		i++;
 	}
-	return (src);
+	src++;
+	p = ft_calloc(k - i, 1);
+	i = 0;
+	while (*src)
+		p[i++] = *src++;
+	return (p);
 }
 
 char	*ft_read(int fd)
@@ -33,7 +42,7 @@ char	*ft_read(int fd)
 	char		*str;
 	int			check;
 
-	str = (char *)ft_calloc(BUFFER_SIZE, 1);
+	str = (char *)ft_calloc(BUFFER_SIZE + 1, 1);
 	if (!str)
 		return (NULL);
 	check = read(fd, str, BUFFER_SIZE);
@@ -42,48 +51,32 @@ char	*ft_read(int fd)
 	return (str);
 }
 
-char	*ft_process(int fd, char *temp, char *red)
-{
-	static char		*extra;
-
-	while (1)
-	{
-		if (extra && temp[0] == '\0')
-		{
-			temp = ft_strjoin(ft_cut(extra), temp);
-			extra = ft_getextra(extra);
-		}
-		if (ft_strchr(temp, '\n') == NULL && red)
-		{
-			red = ft_read(fd);
-			if (red == 0 && temp[0] == 0)
-				break ;
-			temp = ft_strjoin(temp, red);
-			extra = ft_getextra(temp);
-			temp = ft_cut(temp);
-		}
-		else
-			break ;
-	}
-	return (temp);
-}
-
 char	*get_next_line(int fd)
 {
-	char			*temp;
-	char			*red;
+	char		*line;
+	static char		*extra;
 
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
 		return (NULL);
-	temp = ft_calloc(1, 1);
-	red = ft_calloc(1, 1);
-	temp = ft_process(fd, temp, red);
-	if (temp[0] == 0)
-		temp = 0;
-	free (red);
-	return (temp);
+	line = ft_calloc(1, 1);
+	while (1)
+	{
+		if (extra)
+			line = ft_strjoin(extra,line);
+		line = ft_strjoin(line,ft_read(fd));
+		if (line == 0)
+			break ;
+		if (ft_strchr(line, '\n') != NULL)
+		{
+			extra = ft_getextra(line);
+			line = ft_cut(line);
+			break ;
+		}
+	}
+	return (line);
 }
-/*int	main(void)
+
+int	main(void)
 {
 	int		i;
 	int		fd;
@@ -93,7 +86,7 @@ char	*get_next_line(int fd)
 	fd = open("/nfs/homes/dballini/Documents/libft/42/get_next_line/t.txt", O_RDONLY);
 	if (fd == -1)
 		return (0);
-	while (i < 15)
+	while (i < 6)
 	{
 		s = get_next_line(fd);
 		printf("%s", s);
@@ -101,4 +94,4 @@ char	*get_next_line(int fd)
 		i++;
 	}
 	return (0);
-}*/
+}
