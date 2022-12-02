@@ -12,70 +12,62 @@
 
 #include "get_next_line.h"
 
-char	*ft_getextra(char *src)
+char	*ft_getextra(char *extra)
 {
-	char		*p;
-	int		i;
-	int		k;
-
-	k = ft_strlen(src);
-	i = 0;
-	if (ft_strchr(src, '\n') == NULL)
+	if (!extra)
 		return (NULL);
-	while (*src)
+	while (*extra)
 	{
-		if (*src == '\n')
+		if (*extra == '\n')
+		{
+			extra++;
 			break ;
-		src++;
-		i++;
+		}
+		extra++;
 	}
-	src++;
-	p = ft_calloc(k - i, 1);
-	i = 0;
-	while (*src)
-		p[i++] = *src++;
-	return (p);
+	return (extra);
 }
 
 char	*ft_read(int fd)
 {
+	char		*ret;
 	char		*str;
 	int			check;
 
-	str = (char *)ft_calloc(BUFFER_SIZE + 1, 1);
-	if (!str)
-		return (NULL);
-	check = read(fd, str, BUFFER_SIZE);
-	if (check == 0)
-		return (NULL);
-	return (str);
+	check = 1;
+	ret = ft_calloc(1, 1);
+	while (check > 0)
+	{
+		str = (char *)ft_calloc(BUFFER_SIZE + 1, 1);
+		if (!str)
+			return (NULL);
+		check = read(fd, str, BUFFER_SIZE);
+		if (check == 0)
+			break ;
+		else	
+			ret = ft_strjoin(ret, str);
+		if (ft_strchr(ret, '\n') != NULL)
+			break ;
+	}
+	if (ret[0] == '\0')
+		ret = 0;
+	return (ret);
 }
 
 char	*get_next_line(int fd)
 {
-	char		*line;
+	char			*line;
 	static char		*extra;
 
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
 		return (NULL);
-	line = ft_calloc(1, 1);
-	while (1)
-	{
-		if (extra)
-			line = ft_strjoin(extra,line);
-		line = ft_strjoin(line,ft_read(fd));
-		if (line == 0)
-			break ;
-		if (ft_strchr(line, '\n') != NULL)
-		{
-			extra = ft_getextra(line);
-			line = ft_cut(line);
-			break ;
-		}
-	}
+	line = ft_read(fd);
+	if (extra)
+		line = ft_strjoin(extra, line);
+	extra = ft_getextra(line);
+	line = ft_cut(line);
 	return (line);
 }
-
 int	main(void)
 {
 	int		i;

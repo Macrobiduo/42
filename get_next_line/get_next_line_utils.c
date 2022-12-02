@@ -56,51 +56,46 @@ void	*ft_calloc(size_t count, size_t size)
 	return (memory);
 }
 
-char	*ft_strjoin(char *s1, char *s2)
-{
-	char		*dest;
-	int		i;
-	int		j;
-
-	i = -1;
-	j = -1;
-	if (s1 == NULL || s2 == NULL)
+char		*ft_strjoin(char *s1, char *s2)
+ {
+ 	char	*dst;
+ 	char	*cpy;
+ 
+ 	dst = (char *)malloc(sizeof(dst) * (ft_strlen(s1) + ft_strlen(s2) + 1));
+	if (dst && s1 && s2)
+	{
+		cpy = dst;
+		while (*s1 != '\0')
+			*dst++ = *s1++;
+		while (*s2 != '\0')
+			*dst++ = *s2++;
+		*dst = '\0';
+	}
+	else
 		return (NULL);
-	dest = (char*)malloc(sizeof(*dest) * (ft_strlen(s1) + ft_strlen(s2) + 1));
-	if (dest == NULL)
-		return (NULL);
-	while (s1[++i])
-		dest[i] = s1[i];
-	
-	while (s2[++j])
-		dest[i++] = s2[j];
-	dest[i] = '\0';
-	free (s1);
-	free (s2);
-	return (dest);
+	return (cpy);
 }
 
 char	*ft_cut(char *src)
 {
 	int		i;
-	char		*t;
+	char		*p;
 
 	i = 0;
 	if (ft_strchr(src, '\n') == NULL)
 		return (src);
-	while (src[i] != '\n')
+	while (src[i] && src[i] != '\n')
 		i++;
-	t = (char *)malloc(i + 2);
+	p = malloc (i + 1);
+	if (!p)
+		return (NULL);
 	i = 0;
-	while(src[i])
+	while (src[i])
 	{
-		t[i] = src[i];
-		if(src[i] == '\n')
+		p[i] = src[i];
+		if (src[i] == '\n')
 			break ;
 		i++;
 	}
-	i++;
-	t[i] = '\0';
-	free (src);
-	return (t);
+	return (p);
 }

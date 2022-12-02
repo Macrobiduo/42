@@ -14,7 +14,7 @@
 # define GET_NEXT_LINE_H
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 5
+#  define BUFFER_SIZE 4
 # endif
 
 # include <fcntl.h>
@@ -27,8 +27,8 @@ int		ft_strlen(const char *s);
 char	*ft_strchr(char *s, int c);
 void	*ft_calloc(size_t count, size_t size);
 char	*ft_strjoin(char *s1, char *s2);
-char	*ft_cut(char *extra);
+char	*ft_cut(char *src);
 char	*ft_read(int fd);
-char	*ft_getextra(char *src);
+char	*ft_getextra(char *extra);
 
 #endif
