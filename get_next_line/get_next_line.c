@@ -12,20 +12,47 @@
 
 #include "get_next_line.h"
 
+char	*ft_strdup(char *src)
+{
+	char	*new;
+	int		i;
+	int		size;
+
+	size = ft_strlen(src);
+	if (size == 0)
+		return (src);
+	new = malloc(size + 1);
+	if (!new)
+		return (NULL);
+	i = 0;
+	while (src[i])
+	{
+		new[i] = src[i];
+		i++;
+	}
+	new[i] = '\0';
+	return (new);
+}
+
 char	*ft_getextra(char *extra)
 {
-	if (!extra)
+	int		i;
+	int		j;
+	char		*p;
+
+	i = 0;
+	j = -1;
+	if (!extra || ft_strchr(extra, '\n') == NULL)
 		return (NULL);
-	while (*extra)
-	{
-		if (*extra == '\n')
-		{
-			extra++;
-			break ;
-		}
-		extra++;
-	}
-	return (extra);
+	while (extra[i] != '\n' && extra[i])
+		i++;
+	if (!extra[i + 1])
+		return (0);
+	p = ft_calloc(ft_strlen(extra) - i, 1);
+	while (extra[i++])
+		p[++j] = extra[i];
+	free (extra);
+	return (p);
 }
 
 char	*ft_read(int fd)
@@ -34,18 +61,16 @@ char	*ft_read(int fd)
 	char		*str;
 	int			check;
 
-	check = 1;
-	ret = ft_calloc(1, 1);
-	while (check > 0)
-	{
-		str = (char *)ft_calloc(BUFFER_SIZE + 1, 1);
+	ret = ft_calloc (1, 1);
+	while (1)
+	{	
+		str = ft_calloc (BUFFER_SIZE + 1, 1);
 		if (!str)
 			return (NULL);
 		check = read(fd, str, BUFFER_SIZE);
 		if (check == 0)
 			break ;
-		else	
-			ret = ft_strjoin(ret, str);
+		ret = ft_strjoin(ret, str);
 		if (ft_strchr(ret, '\n') != NULL)
 			break ;
 	}
@@ -61,10 +86,18 @@ char	*get_next_line(int fd)
 
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
 		return (NULL);
-	line = ft_read(fd);
+	if (ft_strchr(extra, '\n') == NULL)
+		line = ft_read(fd);
+	else
+	{
+		line = ft_strdup(extra);
+		extra = 0;
+	}
+	if (line == 0 && !extra)
+		return (line);
 	if (extra)
-		line = ft_strjoin(extra, line);
-	extra = ft_getextra(line);
+		line = ft_strjoin(ft_strdup(extra), line);
+	extra = ft_getextra(ft_strdup(line));
 	line = ft_cut(line);
 	return (line);
 }
