@@ -21,7 +21,7 @@ char	*ft_strdup(char *src)
 	size = ft_strlen(src);
 	if (size == 0)
 		return (src);
-	new = malloc(size + 1);
+	new = (char *)malloc(size + 1);
 	if (!new)
 		return (NULL);
 	i = 0;
@@ -36,8 +36,8 @@ char	*ft_strdup(char *src)
 
 char	*ft_getextra(char *extra)
 {
-	int		i;
-	int		j;
+	int			i;
+	int			j;
 	char		*p;
 
 	i = 0;
@@ -46,62 +46,76 @@ char	*ft_getextra(char *extra)
 		return (NULL);
 	while (extra[i] != '\n' && extra[i])
 		i++;
-	if (!extra[i + 1])
+	if (extra[i] == '\n')
+		i++;
+	if (!extra[i++])
+	{
+		free (extra);
 		return (0);
-	p = ft_calloc(ft_strlen(extra) - i, 1);
-	while (extra[i++])
+	}
+	i--;
+	p = ft_calloc(ft_strlen(extra) - i + 1, 1);
+	if (!p)
+		return(NULL);
+	while (extra[i])
+	{
 		p[++j] = extra[i];
+		i++;
+	}
 	free (extra);
 	return (p);
 }
 
-char	*ft_read(int fd)
+char	*ft_read(int fd, char *ret)
 {
-	char		*ret;
 	char		*str;
 	int			check;
 
-	ret = ft_calloc (1, 1);
+	if (!ret)
+		ret = ft_calloc (1, 1);
 	while (1)
-	{	
-		str = ft_calloc (BUFFER_SIZE + 1, 1);
-		if (!str)
-			return (NULL);
+	{
+		str = ft_calloc(BUFFER_SIZE + 1, 1);
 		check = read(fd, str, BUFFER_SIZE);
+		ret = ft_strjoin(ret, str);
+		free (str);
 		if (check == 0)
 			break ;
-		ret = ft_strjoin(ret, str);
 		if (ft_strchr(ret, '\n') != NULL)
 			break ;
 	}
 	if (ret[0] == '\0')
+	{
+		free (ret);
 		ret = 0;
+	}
 	return (ret);
 }
 
 char	*get_next_line(int fd)
 {
+	char			*tmp;
 	char			*line;
 	static char		*extra;
 
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
 		return (NULL);
 	if (ft_strchr(extra, '\n') == NULL)
-		line = ft_read(fd);
+		line = ft_read(fd, extra);
 	else
 	{
 		line = ft_strdup(extra);
+		free (extra);
 		extra = 0;
 	}
 	if (line == 0 && !extra)
 		return (line);
-	if (extra)
-		line = ft_strjoin(ft_strdup(extra), line);
-	extra = ft_getextra(ft_strdup(line));
-	line = ft_cut(line);
+	tmp = ft_strdup(line);
+	extra = ft_getextra(line);
+	line = ft_cut(tmp);
 	return (line);
 }
-int	main(void)
+/*int	main(void)
 {
 	int		i;
 	int		fd;
@@ -111,7 +125,7 @@ int	main(void)
 	fd = open("/nfs/homes/dballini/Documents/libft/42/get_next_line/t.txt", O_RDONLY);
 	if (fd == -1)
 		return (0);
-	while (i < 6)
+	while (i < 15)
 	{
 		s = get_next_line(fd);
 		printf("%s", s);
@@ -119,4 +133,4 @@ int	main(void)
 		i++;
 	}
 	return (0);
-}
+}*/

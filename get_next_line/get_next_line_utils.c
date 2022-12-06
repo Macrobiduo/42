@@ -74,7 +74,6 @@ char	*ft_strjoin(char *s1, char *s2)
 	else
 		return (NULL);
 	free (s1);
-	free (s2);
 	return (dst);
 }
 
