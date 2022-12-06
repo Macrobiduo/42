@@ -78,13 +78,12 @@ char	*ft_read(int fd, char *ret)
 		str = ft_calloc(BUFFER_SIZE + 1, 1);
 		check = read(fd, str, BUFFER_SIZE);
 		ret = ft_strjoin(ret, str);
-		free (str);
 		if (check == 0)
 			break ;
 		if (ft_strchr(ret, '\n') != NULL)
 			break ;
 	}
-	if (ret[0] == '\0')
+	if (ret[0] == '\0' && check == 0)
 	{
 		free (ret);
 		ret = 0;
