@@ -42,21 +42,18 @@ char	*ft_getextra(char *extra)
 
 	i = 0;
 	j = -1;
-	if (!extra || ft_strchr(extra, '\n') == NULL)
-		return (NULL);
 	while (extra[i] != '\n' && extra[i])
 		i++;
 	if (extra[i] == '\n')
 		i++;
-	if (!extra[i++])
+	if (!extra[i])
 	{
 		free (extra);
 		return (0);
 	}
-	i--;
 	p = ft_calloc(ft_strlen(extra) - i + 1, 1);
 	if (!p)
-		return(NULL);
+		return (NULL);
 	while (extra[i])
 	{
 		p[++j] = extra[i];
@@ -93,25 +90,17 @@ char	*ft_read(int fd, char *ret)
 
 char	*get_next_line(int fd)
 {
-	char			*tmp;
 	char			*line;
 	static char		*extra;
 
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
 		return (NULL);
-	if (ft_strchr(extra, '\n') == NULL)
-		line = ft_read(fd, extra);
-	else
-	{
-		line = ft_strdup(extra);
-		free (extra);
-		extra = 0;
-	}
-	if (line == 0 && !extra)
-		return (line);
-	tmp = ft_strdup(line);
-	extra = ft_getextra(line);
-	line = ft_cut(tmp);
+	if (ft_strchr(extra, '\n') == 0)
+		extra = ft_read(fd, extra);
+	if (!extra)
+		return (extra);
+	line = ft_cut(ft_strdup(extra));
+	extra = ft_getextra(extra);
 	return (line);
 }
 /*int	main(void)
