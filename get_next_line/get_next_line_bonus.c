@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dballini <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/25 15:39:12 by dballini          #+#    #+#             */
-/*   Updated: 2022/11/25 15:39:12 by dballini         ###   ########.fr       */
+/*   Created: 2022/12/13 18:35:58 by dballini          #+#    #+#             */
+/*   Updated: 2022/12/13 18:36:48 by dballini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char	*ft_strdup(char *src)
 {
@@ -91,15 +91,15 @@ char	*ft_read(int fd, char *ret)
 char	*get_next_line(int fd)
 {
 	char			*line;
-	static char		*extra;
+	static char		*extra[1024];
 
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
 		return (NULL);
-	if (ft_strchr(extra, '\n') == 0)
-		extra = ft_read(fd, extra);
-	if (!extra)
-		return (extra);
-	line = ft_cut(ft_strdup(extra));
-	extra = ft_getextra(extra);
+	if (ft_strchr(extra[fd], '\n') == 0)
+		extra[fd] = ft_read(fd, extra[fd]);
+	if (extra[fd] == NULL)
+		return (NULL);
+	line = ft_cut(ft_strdup(extra[fd]));
+	extra[fd] = ft_getextra(extra[fd]);
 	return (line);
 }
