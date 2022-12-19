@@ -12,25 +12,52 @@
 
 #include "push_swap.h"
 
-int	check_arg(char argv)
+int	check_arg(char *argv)
 {
-	if (argv > 47 )
+	int		i;
+	int		sign;
+	i = 0;
+	while (argv[i])
+	{
+		if (argv[i] == '+' || argv[i] == '-')
+		{
+			sign = 1;
+			i++;
+		}
+		if (argv[i] == '+' || argv[i] == '-' && sign == 1)
+			return (0);
+		else
+			if (!(argv[i] > 47 && argv[i] < 58))
+				return (0);
+		i++;
+	}
+	return (1);
 }
 
 int	main (int argc, char *argv[])
-{
-	struct s_list	a;
-	struct s_list	b;
+{	
+	t_list	*a;
+	t_list	*b;
 	int			i;
 
-	i = 1;
-	while (i < argc)
+	if (argc < 2)
 	{
-		if(check_arg(*argv[i]))
-			ft_lstadd_front(&a, argv[i]);
-		else
-			write(1, "Error\n", 7);
-		i++;
+		write(1,"Error\n", 7);
+		return (1);
+	}
+	else
+	{
+		i = 1;
+		while (i < argc)
+		{
+			if(check_arg(*argv[i]) == 1)
+			{
+				
+			}
+			else
+				write(1, "Error\n", 7);
+			i++;
+		}
 	}
 	return (0);
 }

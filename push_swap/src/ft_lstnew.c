@@ -10,8 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include "libft.h"
+#include "push_swap.h"
 
 t_list	*ft_lstnew(void *content)
 {
@@ -20,7 +19,7 @@ t_list	*ft_lstnew(void *content)
 	p = (t_list *) malloc (sizeof(*p));
 	if (!p)
 		return (NULL);
-	p->content = content;
+	p->number = content;
 	p->next = NULL;
 	return (p);
 }
