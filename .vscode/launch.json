@@ -9,7 +9,7 @@
             "name": "(gdb) Attach",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/get_next_line/a.out",
+            "program": "${workspaceFolder}\\get_next_line\\a.out",
             "MIMode": "gdb",
             "cwd": "${workspaceFolder}",
             "setupCommands": [

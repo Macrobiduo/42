@@ -764,3 +764,6 @@ libft/ft_substr
 libft/a.out
 libft/a.out
 >>>>>>> origin/HEAD
+.vscode/launch.json
+.vscode/settings.json
+.vscode/tasks.json

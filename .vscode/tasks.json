@@ -3,14 +3,14 @@
             {
                   "type": "cppbuild",
                   "label": "C/C++: gcc build active file",
-                  "command": "/usr/bin/gcc",
+                  "command": "gcc",
                   "args": [
                         "-fdiagnostics-color=always",
                         "-g",
                         "${workspaceFolder}/get_next_line/get_next_line.c",
                         "${workspaceFolder}/get_next_line/get_next_line_utils.c",
                         "-o",
-                        "${fileDirname}/a.out"
+                        "a.out",
                   ],
                   "options": {
                         "cwd": "${fileDirname}"
