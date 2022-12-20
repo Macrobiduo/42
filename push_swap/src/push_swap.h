@@ -26,7 +26,8 @@ typedef struct s_list
 }					t_list;
 
 void	ft_lstadd_front(t_list **lst, t_list *new);
-t_list	*ft_lstnew(void *content);
+t_list	*ft_lstnew(int content);
+void	ft_lstadd_back(t_list **lst, t_list *new)
 
 
 #endif

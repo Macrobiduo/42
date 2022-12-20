@@ -16,6 +16,8 @@ int	check_arg(char *argv)
 {
 	int		i;
 	int		sign;
+
+	sign = 0;
 	i = 0;
 	while (argv[i])
 	{
@@ -40,24 +42,19 @@ int	main (int argc, char *argv[])
 	t_list	*b;
 	int			i;
 
-	if (argc < 2)
+	a = NULL;
+	b = NULL;
+	if (argc < 2 || check_arg(**argv) == 0)
 	{
 		write(1,"Error\n", 7);
-		return (1);
+		return (0);
 	}
-	else
+	a = ft_lstnew(ft_atoi(argv[1]));
+	i = 2;
+	while (i < argc)
 	{
-		i = 1;
-		while (i < argc)
-		{
-			if(check_arg(*argv[i]) == 1)
-			{
-				
-			}
-			else
-				write(1, "Error\n", 7);
-			i++;
-		}
+		ft_lstadd_back(&a, ft_lstnew(ft_atoi(argv[i])));
+		i++;
 	}
 	return (0);
 }
