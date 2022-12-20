@@ -9,9 +9,10 @@
             "name": "(gdb) Attach",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}\\get_next_line\\a.out",
+            "program": "${workspaceFolder}\\push_swap\\src\\a.out",
             "MIMode": "gdb",
             "cwd": "${workspaceFolder}",
+            "args": ["+56","-33","99"],
             "setupCommands": [
                 {
                     "description": "Enable pretty-printing for gdb",

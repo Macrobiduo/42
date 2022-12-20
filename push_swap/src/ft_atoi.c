@@ -36,10 +36,3 @@ int	ft_atoi(const char *str)
 	}
 	return (result * sign);
 }
-/*int	main()
-{
-	int	n;
-	n = ft_atoi("        ---+++234,985");
-	printf("%d", n);
-	return (0);
-}*/

@@ -7,8 +7,7 @@
                   "args": [
                         "-fdiagnostics-color=always",
                         "-g",
-                        "${workspaceFolder}/get_next_line/get_next_line.c",
-                        "${workspaceFolder}/get_next_line/get_next_line_utils.c",
+                        "${workspaceFolder}/push_swap/src/*.c",
                         "-o",
                         "a.out",
                   ],

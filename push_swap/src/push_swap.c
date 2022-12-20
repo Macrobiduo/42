@@ -44,7 +44,7 @@ int	main (int argc, char *argv[])
 
 	a = NULL;
 	b = NULL;
-	if (argc < 2 || check_arg(**argv) == 0)
+	if (argc < 2 || check_arg(argv[1]) == 0)
 	{
 		write(1,"Error\n", 7);
 		return (0);
@@ -53,8 +53,21 @@ int	main (int argc, char *argv[])
 	i = 2;
 	while (i < argc)
 	{
-		ft_lstadd_back(&a, ft_lstnew(ft_atoi(argv[i])));
+		if (check_arg(argv[i]) == 1)
+			ft_lstadd_back(&a, ft_lstnew(ft_atoi(argv[i])));
+		else
+		{
+			write(1,"Error\n", 7);
+			return (0);
+		}
 		i++;
+	}
+	while (1)
+	{
+		printf("%d\n", a->number);
+		if (a->next == NULL)
+			break ;
+		a = a->next;
 	}
 	return (0);
 }
