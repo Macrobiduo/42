@@ -12,26 +12,63 @@
 
 #include "push_swap.h"
 
-int	check_arg(char *argv)
+void	ft_start(t_list *a,t_list *b,int argc)
+{
+	if ((argc - 1) == 3)
+	{
+
+	}
+	if ((argc - 1) == 5)
+	{
+		
+	}
+	if ((argc - 1) == 100)
+	{
+		
+	}
+	if ((argc - 1) == 500)
+	{
+		
+	}
+}
+
+void	ft_printList(t_list *list)
+{
+	while (1)
+	{
+		printf("%d\n", list->number);
+		if (list->next == NULL)
+			break ;
+		list = list->next;
+	}
+}
+
+int	check_arg(char **argv,int argc)
 {
 	int		i;
+	int		j;
 	int		sign;
 
-	sign = 0;
-	i = 0;
-	while (argv[i])
+	j = 1;
+	while (j < argc)
 	{
-		if (argv[i] == '+' || argv[i] == '-')
+		i = 0;
+		sign = 0;
+		while (argv[j][i])
 		{
-			sign = 1;
+			if (argv[j][i] == '+' || argv[j][i] == '-')
+			{
+				sign = 1;
+				i++;
+			}
+			if (argv[j][i] == '+' || argv[j][i] == '-' && sign == 1)
+				return (0);
+			else
+				if (!(argv[j][i] > 47 && argv[j][i]  < 58))
+					return (0);
 			i++;
 		}
-		if (argv[i] == '+' || argv[i] == '-' && sign == 1)
-			return (0);
-		else
-			if (!(argv[i] > 47 && argv[i] < 58))
-				return (0);
-		i++;
+		j++;
 	}
 	return (1);
 }
@@ -44,30 +81,18 @@ int	main (int argc, char *argv[])
 
 	a = NULL;
 	b = NULL;
-	if (argc < 2 || check_arg(argv[1]) == 0)
+	if (argc < 2 || check_arg(argv, argc) == 0)
 	{
-		write(1,"Error\n", 7);
+		write(1,"Error\n", 6);
 		return (0);
 	}
-	a = ft_lstnew(ft_atoi(argv[1]));
-	i = 2;
+	i = 1;
 	while (i < argc)
 	{
-		if (check_arg(argv[i]) == 1)
-			ft_lstadd_back(&a, ft_lstnew(ft_atoi(argv[i])));
-		else
-		{
-			write(1,"Error\n", 7);
-			return (0);
-		}
+		ft_lstadd_back(&a, ft_lstnew(ft_atoi(argv[i])));
 		i++;
 	}
-	while (1)
-	{
-		printf("%d\n", a->number);
-		if (a->next == NULL)
-			break ;
-		a = a->next;
-	}
+	ft_start(a, b, argc);
+	ft_printList(a);
 	return (0);
 }
