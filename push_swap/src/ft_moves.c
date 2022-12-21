@@ -12,47 +12,57 @@
 
 #include "push_swap.h"
 
-t_list      ra()
+void      sa(t_list *a)
+{
+	int		temp;
+
+	temp = a->number;
+	a->number = a->next->number;
+	a->next->number = temp;
+}
+
+void      sb(t_list *b)
+{
+	int		temp;
+
+	temp = b->number;
+	b->number = b->next->number;
+	b->next->number = temp;
+}
+
+t_list      ss(t_list *a,t_list *b)
+{
+	sa(a);
+	sb(b);
+}
+
+void      rb(t_list *a,t_list *b)
 {
 
 }
 
-t_list      rb()
+void      rr(t_list *a,t_list *b)
 {
 
 }
 
-t_list      rr()
+void      ra(t_list *a,t_list *b)
 {
 
 }
 
-t_list      sa()
+
+t_list      rra(t_list *a,t_list *b)
 {
 
 }
 
-t_list      sb()
+t_list      rrb(t_list *a,t_list *b)
 {
 
 }
 
-t_list      ss()
-{
-
-}
-
-t_list      rra()
-{
-
-}
-
-t_list      rrb()
-{
-
-}
-
-t_list      rrr()
+t_list      rrr(t_list *a,t_list *b)
 {
       
 }

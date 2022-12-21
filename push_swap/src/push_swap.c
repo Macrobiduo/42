@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-void	ft_start(t_list *a,t_list *b,int argc)
+void	ft_start(t_list *a, t_list *b, int argc)
 {
 	if ((argc - 1) == 3)
 	{
@@ -43,7 +43,7 @@ void	ft_printList(t_list *list)
 	}
 }
 
-int	check_arg(char **argv,int argc)
+int	check_arg(char **argv, int argc)
 {
 	int		i;
 	int		j;
@@ -92,7 +92,8 @@ int	main (int argc, char *argv[])
 		ft_lstadd_back(&a, ft_lstnew(ft_atoi(argv[i])));
 		i++;
 	}
-	ft_start(a, b, argc);
+	//ft_start(a, b, argc);
+	sa(a);
 	ft_printList(a);
 	return (0);
 }
