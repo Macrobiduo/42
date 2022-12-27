@@ -93,7 +93,9 @@ int	main (int argc, char *argv[])
 		i++;
 	}
 	//ft_start(a, b, argc);
-	ra(&a);
+	ft_printList(a);
+	printf("-----------------\n");
+	rra(&a);
 	ft_printList(a);
 	return (0);
 }

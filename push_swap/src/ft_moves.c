@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-void      sa(t_list *a)
+void	sa(t_list *a)
 {
 	int		temp;
 
@@ -22,7 +22,7 @@ void      sa(t_list *a)
 	write(1, "sa\n", 3);
 }
 
-void      sb(t_list *b)
+void	sb(t_list *b)
 {
 	int		temp;
 
@@ -32,7 +32,7 @@ void      sb(t_list *b)
 	write(1, "sb\n", 3);
 }
 
-t_list      ss(t_list *a,t_list *b)
+void	ss(t_list *a,t_list *b)
 {
 	int		temp;
 
@@ -46,7 +46,7 @@ t_list      ss(t_list *a,t_list *b)
 
 }
 
-void      ra(t_list **a)
+void	ra(t_list **a)
 {
 	t_list	*temp;
 
@@ -57,7 +57,7 @@ void      ra(t_list **a)
 	write(1, "ra\n", 3);
 }
 
-void      rb(t_list **b)
+void	rb(t_list **b)
 {
 	t_list	*temp;
 
@@ -68,7 +68,7 @@ void      rb(t_list **b)
 	write(1, "rb\n", 3);
 }
 
-void      rr(t_list **a,t_list **b)
+void	rr(t_list **a,t_list **b)
 {
 	t_list	*temp;
 
@@ -83,16 +83,38 @@ void      rr(t_list **a,t_list **b)
 	write(1, "rr\n", 3);
 }
 
-t_list      rra(t_list **a)
+void	rra(t_list **a)
 {
-	t_list	*temp;
+	t_list	*current;
+	t_list	*prev;
 
-	temp = 
+	current = (*a);
+	prev = NULL;
+	while (current->next != NULL)
+	{
+		prev = current;
+		current = current->next;
+	}
+	current->next = (*a);
+	(*a) = current;
+	prev->next = NULL;
 }
 
-t_list      rrb(t_list *a,t_list *b)
+t_list      rrb(t_list **b)
 {
+	t_list	*current;
+	t_list	*prev;
 
+	current = (*b);
+	prev = NULL;
+	while (current->next != NULL)
+	{
+		prev = current;
+		current = current->next;
+	}
+	current->next = (*b);
+	(*b) = current;
+	prev->next = NULL;
 }
 
 t_list      rrr(t_list *a,t_list *b)
