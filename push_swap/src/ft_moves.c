@@ -100,7 +100,7 @@ void	rra(t_list **a)
 	prev->next = NULL;
 }
 
-t_list      rrb(t_list **b)
+void     rrb(t_list **b)
 {
 	t_list	*current;
 	t_list	*prev;
@@ -117,7 +117,29 @@ t_list      rrb(t_list **b)
 	prev->next = NULL;
 }
 
-t_list      rrr(t_list *a,t_list *b)
+void      rrr(t_list **a, t_list **b)
 {
-      
+	t_list	*current;
+	t_list	*prev;
+
+	current = (*b);
+	prev = NULL;
+	while (current->next != NULL)
+	{
+		prev = current;
+		current = current->next;
+	}
+	current->next = (*b);
+	(*b) = current;
+	prev->next = NULL;
+	current = (*a);
+	prev = NULL;
+	while (current->next != NULL)
+	{
+		prev = current;
+		current = current->next;
+	}
+	current->next = (*a);
+	(*a) = current;
+	prev->next = NULL;
 }

@@ -97,5 +97,8 @@ int	main (int argc, char *argv[])
 	printf("-----------------\n");
 	rra(&a);
 	ft_printList(a);
+	printf("-----------------\n");
+	rrb(&b);
+	ft_printList(a);
 	return (0);
 }
