@@ -40,6 +40,7 @@ void	rra(t_list **a);
 void	rrb(t_list **b);
 void      rrr(t_list **a, t_list **b);
 int		ft_lstsize(t_list *lst);
-
+void	pa(t_list **a, t_list **b);
+void	pb(t_list **a, t_list **b);
 
 #endif

@@ -12,34 +12,128 @@
 
 #include "push_swap.h"
 
-void	ft_start(t_list *a, t_list *b, int argc)
+int	ft_get_number(t_list *head, int k)
 {
-	if ((argc - 1) == 3)
-	{
+	t_list	*temp;
+	int			i;
 
-	}
-	if ((argc - 1) == 5)
+	temp = head;
+	i = 1;
+	while (temp->next != NULL && i < k)
 	{
-		
+		temp = temp->next;
+		i++;
 	}
-	if ((argc - 1) == 100)
-	{
-		
-	}
-	if ((argc - 1) == 500)
-	{
-		
-	}
+	return (temp->number);
 }
 
-void	ft_printList(t_list *list)
+int	ft_check_compare(t_list *x, int a, int b, int c)
 {
+	if (ft_get_number(x, a) > ft_get_number(x, b))
+		if (ft_get_number(x, b) < ft_get_number(x, c))
+			if (ft_get_number(x, a) < ft_get_number(x, c))
+				return (1);
+	if (ft_get_number(x, a) > ft_get_number(x, b))
+		if (ft_get_number(x, b) > ft_get_number(x, c))
+			if (ft_get_number(x, a) > ft_get_number(x, c))
+				return (2);
+	if (ft_get_number(x, a) > ft_get_number(x, b))
+		if (ft_get_number(x, b) < ft_get_number(x, c))
+			if (ft_get_number(x, a) > ft_get_number(x, c))
+				return (3);
+	if (ft_get_number(x, a) < ft_get_number(x, b))
+		if (ft_get_number(x, b) > ft_get_number(x, c))
+			if (ft_get_number(x, a) < ft_get_number(x, c))
+				return (4);
+	if (ft_get_number(x, a) < ft_get_number(x, b))
+		if (ft_get_number(x, b) > ft_get_number(x, c))
+			if (ft_get_number(x, a) > ft_get_number(x, c))
+				return (5);
+}
+
+void	ft_printlist(t_list *list)    //
+{
+	if(!list)
+	{
+		write(1, "NULL\n", 5);
+		return ;
+	}
 	while (1)
 	{
 		printf("%d\n", list->number);
 		if (list->next == NULL)
 			break ;
 		list = list->next;
+	}
+}
+
+void	ft_for_3(t_list **a)
+{
+	int		i;
+
+	i = ft_check_compare(*a, 1, 2, 3);
+	if (i == 1)
+		sa(*a);
+	else if (i == 2)
+	{
+		sa(*a);
+		rra(a);
+	}
+	else if (i == 3)
+		ra(a);
+	else if (i == 4)
+	{
+		sa(*a);
+		ra(a);
+	}
+	else if (i == 5)
+		rra(a);
+}
+
+void	ft_for_5(t_list **a, t_list **b)
+{
+	t_list	*last;
+
+	pb(a, b);
+	pb(a, b);
+	ft_for_3(a);
+	while ((*b) != NULL)
+	{
+		last = ft_lstlast(*a);
+		if ((*b)->number < (*a)->number)
+			pa(a, b);
+		else if ((*b)->number > last->number)
+		{
+			pa(a, b);
+			ra(a);
+		}
+		else if ((*b)->number > (*a)->number && (*b)->number < last->number)
+		{
+			while ((*b)->number > (*a)->number)
+				ra(a);
+			pa(a, b);
+			while ((*a)->number > ft_lstlast(*a)->number)
+				rra(a);
+		}
+	}
+}
+
+void	ft_for_100(t_list **a, t_list **b)
+{
+
+}
+
+void	ft_start(t_list **a, t_list **b, int argc)
+{
+	if ((argc - 1) == 3)
+		ft_for_3(a);
+	if ((argc - 1) == 5)
+		ft_for_5(a, b);
+	if ((argc - 1) == 100)
+		ft_for_100(a, b);
+	if ((argc - 1) == 500)
+	{
+		
 	}
 }
 
@@ -73,12 +167,26 @@ int	check_arg(char **argv, int argc)
 	return (1);
 }
 
+int	ft_checkdouble(t_list *astack, int i)
+{
+	while (astack)
+	{
+		if (astack->number == i)
+			return (1);
+		astack = astack->next;
+	}
+	return (0);
+}
+
 int	main (int argc, char *argv[])
 {	
 	t_list	*a;
 	t_list	*b;
 	int			i;
+	int 			tmp;
 
+	/* int	argc = 6;
+	char	*argv[] = {"a.out", "55", "-11", "1", "4", "66", NULL}; */
 	a = NULL;
 	b = NULL;
 	if (argc < 2 || check_arg(argv, argc) == 0)
@@ -89,16 +197,20 @@ int	main (int argc, char *argv[])
 	i = 1;
 	while (i < argc)
 	{
-		ft_lstadd_back(&a, ft_lstnew(ft_atoi(argv[i])));
+		tmp = ft_atoi(argv[i]);
+		if (ft_checkdouble(a, tmp) == 1)
+		{
+			write(1,"Error, double num\n", 18);
+			exit (1);
+		}
+		ft_lstadd_back(&a, ft_lstnew(tmp));
 		i++;
 	}
-	//ft_start(a, b, argc);
-	ft_printList(a);
-	printf("-----------------\n");
-	rra(&a);
-	ft_printList(a);
-	printf("-----------------\n");
-	rrb(&b);
-	ft_printList(a);
+			ft_printlist(a);
+			printf("-----------------\n");
+			ft_start(&a, &b, argc);
+			ft_printlist(a);
+			printf("-----------------\n");
+			ft_printlist(b);
 	return (0);
 }
