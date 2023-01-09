@@ -100,6 +100,7 @@ void	rra(t_list **a)
 	current->next = (*a);
 	(*a) = current;
 	prev->next = NULL;
+	write(1, "rra\n", 4);
 }
 
 void     rrb(t_list **b)
@@ -117,6 +118,7 @@ void     rrb(t_list **b)
 	current->next = (*b);
 	(*b) = current;
 	prev->next = NULL;
+	write(1, "rrb\n", 4);
 }
 
 void      rrr(t_list **a, t_list **b)
@@ -144,6 +146,7 @@ void      rrr(t_list **a, t_list **b)
 	current->next = (*a);
 	(*a) = current;
 	prev->next = NULL;
+	write(1, "rrr\n", 4);
 }
 
 void	pb(t_list **a, t_list **b)

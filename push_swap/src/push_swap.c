@@ -12,6 +12,22 @@
 
 #include "push_swap.h"
 
+void	ft_printlist(t_list *list)    //
+{
+	if(!list)
+	{
+		write(1, "NULL\n", 5);
+		return ;
+	}
+	while (1)
+	{
+		printf("%d\n", list->number);
+		if (list->next == NULL)
+			break ;
+		list = list->next;
+	}
+}
+
 int	ft_get_number(t_list *head, int k)
 {
 	t_list	*temp;
@@ -49,22 +65,6 @@ int	ft_check_compare(t_list *x, int a, int b, int c)
 		if (ft_get_number(x, b) > ft_get_number(x, c))
 			if (ft_get_number(x, a) > ft_get_number(x, c))
 				return (5);
-}
-
-void	ft_printlist(t_list *list)    //
-{
-	if(!list)
-	{
-		write(1, "NULL\n", 5);
-		return ;
-	}
-	while (1)
-	{
-		printf("%d\n", list->number);
-		if (list->next == NULL)
-			break ;
-		list = list->next;
-	}
 }
 
 void	ft_for_3(t_list **a)
@@ -118,9 +118,76 @@ void	ft_for_5(t_list **a, t_list **b)
 	}
 }
 
+int	ft_find_minmax(t_list **a, char c)
+{
+	int		nbr;
+	t_list	*temp;
+
+	temp = (*a);
+	nbr = temp->number;
+	if (c == 'M')
+	{
+		while (temp)
+		{
+			if (nbr < temp->number)
+				nbr = temp->number;
+			temp = temp->next;
+		}
+	}
+	if (c == 'm')
+	{
+		while (temp)
+		{
+			if (nbr > temp->number)
+				nbr = temp->number;
+			temp = temp->next;
+		}
+	}
+	return (nbr);
+}
+
+int	ft_sections(t_list **a)
+{
+	int	min;
+	int	max;
+	int	limit;
+	
+	min = ft_find_minmax(a, 'm');
+	max = ft_find_minmax(a, 'M');
+	limit = min + ((max - min) / 5); 
+	return (limit);
+}
+
+int	ft_eval_move(t_list **a, t_list **b, int limit)
+{
+	int		i;
+	int		j;
+
+	i = ft_lstsize(*a);
+	j = 0;
+	while (j++ <= i && *a)
+	{
+		if ((*a)->number < limit)
+			pb(a, b);
+		else
+			ra(a);
+	}
+}
+
 void	ft_for_100(t_list **a, t_list **b)
 {
+	int		limit;
+	int		chunkS;
+	int		max;
 
+	max = ft_find_minmax(a, 'M');
+	chunkS = ft_sections(a);
+	limit = chunkS;
+	while (limit <= (max + chunkS))
+	{
+		ft_eval_move(a, b, limit);
+		limit += chunkS;
+	}
 }
 
 void	ft_start(t_list **a, t_list **b, int argc)
@@ -129,9 +196,9 @@ void	ft_start(t_list **a, t_list **b, int argc)
 		ft_for_3(a);
 	if ((argc - 1) == 5)
 		ft_for_5(a, b);
-	if ((argc - 1) == 100)
+	if ((argc - 1) <= 100)
 		ft_for_100(a, b);
-	if ((argc - 1) == 500)
+	if ((argc - 1) <= 500)
 	{
 		
 	}
@@ -167,8 +234,10 @@ int	check_arg(char **argv, int argc)
 	return (1);
 }
 
-int	ft_checkdouble(t_list *astack, int i)
+int	ft_checkdouble(t_list *astack, long int i)
 {
+	if (i > 2147483647 || i < -2147483648)
+		return (1);
 	while (astack)
 	{
 		if (astack->number == i)
@@ -178,15 +247,15 @@ int	ft_checkdouble(t_list *astack, int i)
 	return (0);
 }
 
-int	main (int argc, char *argv[])
+int	main (/*int argc, char *argv[]*/)
 {	
 	t_list	*a;
 	t_list	*b;
 	int			i;
 	int 			tmp;
 
-	/* int	argc = 6;
-	char	*argv[] = {"a.out", "55", "-11", "1", "4", "66", NULL}; */
+	int	argc = 11;
+	char	*argv[] = {"a.out", "10006", "3", "41", "22", "143", "-11000", "1", "4", "66", "93", NULL};
 	a = NULL;
 	b = NULL;
 	if (argc < 2 || check_arg(argv, argc) == 0)
@@ -200,7 +269,7 @@ int	main (int argc, char *argv[])
 		tmp = ft_atoi(argv[i]);
 		if (ft_checkdouble(a, tmp) == 1)
 		{
-			write(1,"Error, double num\n", 18);
+			write(1,"Error\n", 6);
 			exit (1);
 		}
 		ft_lstadd_back(&a, ft_lstnew(tmp));
@@ -209,6 +278,7 @@ int	main (int argc, char *argv[])
 			ft_printlist(a);
 			printf("-----------------\n");
 			ft_start(&a, &b, argc);
+			printf("-----------------\n");
 			ft_printlist(a);
 			printf("-----------------\n");
 			ft_printlist(b);
