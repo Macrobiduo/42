@@ -12,6 +12,7 @@
             "program": "${workspaceFolder}\\push_swap\\src\\a.out",
             "MIMode": "gdb",
             "cwd": "${workspaceFolder}",
+            "args": ["33", "77", "11", "4", "54", "177", "-3", "2", "28", "45", "1", "9"],
             "setupCommands": [
                 {
                     "description": "Enable pretty-printing for gdb",
