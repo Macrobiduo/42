@@ -62,11 +62,13 @@ void	ra(t_list **a)
 void	rb(t_list **b)
 {
 	t_list	*temp;
+	t_list	*head;
 
 	temp = (*b)->next;
+	head = (*b);
 	ft_lstlast(*b)->next = *b;
-	(*b)->next = NULL;
-	*b = temp;
+	(*b) = (*b)->next;
+	head->next = NULL;
 	write(1, "rb\n", 3);
 }
 

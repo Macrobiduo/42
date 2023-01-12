@@ -29,7 +29,7 @@ void	ft_lstadd_front(t_list **lst, t_list *new);
 t_list	*ft_lstnew(int content);
 void	ft_lstadd_back(t_list **lst, t_list *new);
 t_list	*ft_lstlast(t_list *lst);
-int		ft_atoi(const char *str);
+long int		ft_atoi(const char *str);
 void      sa(t_list *a);
 void      sb(t_list *b);
 void      ss(t_list *a,t_list *b);
