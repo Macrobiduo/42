@@ -163,33 +163,6 @@ int	ft_find_minmax(t_list **a, char c)
 	return (nbr);
 }
 
-int	ft_eval_move(t_list **a, int hold_number)
-{
-	int		next_distance;
-	int		list_size;
-	int		k;
-	t_list	*temp;
-
-	k = 0;
-	if(!(*a))
-		return (0);
-	temp = (*a);
-	list_size = ft_lstsize(*a);
-	next_distance = ft_get_node_pos(*a, hold_number);
-	if (next_distance == list_size + 1)
-	{
-		while (hold_number < (*a)->number && (*a)->next)
-		{
-			k++;
-			(*a) = (*a)->next;
-		}
-		next_distance = k;
-	}
-	if (next_distance > list_size / 2)
-		next_distance -= list_size;
-	return (next_distance);
-}
-
 t_list	*ft_remove_block(t_list **list, int nbr)
 {
 	t_list	*prev;
@@ -213,33 +186,6 @@ t_list	*ft_remove_block(t_list **list, int nbr)
 		prev->next = (*list)->next;
 	(*list) = prev;
 	return (head);
-}
-
-int	ft_eval_nbr(t_list **a, t_list **block)
-{
-	unsigned int	best;
-	int				current;
-	int				i;
-	int				nbr;
-	t_list			*temp;
-
-	best = 500;
-	i = 0;
-	temp = (*block);
-	while (i++ < 3 && temp)
-	{
-		current = ft_eval_move(a, temp->number);
-		if (current < 0)
-			current *= -1;
-		if (current < best)
-		{
-			best = current;
-			nbr = temp->number;
-		}
-		temp = temp->next;
-	}
-	(*block) = ft_remove_block(block, nbr);
-	return (nbr);
 }
 
 int	ft_find_next(t_list *a, int	current)
@@ -295,28 +241,115 @@ int	ft_bring_up_nbr(int i, int moves, t_list **a)
 	return (i);
 }
 
+int	ft_find_where(t_list *node, int nbr)
+{
+	unsigned int	pos;
+
+	pos = 0;
+	if (!node)
+		return (0);
+	while (node && node->number > nbr)
+	{
+		pos++;
+		node = node->next;
+	}
+	return (pos);
+}
+
+int	ft_eval_move(t_list **a, int hold_number)
+{
+	int		next_distance;
+	int		list_size;
+	int		k;
+	t_list	*temp;
+
+	k = 0;
+	if(!(*a))
+		return (0);
+	temp = (*a);
+	list_size = ft_lstsize(*a);
+	next_distance = ft_get_node_pos(*a, hold_number);
+	if (next_distance > list_size / 2)
+		next_distance -= list_size;
+	return (next_distance);
+}
+
+int	ft_eval_nbr(t_list **a, t_list **block)
+{
+	unsigned int	best;
+	int				current;
+	int				i;
+	int				nbr;
+	t_list			*temp;
+
+	best = 500;
+	i = 0;
+	temp = (*block);
+	while (i++ < 3 && temp)
+	{
+		current = ft_eval_move(a, temp->number);
+		if (current < 0)
+			current *= -1;
+		if (current < best)
+		{
+			best = current;
+			nbr = temp->number;
+		}
+		temp = temp->next;
+	}
+	(*block) = ft_remove_block(block, nbr);
+	return (nbr);
+}
+
 int	ft_smart_push(int i, int moves, t_list **a, t_list **b)
 {
 	int		temp;
+	int		len;
 
+	len = ft_lstsize(*b);
 	temp = (*a)->number;
-	moves = ft_eval_move(b, temp);
+	moves = ft_find_where((*b), temp);
+	if (moves > len / 2)
+		moves -= len + 1;
+	len = 0;
+	if (moves == -1)
+	{
+		pb(a, b);
+		rb(b);
+		i += 2;
+	}
 	if (moves > 0)
 		while (moves > 0)
 		{
-			rb(b);
+			rb(a);
 			i++;
+			len++;
 			moves--;
 		}
 	else
-		while (moves < 0)
+		while (moves < 0 )
 		{
-			rrb(b);
+			rrb(a);
 			i++;
+			len--;
 			moves++;
 		}
 	pb(a, b);
 	i++;
+	while (len != 0)
+	{
+		if (len >= 0)
+		{
+			rrb(b);
+			len--;
+		}
+		else if (len <= 0)
+		{
+			rb(b);
+			len++;
+		}
+		i++;
+	}
 	return (i);
 }
 
@@ -330,7 +363,8 @@ int	ft_for_100(t_list **a, t_list **b)
 	i = 0;
 	block = NULL;
 	while (*a)
-	{	if (!block)
+	{	
+		if (!block)
 		{
 			min = ft_find_minmax(a, 'm');
 			block = ft_blocks(a, &block, 10, min);
