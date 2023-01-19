@@ -188,38 +188,68 @@ t_list	*ft_remove_block(t_list **list, int nbr)
 	return (head);
 }
 
-int	ft_find_next(t_list *a, int	current)
+t_list	*ft_find_next(t_list *a)
 {
-	int		next;
+	t_list	*temp;
 
-	next = a->next->number;
-	while(a)
+	temp = a->next;
+	while(temp)
 	{
-		if (a->number > current && a->number < next)
-			next = a->number;
-		a = a->next;
+		if (a->number < temp->number)
+			break ;
+		temp = temp->next;
 	}
-	return (next);
+	return (temp);
 }
 
-t_list	*ft_blocks(t_list **a, t_list **block, int block_count, int min)
+t_list	*ft_find_lis(t_list *a, int pos, int current, int best)
 {
-	t_list	*last;
+	t_list	*temp;
+	t_list	*ret;
 
-	(*block) = ft_lstnew(min);
-	last = (*block);
-	if (ft_lstsize(*a) < block_count)
-		block_count = ft_lstsize(*a);
-	while (block_count != 1)
+	while (a)
 	{
-		if (last)
-			min = last->number;
-		ft_lstadd_back(block, ft_lstnew(ft_find_next(*a, min)));
-		if (last->next)
-			last = last->next;
-		block_count--;
+		pos = 0;
+		temp = a->next;
+		current = a->number;
+		while (temp)
+		{
+			if (temp->number > current)
+			{
+				pos++;
+				current = temp->number;
+			}
+			temp = temp->next;
+		}
+		pos++;
+		if (best < pos)
+		{
+			best = pos;
+			ret = a;
+		}
+		a = a->next;
 	}
-	return (*block);
+	return (ret);
+}
+
+t_list	*ft_build_lis(t_list *a, t_list **lis)
+{
+	int		current;
+	int		pos;
+	int		best;
+	t_list	*start;
+
+	best = 0;
+	while (start)
+	{
+		if (!(*lis))
+			start = ft_find_lis(a, pos, current, best);
+		else
+			start = ft_find_next(start);
+		if (start != NULL)
+			ft_lstadd_back(lis, ft_lstnew(start->number));
+	}
+	return (*lis);
 }
 
 int	ft_bring_up_nbr(int i, int moves, t_list **a)
@@ -248,7 +278,7 @@ int	ft_find_where(t_list *node, int nbr)
 	pos = 0;
 	if (!node)
 		return (0);
-	while (node && node->number > nbr)
+	while (node && node->number < nbr)
 	{
 		pos++;
 		node = node->next;
@@ -268,13 +298,13 @@ int	ft_eval_move(t_list **a, int hold_number)
 		return (0);
 	temp = (*a);
 	list_size = ft_lstsize(*a);
-	next_distance = ft_get_node_pos(*a, hold_number);
+	next_distance = ft_find_where(*a, hold_number);
 	if (next_distance > list_size / 2)
 		next_distance -= list_size;
 	return (next_distance);
 }
 
-int	ft_eval_nbr(t_list **a, t_list **block)
+int	ft_eval_nbr(t_list **a, t_list **b)
 {
 	unsigned int	best;
 	int				current;
@@ -284,8 +314,8 @@ int	ft_eval_nbr(t_list **a, t_list **block)
 
 	best = 500;
 	i = 0;
-	temp = (*block);
-	while (i++ < 3 && temp)
+	temp = (*b);
+	while (temp)
 	{
 		current = ft_eval_move(a, temp->number);
 		if (current < 0)
@@ -297,88 +327,45 @@ int	ft_eval_nbr(t_list **a, t_list **block)
 		}
 		temp = temp->next;
 	}
-	(*block) = ft_remove_block(block, nbr);
 	return (nbr);
 }
 
 int	ft_smart_push(int i, int moves, t_list **a, t_list **b)
 {
-	int		temp;
-	int		len;
-
-	len = ft_lstsize(*b);
-	temp = (*a)->number;
-	moves = ft_find_where((*b), temp);
-	if (moves > len / 2)
-		moves -= len + 1;
-	len = 0;
-	if (moves == -1)
-	{
-		pb(a, b);
-		rb(b);
-		i += 2;
-	}
-	if (moves > 0)
-		while (moves > 0)
-		{
-			rb(a);
-			i++;
-			len++;
-			moves--;
-		}
-	else
-		while (moves < 0 )
-		{
-			rrb(a);
-			i++;
-			len--;
-			moves++;
-		}
-	pb(a, b);
-	i++;
-	while (len != 0)
-	{
-		if (len >= 0)
-		{
-			rrb(b);
-			len--;
-		}
-		else if (len <= 0)
-		{
-			rb(b);
-			len++;
-		}
-		i++;
-	}
+	
 	return (i);
 }
 
 int	ft_for_100(t_list **a, t_list **b)
 {
-	int		min;
+	int		len;
 	int		moves;
 	int		i;
-	t_list	*block;
+	t_list	*lis;
 
 	i = 0;
-	block = NULL;
-	while (*a)
+	lis = NULL;
+	lis = ft_build_lis((*a), &lis);
+	len = ft_lstsize((*a));
+	while (len-- > 0)
 	{	
-		if (!block)
+		if ((*a)->number == lis->number)
 		{
-			min = ft_find_minmax(a, 'm');
-			block = ft_blocks(a, &block, 10, min);
+			ra(a);
+			i++;
+			if (lis->next != NULL)
+				lis = lis->next;
 		}
-		moves = ft_eval_move(a, ft_eval_nbr(a, &block));
-		if (moves == 0 && (*a)->next == NULL)
-			break ;
-		i = ft_bring_up_nbr(i , moves, a);
-		i = ft_smart_push(i, moves, a, b);
+		else
+		{
+			pb(a, b);
+			i++;
+		}
 	}
 	while (*b)
 	{
-		pa(a, b);
-		i++;
+		moves = ft_eval_move(a, ft_eval_nbr(a, b));
+		i = ft_smart_push(i, moves, b, a);
 	}
 	return (i);
 }
@@ -442,13 +429,15 @@ int	ft_checkdouble(t_list *astack, long int i)
 	return (0);
 }
 
-int	main (int argc, char *argv[])
+int	main (/*int argc, char *argv[]*/)
 {	
 	t_list	*a;
 	t_list	*b;
 	int			i;
 	long int	tmp;
 
+	int	argc = 11;
+	char	*argv[] = {"a.out", "4", "8", "2", "9", "12", "1", "27", "13", "32", "10", NULL};
 	a = NULL;
 	b = NULL;
 	if (argc < 2 || check_arg(argv, argc) == 0)
