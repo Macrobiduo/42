@@ -286,55 +286,136 @@ int	ft_find_where(t_list *node, int nbr)
 	return (pos);
 }
 
-int	ft_eval_move(t_list **a, int hold_number)
+int	ft_smart_push(int mov_a, int mov_b, t_list **a, t_list **b)
 {
-	int		next_distance;
-	int		list_size;
+	int		i;
 	int		k;
-	t_list	*temp;
 
+	i = 0;
 	k = 0;
-	if(!(*a))
-		return (0);
-	temp = (*a);
-	list_size = ft_lstsize(*a);
-	next_distance = ft_find_where(*a, hold_number);
-	if (next_distance > list_size / 2)
-		next_distance -= list_size;
-	return (next_distance);
+	while (mov_a > 0 && mov_b > 0)
+	{
+		rr(a, b);
+		i++;
+		mov_a--;
+		mov_b--;
+	}
+	while ((mov_a < 0 && mov_b < 0))
+	{
+		rrr(a, b);
+		i++;
+		mov_a++;
+		mov_b++;
+	}
+	while (mov_b != 0)
+	{
+		if (mov_b > 0)
+		{
+			rb(b);
+			i++;
+			mov_b--;
+		}
+		else
+		{
+			rrb(b);
+			i++;
+			mov_b++;
+		}
+	}
+	while (mov_a > 0)
+	{
+		ra(a);
+		i++;
+		mov_a--;
+		k++;
+	}
+	pa(a, b);
+	i++;
+	while (mov_a < 0)
+	{
+		rra(a);
+		i++;
+		mov_a++;
+		k--;
+	}
+	while (k != 0)
+	{
+		if (k > 0)
+		{
+			rra(a);
+			i++;
+			k--;
+		}
+		else
+		{
+			ra(a);
+			i++;
+			k++;
+		}
+	}
+	return (i);
+}
+
+int	ft_eval_move(int *mov_a, int *mov_b, int size)
+{
+	int		i;
+	int		sum;
+	int		best;
+
+	best = 500;
+	i = -1;
+	while (i++ < size)
+	{
+		if (mov_a[i] >=  0 && mov_b[i] >= 0)
+			if (mov_a[i] >= mov_b[i])
+				sum = mov_a[i];
+			else
+				sum = mov_b[i];
+		if (mov_a[i] >= 0 && mov_b[i] < 0)
+			sum = mov_a[i] + (mov_b[i] * -1);
+		if (mov_a[i] < 0 && mov_b[i] >= 0)
+			sum = (mov_a[i] * -1) + mov_b[i];
+		if (mov_a[i] < 0 && mov_b[i] < 0)
+			if (mov_a[i] <= mov_b[i])
+				sum = mov_a[i] * -1;
+			else
+				sum = mov_b[i] * -1;
+		if (sum < best)
+			best = i;
+		
+	}
+	return (best);
 }
 
 int	ft_eval_nbr(t_list **a, t_list **b)
 {
-	unsigned int	best;
-	int				current;
-	int				i;
-	int				nbr;
-	t_list			*temp;
+	int		*mov_a;
+	int		*mov_b;
+	int		i;
+	t_list	*temp;
 
-	best = 500;
 	i = 0;
 	temp = (*b);
+	mov_a = malloc ((sizeof(int)) * ft_lstsize(*b));
+	mov_b = malloc ((sizeof(int)) * ft_lstsize(*b));
 	while (temp)
 	{
-		current = ft_eval_move(a, temp->number);
-		if (current < 0)
-			current *= -1;
-		if (current < best)
-		{
-			best = current;
-			nbr = temp->number;
-		}
+		if (ft_find_where((*a), temp->number) < ft_lstsize(*a) / 2)
+			mov_a[i] = ft_find_where((*a), temp->number);
+		else
+			mov_a[i] = ft_find_where((*a), temp->number) - ft_lstsize(*a) - 1;
+		if (i < ft_lstsize(*b) / 2)
+			mov_b[i] = i;
+		else
+			mov_b[i] = i - ft_lstsize(*b) + 2;
+		i++;
 		temp = temp->next;
 	}
-	return (nbr);
-}
-
-int	ft_smart_push(int i, int moves, t_list **a, t_list **b)
-{
-	
+	i = ft_eval_move(mov_a, mov_b, ft_lstsize(*b));
+	i = ft_smart_push(mov_a[i], mov_b[i], a, b);
 	return (i);
 }
+
 
 int	ft_for_100(t_list **a, t_list **b)
 {
@@ -354,7 +435,7 @@ int	ft_for_100(t_list **a, t_list **b)
 			ra(a);
 			i++;
 			if (lis->next != NULL)
-				lis = lis->next;
+				lis = ft_remove_block(&lis, lis->number);
 		}
 		else
 		{
@@ -363,10 +444,7 @@ int	ft_for_100(t_list **a, t_list **b)
 		}
 	}
 	while (*b)
-	{
-		moves = ft_eval_move(a, ft_eval_nbr(a, b));
-		i = ft_smart_push(i, moves, b, a);
-	}
+		i += ft_eval_nbr(a, b);
 	return (i);
 }
 
@@ -429,15 +507,15 @@ int	ft_checkdouble(t_list *astack, long int i)
 	return (0);
 }
 
-int	main (/*int argc, char *argv[]*/)
+int	main (int argc, char *argv[])
 {	
 	t_list	*a;
 	t_list	*b;
 	int			i;
 	long int	tmp;
 
-	int	argc = 11;
-	char	*argv[] = {"a.out", "4", "8", "2", "9", "12", "1", "27", "13", "32", "10", NULL};
+	/*int	argc = 11;
+	char	*argv[] = {"a.out", "4", "8", "2", "9", "12", "1", "27", "13", "32", "10", NULL};*/
 	a = NULL;
 	b = NULL;
 	if (argc < 2 || check_arg(argv, argc) == 0)
