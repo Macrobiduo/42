@@ -240,6 +240,7 @@ t_list	*ft_build_lis(t_list *a, t_list **lis)
 	t_list	*start;
 
 	best = 0;
+	start = a;
 	while (start)
 	{
 		if (!(*lis))
@@ -250,25 +251,6 @@ t_list	*ft_build_lis(t_list *a, t_list **lis)
 			ft_lstadd_back(lis, ft_lstnew(start->number));
 	}
 	return (*lis);
-}
-
-int	ft_bring_up_nbr(int i, int moves, t_list **a)
-{
-	if (moves > 0)
-		while (moves > 0)
-		{
-			ra(a);
-			i++;
-			moves--;
-		}
-	else
-		while (moves < 0)
-		{
-			rra(a);
-			i++;
-			moves++;
-		}
-	return (i);
 }
 
 int	ft_find_where(t_list *node, int nbr)
@@ -302,22 +284,17 @@ int	ft_find_where(t_list *node, int nbr)
 	return (pos);
 }
 
-int	ft_smart_push(int mov_a, int mov_b, t_list **a, t_list **b)
+void	ft_smart_push(int mov_a, int mov_b, t_list **a, t_list **b)
 {
-	int		i;
-
-	i = 0;
 	while (mov_a > 0 && mov_b > 0)
 	{
 		rr(a, b);
-		i++;
 		mov_a--;
 		mov_b--;
 	}
 	while ((mov_a < 0 && mov_b < 0))
 	{
 		rrr(a, b);
-		i++;
 		mov_a++;
 		mov_b++;
 	}
@@ -326,31 +303,25 @@ int	ft_smart_push(int mov_a, int mov_b, t_list **a, t_list **b)
 		if (mov_b > 0)
 		{
 			rb(b);
-			i++;
 			mov_b--;
 		}
 		else
 		{
 			rrb(b);
-			i++;
 			mov_b++;
 		}
 	}
 	while (mov_a > 0)
 	{
 		ra(a);
-		i++;
 		mov_a--;
 	}
 	while (mov_a < 0)
 	{
 		rra(a);
-		i++;
 		mov_a++;
 	}
 	pa(a, b);
-	i++;
-	return (i);
 }
 
 int	ft_eval_move(int *mov_a, int *mov_b, int size)
@@ -364,7 +335,6 @@ int	ft_eval_move(int *mov_a, int *mov_b, int size)
 	i = 0;
 	while (i < size - 1)
 	{
-		printf("MOV_A: %d, MOV_B: %d\n", mov_a[i], mov_b[i]);
 		if (mov_a[i] >=  0 && mov_b[i] >= 0)
 			if (mov_a[i] >= mov_b[i])
 				sum = mov_a[i];
@@ -414,24 +384,17 @@ int	ft_eval_nbr(t_list **a, t_list **b)
 		temp = temp->next;
 	}
 	i = ft_eval_move(mov_a, mov_b, ft_lstsize(*b));
-	i = ft_smart_push(mov_a[i], mov_b[i], a, b);
-	printf("AAAAAAA--------------\n");
-	ft_printlist(*a);
-	printf("BBBBBBB--------------\n");
-	ft_printlist(*b);
-	printf("--------------\n");
+	ft_smart_push(mov_a[i], mov_b[i], a, b);
 	return (i);
 }
 
 
-int	ft_for_100(t_list **a, t_list **b)
+void	ft_for_100(t_list **a, t_list **b)
 {
 	int		len;
 	int		moves;
-	int		i;
 	t_list	*lis;
 
-	i = 0;
 	lis = NULL;
 	lis = ft_build_lis((*a), &lis);
 	len = ft_lstsize((*a));
@@ -440,36 +403,24 @@ int	ft_for_100(t_list **a, t_list **b)
 		if ((*a)->number == lis->number)
 		{
 			ra(a);
-			i++;
 			if (lis->next != NULL)
 				lis = ft_remove_block(&lis, lis->number);
 		}
 		else
-		{
 			pb(a, b);
-			i++;
-		}
 	}
-	printf("AAAAAAA--------------\n");
-	ft_printlist(*a);
-	printf("BBBBBBB--------------\n");
-	ft_printlist(*b);
-	printf("--------------\n");
 	while (*b)
-		i += ft_eval_nbr(a, b);
-	return (i);
+		ft_eval_nbr(a, b);
 }
 
 void	ft_start(t_list **a, t_list **b, int argc)
 {
-	int	moves;
 	if ((argc - 1) == 3)
 		ft_for_3(a);
 	else if ((argc - 1) == 5)
 		ft_for_5(a, b);
 	else if ((argc - 1) > 5)
-		moves = ft_for_100(a, b);
-	printf("MOSSE: %d", moves);
+		ft_for_100(a, b);
 }
 
 int	check_arg(char **argv, int argc)
@@ -515,6 +466,30 @@ int	ft_checkdouble(t_list *astack, long int i)
 	return (0);
 }
 
+void ft_conclude(t_list	**a)
+{
+	int		min;
+	int		pos;
+
+	min = ft_find_minmax(a, 'm');
+	pos = ft_get_node_pos((*a), min);
+	if (pos == 0)
+		exit(0) ;
+	if (pos >= ft_lstsize(*a) / 2)
+		pos -= ft_lstsize(*a);
+	while (pos != 0)
+		if (pos > 0)
+		{
+			ra(a);
+			pos--;
+		}
+		else
+		{
+			rra(a);
+			pos++;
+		}
+}
+
 int	main (int argc, char *argv[])
 {	
 	t_list	*a;
@@ -522,8 +497,6 @@ int	main (int argc, char *argv[])
 	int			i;
 	long int	tmp;
 
-	/*int	argc = 101;
-	char	*argv[] = {"a.out", "79",  "22",  "52",  "67",  "34",  "24",  "35",  "83",  "26",  "10",  "91",  "1",  "7",  "44",  "94",  "61",  "42",  "30",  "82",  "12",  "41",  "53",  "89",  "92",  "9",  "60",  "36",  "16",  "38",  "57",  "19",  "4",  "88",  "27",  "32",  "77",  "56",  "90",  "72",  "2",  "13",  "31",  "76",  "80",  "78",  "15",  "84",  "70",  "71",  "48",  "45",  "18",  "51",  "46",  "58",  "17",  "69",  "59",  "5",  "50",  "81",  "62",  "23",  "93",  "39",  "86",  "54",  "55",  "11",  "49",  "21",  "20",  "3",  "87",  "96",  "68",  "65",  "75",  "37",  "64",  "29",  "85",  "97",  "99",  "28",  "73",  "43",  "6",  "33",  "25",  "47",  "8",  "98",  "74",  "95",  "14",  "63",  "100",  "66",  "40", NULL};*/
 	a = NULL;
 	b = NULL;
 	if (argc < 2 || check_arg(argv, argc) == 0)
@@ -543,12 +516,9 @@ int	main (int argc, char *argv[])
 		ft_lstadd_back(&a, ft_lstnew(tmp));
 		i++;
 	}
-			ft_printlist(a);
-			printf("-----------------\n");
-			ft_start(&a, &b, argc);
-			printf("-----------------\n");
-			ft_printlist(a);
-			printf("-----------------\n");
-			ft_printlist(b);
+	ft_start(&a, &b, argc);
+	ft_printlist(a);
+	ft_conclude(&a);
+	ft_printlist(a);
 	return (0);
 }
