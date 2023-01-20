@@ -329,8 +329,12 @@ int	ft_smart_push(int mov_a, int mov_b, t_list **a, t_list **b)
 		mov_a--;
 		k++;
 	}
-	pa(a, b);
-	i++;
+	if (mov_a == -1)
+	{
+		rra(a);
+		i++;
+		mov_a--;
+	}
 	while (mov_a < 0)
 	{
 		rra(a);
@@ -338,17 +342,19 @@ int	ft_smart_push(int mov_a, int mov_b, t_list **a, t_list **b)
 		mov_a++;
 		k--;
 	}
+	pa(a, b);
+	i++;
 	while (k != 0)
 	{
 		if (k > 0)
 		{
-			rra(a);
+			ra(a);
 			i++;
 			k--;
 		}
-		else
+		else if (k < 0)
 		{
-			ra(a);
+			rra(a);
 			i++;
 			k++;
 		}
@@ -364,7 +370,7 @@ int	ft_eval_move(int *mov_a, int *mov_b, int size)
 
 	best = 500;
 	i = -1;
-	while (i++ < size)
+	while (i++ < size - 1)
 	{
 		if (mov_a[i] >=  0 && mov_b[i] >= 0)
 			if (mov_a[i] >= mov_b[i])
@@ -396,8 +402,8 @@ int	ft_eval_nbr(t_list **a, t_list **b)
 
 	i = 0;
 	temp = (*b);
-	mov_a = malloc ((sizeof(int)) * ft_lstsize(*b));
-	mov_b = malloc ((sizeof(int)) * ft_lstsize(*b));
+	mov_a = malloc ((sizeof(int)) * ft_lstsize(*b) + 1);
+	mov_b = malloc ((sizeof(int)) * ft_lstsize(*b) + 1);
 	while (temp)
 	{
 		if (ft_find_where((*a), temp->number) < ft_lstsize(*a) / 2)
@@ -507,15 +513,15 @@ int	ft_checkdouble(t_list *astack, long int i)
 	return (0);
 }
 
-int	main (int argc, char *argv[])
+int	main (/*int argc, char *argv[]*/)
 {	
 	t_list	*a;
 	t_list	*b;
 	int			i;
 	long int	tmp;
 
-	/*int	argc = 11;
-	char	*argv[] = {"a.out", "4", "8", "2", "9", "12", "1", "27", "13", "32", "10", NULL};*/
+	int	argc = 11;
+	char	*argv[] = {"a.out", "4", "8", "2", "9", "12", "1", "27", "13", "32", "10", NULL};
 	a = NULL;
 	b = NULL;
 	if (argc < 2 || check_arg(argv, argc) == 0)
