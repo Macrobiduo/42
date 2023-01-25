@@ -75,6 +75,8 @@ t_list	*ft_build_lis(t_list *a, t_list **lis)
 	t_list	*start;
 
 	best = 0;
+	pos = 0;
+	current = 0;
 	start = a;
 	while (start)
 	{

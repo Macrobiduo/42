@@ -11,6 +11,28 @@
 /* ************************************************************************** */
 
 #include "push_swap.h"
+int	ft_find_best(int mov_a, int mov_b, int sum)
+{
+	if (mov_a >= 0 && mov_b >= 0)
+	{
+		if (mov_a >= mov_b)
+			sum = mov_a;
+		else
+			sum = mov_b;
+	}
+	if (mov_a >= 0 && mov_b < 0)
+		sum = mov_a + (mov_b * -1);
+	if (mov_a < 0 && mov_b >= 0)
+		sum = (mov_a * -1) + mov_b;
+	if (mov_a < 0 && mov_b < 0)
+	{
+		if (mov_a <= mov_b)
+			sum = mov_a * -1;
+		else
+			sum = mov_b * -1;
+	}
+	return (sum);
+}
 
 int	ft_eval_move(int *mov_a, int *mov_b, int size)
 {
@@ -23,20 +45,7 @@ int	ft_eval_move(int *mov_a, int *mov_b, int size)
 	i = 0;
 	while (i < size - 1)
 	{
-		if (mov_a[i] >=  0 && mov_b[i] >= 0)
-			if (mov_a[i] >= mov_b[i])
-				sum = mov_a[i];
-			else
-				sum = mov_b[i];
-		if (mov_a[i] >= 0 && mov_b[i] < 0)
-			sum = mov_a[i] + (mov_b[i] * -1);
-		if (mov_a[i] < 0 && mov_b[i] >= 0)
-			sum = (mov_a[i] * -1) + mov_b[i];
-		if (mov_a[i] < 0 && mov_b[i] < 0)
-			if (mov_a[i] <= mov_b[i])
-				sum = mov_a[i] * -1;
-			else
-				sum = mov_b[i] * -1;
+		sum = ft_find_best(mov_a[i], mov_b[i], sum);
 		if (sum < best)
 		{
 			best_i = i;
@@ -76,61 +85,9 @@ int	ft_eval_nbr(t_list **a, t_list **b)
 	return (i);
 }
 
-void	ft_for_3(t_list **a)
-{
-	int		i;
-
-	i = ft_check_compare(*a, 1, 2, 3);
-	if (i == 1)
-		sa(*a);
-	else if (i == 2)
-	{
-		sa(*a);
-		rra(a);
-	}
-	else if (i == 3)
-		ra(a);
-	else if (i == 4)
-	{
-		sa(*a);
-		ra(a);
-	}
-	else if (i == 5)
-		rra(a);
-}
-
-void	ft_for_5(t_list **a, t_list **b)
-{
-	t_list	*last;
-
-	pb(a, b);
-	pb(a, b);
-	ft_for_3(a);
-	while ((*b) != NULL)
-	{
-		last = ft_lstlast(*a);
-		if ((*b)->number < (*a)->number)
-			pa(a, b);
-		else if ((*b)->number > last->number)
-		{
-			pa(a, b);
-			ra(a);
-		}
-		else if ((*b)->number > (*a)->number && (*b)->number < last->number)
-		{
-			while ((*b)->number > (*a)->number)
-				ra(a);
-			pa(a, b);
-			while ((*a)->number > ft_lstlast(*a)->number)
-				rra(a);
-		}
-	}
-}
-
 void	ft_for_100(t_list **a, t_list **b)
 {
 	int		len;
-	int		moves;
 	t_list	*lis;
 
 	lis = NULL;

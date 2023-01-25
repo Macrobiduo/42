@@ -12,28 +12,29 @@
 
 #include "push_swap.h"
 
-int	ft_check_compare(t_list *x, int a, int b, int c)
+long int	ft_atoi(const char *str)
 {
-	if (ft_get_number(x, a) > ft_get_number(x, b))
-		if (ft_get_number(x, b) < ft_get_number(x, c))
-			if (ft_get_number(x, a) < ft_get_number(x, c))
-				return (1);
-	if (ft_get_number(x, a) > ft_get_number(x, b))
-		if (ft_get_number(x, b) > ft_get_number(x, c))
-			if (ft_get_number(x, a) > ft_get_number(x, c))
-				return (2);
-	if (ft_get_number(x, a) > ft_get_number(x, b))
-		if (ft_get_number(x, b) < ft_get_number(x, c))
-			if (ft_get_number(x, a) > ft_get_number(x, c))
-				return (3);
-	if (ft_get_number(x, a) < ft_get_number(x, b))
-		if (ft_get_number(x, b) > ft_get_number(x, c))
-			if (ft_get_number(x, a) < ft_get_number(x, c))
-				return (4);
-	if (ft_get_number(x, a) < ft_get_number(x, b))
-		if (ft_get_number(x, b) > ft_get_number(x, c))
-			if (ft_get_number(x, a) > ft_get_number(x, c))
-				return (5);
+	long int	result;
+	int			i;
+	int			sign;
+
+	i = 0;
+	sign = 1;
+	result = 0;
+	while (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))
+		i++;
+	if (str[i] == '+' || str[i] == '-')
+	{
+		if (str[i] == '-')
+			sign *= -1;
+		i++;
+	}
+	while (str[i] >= '0' && str[i] <= '9')
+	{
+		result = result * 10 + str[i] - '0';
+		i++;
+	}
+	return (result * sign);
 }
 
 int	ft_find_minmax(t_list **a, char c)
