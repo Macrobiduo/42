@@ -80,7 +80,7 @@ int	ft_find_where(t_list *node, int nbr)
 	else if (nbr > max)
 		pos = ft_get_node_pos(node, max) + 1;
 	else
-		while (node && !(node->number < nbr && node->next->number > nbr))
+		while (!(node->number < nbr && node->next->number > nbr))
 		{
 			pos++;
 			node = node->next;
