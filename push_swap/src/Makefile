@@ -1,18 +1,16 @@
 CC=cc
 NAME=push_swap
 CFLAGS=-Wall -Wextra -Werror
-OPTIONS=-c -I.
-SRC=	ft_analysis.c	ft_checks.c		ft_evaluation.c		ft_list_func.c		ft_list_func2.c \
-		ft_moves.c		ft_moves2.c		ft_moves3.c			push_swap.c \
+OPTIONS=-o
+SRC=	ft_analysis.c	ft_checks.c	ft_evaluation.c		ft_list_func.c		ft_list_func2.c \
+		ft_moves.c		ft_moves2.c	ft_moves3.c		push_swap.c \
 
 OBJ= $(SRC:.c=.o)
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	$(CC) $(CFLAGS) $(OPTIONS) $(SRC) -o $(NAME)
-	ar -crs $(NAME) $(OBJ)
-
+	$(CC) $(CFLAGS) $(SRC) $(OPTIONS) $(NAME)
 clean:
 	rm -f $(OBJ)
 

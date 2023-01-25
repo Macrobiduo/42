@@ -27,7 +27,7 @@ void	pb(t_list **a, t_list **b)
 		ft_lstadd_front(b, ft_lstnew(temp->number));
 	else
 		ft_lstadd_front(b, temp);
-	write(1, "pa\n", 3);
+	write(1, "pb\n", 3);
 }
 
 void	pa(t_list **a, t_list **b)
@@ -45,5 +45,5 @@ void	pa(t_list **a, t_list **b)
 		ft_lstadd_front(a, ft_lstnew(temp->number));
 	else
 		ft_lstadd_front(a, temp);
-	write(1, "pb\n", 3);
+	write(1, "pa\n", 3);
 }

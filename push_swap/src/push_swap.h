@@ -61,6 +61,5 @@ void	pa(t_list **a, t_list **b);
 void ft_conclude(t_list	**a);
 void	ft_start(t_list **a, t_list **b, int argc);
 void	ft_smart_push(int mov_a, int mov_b, t_list **a, t_list **b);
-void ft_exe_moves(int mov_a, int mov_b, t_list **a, t_list **b);
-
+void 	ft_exe_moves(int mov_b, t_list **b);
 #endif

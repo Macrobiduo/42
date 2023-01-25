@@ -12,25 +12,8 @@
 
 #include "push_swap.h"
 
-void ft_exe_moves(int mov_a, int mov_b, t_list **a, t_list **b)
+void ft_exe_moves(int mov_b, t_list **b)
 {
-	while (mov_a > 0 && mov_b > 0)
-	{
-		rr(a, b);
-		mov_a--;
-		mov_b--;
-	}
-	while ((mov_a < 0 && mov_b < 0))
-	{
-		rrr(a, b);
-		mov_a++;
-		mov_b++;
-	}
-}
-
-void	ft_smart_push(int mov_a, int mov_b, t_list **a, t_list **b)
-{
-	ft_exe_moves(mov_a, mov_b, a, b);
 	while (mov_b != 0)
 	{
 		if (mov_b > 0)
@@ -44,6 +27,24 @@ void	ft_smart_push(int mov_a, int mov_b, t_list **a, t_list **b)
 			mov_b++;
 		}
 	}
+}
+
+void	ft_smart_push(int mov_a, int mov_b, t_list **a, t_list **b)
+{
+	while (mov_a > 0 && mov_b > 0)
+	{
+		rr(a, b);
+		mov_a--;
+		mov_b--;
+	}
+	while (mov_a < 0 && mov_b < 0)
+	{
+		rrr(a, b);
+		mov_a++;
+		mov_b++;
+	}
+	if (mov_b != 0)
+		ft_exe_moves(mov_b, b);
 	while (mov_a > 0)
 	{
 		ra(a);

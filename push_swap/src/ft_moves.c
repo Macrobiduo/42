@@ -47,8 +47,10 @@ void	ss(t_list *a, t_list *b)
 
 void	ra(t_list **a)
 {
+	t_list	*temp;
 	t_list	*head;
 
+	temp = (*a)->next;
 	head = (*a);
 	ft_lstlast(*a)->next = *a;
 	(*a) = (*a)->next;
@@ -58,8 +60,10 @@ void	ra(t_list **a)
 
 void	rb(t_list **b)
 {
+	t_list	*temp;
 	t_list	*head;
 
+	temp = (*b)->next;
 	head = (*b);
 	ft_lstlast(*b)->next = *b;
 	(*b) = (*b)->next;
