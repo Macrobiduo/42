@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
 int	ft_find_best(int mov_a, int mov_b, int sum)
 {
 	if (mov_a >= 0 && mov_b >= 0)
@@ -43,7 +44,7 @@ int	ft_eval_move(int *mov_a, int *mov_b, int size)
 
 	best = 500;
 	i = 0;
-	while (i < size - 1)
+	while (i < size)
 	{
 		sum = ft_find_best(mov_a[i], mov_b[i], sum);
 		if (sum < best)
@@ -104,6 +105,7 @@ void	ft_for_100(t_list **a, t_list **b)
 		else
 			pb(a, b);
 	}
+	free (lis);
 	while (*b)
 		ft_eval_nbr(a, b);
 }

@@ -12,7 +12,15 @@
 
 #include "push_swap.h"
 
-void ft_exe_moves(int mov_b, t_list **b)
+void printflist(t_list *a)
+{
+	while (a)
+	{	
+		printf("%d\n", a->number);
+		a = a->next;
+	}
+}
+int ft_exe_moves(int mov_b, t_list **b)
 {
 	while (mov_b != 0)
 	{
@@ -27,6 +35,7 @@ void ft_exe_moves(int mov_b, t_list **b)
 			mov_b++;
 		}
 	}
+	return (mov_b);
 }
 
 void	ft_smart_push(int mov_a, int mov_b, t_list **a, t_list **b)
@@ -44,7 +53,7 @@ void	ft_smart_push(int mov_a, int mov_b, t_list **a, t_list **b)
 		mov_b++;
 	}
 	if (mov_b != 0)
-		ft_exe_moves(mov_b, b);
+		mov_b = ft_exe_moves(mov_b, b);
 	while (mov_a > 0)
 	{
 		ra(a);

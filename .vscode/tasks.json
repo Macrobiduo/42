@@ -2,8 +2,8 @@
       "tasks": [
             {
                   "type": "cppbuild",
-                  "label": "C/C++: gcc build active file",
-                  "command": "gcc",
+                  "label": "C/C++: cc build active file",
+                  "command": "cc",
                   "args": [
                         "-fdiagnostics-color=always",
                         "-g",
@@ -15,7 +15,7 @@
                         "cwd": "${fileDirname}"
                   },
                   "problemMatcher": [
-                        "$gcc"
+                        "$cc"
                   ],
                   "group": {
                         "kind": "build",
