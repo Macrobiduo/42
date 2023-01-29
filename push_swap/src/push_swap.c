@@ -12,15 +12,7 @@
 
 #include "push_swap.h"
 
-void printflist(t_list *a)
-{
-	while (a)
-	{	
-		printf("%d\n", a->number);
-		a = a->next;
-	}
-}
-int ft_exe_moves(int mov_b, t_list **b)
+int	ft_exe_moves(int mov_b, t_list **b)
 {
 	while (mov_b != 0)
 	{
@@ -77,8 +69,7 @@ void	ft_start(t_list **a, t_list **b, int argc)
 		ft_for_100(a, b);
 }
 
-
-void ft_conclude(t_list	**a)
+void	ft_conclude(t_list	**a)
 {
 	int		min;
 	int		pos;
@@ -86,10 +77,11 @@ void ft_conclude(t_list	**a)
 	min = ft_find_minmax(a, 'm');
 	pos = ft_get_node_pos((*a), min);
 	if (pos == 0)
-		exit(0) ;
+		exit(0);
 	if (pos >= ft_lstsize(*a) / 2)
 		pos -= ft_lstsize(*a);
 	while (pos != 0)
+	{
 		if (pos > 0)
 		{
 			ra(a);
@@ -100,32 +92,26 @@ void ft_conclude(t_list	**a)
 			rra(a);
 			pos++;
 		}
+	}
 }
 
-int	main (int argc, char *argv[])
+int	main(int argc, char *argv[])
 {	
-	t_list	*a;
-	t_list	*b;
+	t_list		*a;
+	t_list		*b;
 	int			i;
-	long int	tmp;
 
 	a = NULL;
 	b = NULL;
 	if (argc < 2 || check_arg(argv, argc) == 0)
 	{
-		write(1,"Error\n", 6);
+		write(1, "Error\n", 6);
 		return (0);
 	}
 	i = 1;
 	while (i < argc)
 	{
-		tmp = ft_atoi(argv[i]);
-		if (ft_checkdouble(a, tmp) == 1)
-		{
-			write(1,"Error\n", 6);
-			exit (1);
-		}
-		ft_lstadd_back(&a, ft_lstnew(tmp));
+		ft_insert(argv[i], &a);
 		i++;
 	}
 	ft_start(&a, &b, argc);

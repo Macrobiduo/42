@@ -47,3 +47,30 @@ void	pa(t_list **a, t_list **b)
 		ft_lstadd_front(a, temp);
 	write(1, "pa\n", 3);
 }
+
+int	ft_check_border(t_list *node, int pos, int nbr)
+{
+	int				min;
+	int				max;
+
+	min = ft_find_minmax(&node, 'm');
+	max = ft_find_minmax(&node, 'M');
+	if (nbr < min)
+		pos = ft_get_node_pos(node, min);
+	else if (nbr > max)
+		pos = ft_get_node_pos(node, max);
+	return (pos);
+}
+
+void	ft_insert(char *argv, t_list **a)
+{
+	long int	tmp;
+
+	tmp = ft_atoi(argv);
+	if (ft_checkdouble(*a, tmp) == 1)
+	{
+		write(1,"Error\n", 6);
+		exit (1);
+	}
+	ft_lstadd_back(a, ft_lstnew(tmp));
+}

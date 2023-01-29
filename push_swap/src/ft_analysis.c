@@ -68,20 +68,13 @@ int	ft_find_minmax(t_list **a, char c)
 int	ft_find_where(t_list *node, int nbr)
 {
 	unsigned int	pos;
-	int				min;
-	int				max;
 
-	min = ft_find_minmax(&node, 'm');
-	max = ft_find_minmax(&node, 'M');
 	pos = 0;
 	if (!node || (nbr < node->number && nbr > ft_lstlast(node)->number))
 		return (0);
-	if (nbr < min)
-		pos = ft_get_node_pos(node, min);
-	else if (nbr > max)
-		pos = ft_get_node_pos(node, max);
-	else
-		while (!(node->number < nbr && node->next->number > nbr))
+	pos = ft_check_border(node, pos, nbr);
+	if (pos == 0)
+		while (!((node->number < nbr) && (node->next->number > nbr)))
 		{
 			pos++;
 			node = node->next;
@@ -98,7 +91,7 @@ int	ft_find_where(t_list *node, int nbr)
 
 int	ft_get_number(t_list *head, int k)
 {
-	t_list	*temp;
+	t_list		*temp;
 	int			i;
 
 	temp = head;

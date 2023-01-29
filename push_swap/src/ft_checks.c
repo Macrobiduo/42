@@ -43,8 +43,8 @@ int	check_arg(char **argv, int argc)
 	int		j;
 	int		sign;
 
-	j = 1;
-	while (j < argc)
+	j = 0;
+	while (++j < argc)
 	{
 		i = 0;
 		sign = 0;
@@ -58,11 +58,10 @@ int	check_arg(char **argv, int argc)
 			if ((argv[j][i] == '+' || argv[j][i] == '-') && sign == 1)
 				return (0);
 			else
-				if (!(argv[j][i] > 47 && argv[j][i]  < 58))
+				if (!(argv[j][i] > 47 && argv[j][i] < 58))
 					return (0);
 			i++;
 		}
-		j++;
 	}
 	return (1);
 }

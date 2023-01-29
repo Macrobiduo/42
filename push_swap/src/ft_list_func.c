@@ -95,7 +95,7 @@ t_list	*ft_find_next(t_list *a)
 	t_list	*temp;
 
 	temp = a->next;
-	while(temp)
+	while (temp)
 	{
 		if (a->number < temp->number)
 			break ;
