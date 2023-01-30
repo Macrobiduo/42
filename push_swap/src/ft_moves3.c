@@ -74,3 +74,18 @@ void	ft_insert(char *argv, t_list **a)
 	}
 	ft_lstadd_back(a, ft_lstnew(tmp));
 }
+
+t_list	*ft_free_list(t_list *list)
+{
+	t_list	*next;
+
+	while (list->next)
+	{
+		next = list->next;
+		free (list);
+		list = next;
+	}
+	free (list);
+	list = NULL;
+	return (list);
+}

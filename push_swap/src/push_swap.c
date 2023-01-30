@@ -106,6 +106,7 @@ int	main(int argc, char *argv[])
 	if (argc < 2 || check_arg(argv, argc) == 0)
 	{
 		write(1, "Error\n", 6);
+		ft_free_list(a);
 		return (0);
 	}
 	i = 1;
@@ -116,5 +117,6 @@ int	main(int argc, char *argv[])
 	}
 	ft_start(&a, &b, argc);
 	ft_conclude(&a);
+	a = ft_free_list(a);
 	return (0);
 }

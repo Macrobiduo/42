@@ -57,14 +57,12 @@ int	ft_eval_move(int *mov_a, int *mov_b, int size)
 	return (best_i);
 }
 
-int	ft_eval_nbr(t_list **a, t_list **b)
+int	ft_eval_nbr(t_list **a, t_list **b, int i)
 {
 	int		*mov_a;
 	int		*mov_b;
-	int		i;
 	t_list	*temp;
 
-	i = 0;
 	temp = (*b);
 	mov_a = malloc ((sizeof(int)) * ft_lstsize(*b) + 1);
 	mov_b = malloc ((sizeof(int)) * ft_lstsize(*b) + 1);
@@ -83,6 +81,8 @@ int	ft_eval_nbr(t_list **a, t_list **b)
 	}
 	i = ft_eval_move(mov_a, mov_b, ft_lstsize(*b));
 	ft_smart_push(mov_a[i], mov_b[i], a, b);
+	free (mov_a);
+	free (mov_b);
 	return (i);
 }
 
@@ -107,5 +107,5 @@ void	ft_for_100(t_list **a, t_list **b)
 	}
 	free (lis);
 	while (*b)
-		ft_eval_nbr(a, b);
+		ft_eval_nbr(a, b, 0);
 }
