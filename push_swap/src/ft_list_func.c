@@ -50,14 +50,12 @@ t_list	*ft_find_lis(t_list *a, int pos, int current, int best)
 		while (temp)
 		{
 			if (temp->number > current)
-			{
 				pos++;
+			if (temp->number > current)
 				current = temp->number;
-			}
 			temp = temp->next;
 		}
-		pos++;
-		if (best < pos)
+		if (best < pos++)
 		{
 			best = pos;
 			ret = a;

@@ -69,7 +69,7 @@ void	ft_insert(char *argv, t_list **a)
 	tmp = ft_atoi(argv);
 	if (ft_checkdouble(*a, tmp) == 1)
 	{
-		write(1,"Error\n", 6);
+		write (1, "Error\n", 6);
 		exit (1);
 	}
 	ft_lstadd_back(a, ft_lstnew(tmp));

@@ -74,6 +74,7 @@ int	ft_find_where(t_list *node, int nbr)
 		return (0);
 	pos = ft_check_border(node, pos, nbr);
 	if (pos == 0)
+	{
 		while (!((node->number < nbr) && (node->next->number > nbr)))
 		{
 			pos++;
@@ -84,6 +85,7 @@ int	ft_find_where(t_list *node, int nbr)
 				break ;
 			}
 		}
+	}
 	if (node && node->number < nbr)
 		pos++;
 	return (pos);
