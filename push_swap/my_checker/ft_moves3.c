@@ -6,7 +6,7 @@
 /*   By: dballini <dballini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 22:11:35 by dballini          #+#    #+#             */
-/*   Updated: 2023/01/31 15:09:18 by dballini         ###   ########.fr       */
+/*   Updated: 2023/01/31 18:06:18 by dballini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,4 +93,3 @@ t_list	*ft_lstnew(int content)
 	p->next = NULL;
 	return (p);
 }
-

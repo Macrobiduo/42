@@ -13,13 +13,15 @@ $(NAME): $(OBJ)
 	$(CC) $(CFLAGS) $(SRC) $(OPTIONS) $(NAME)
 clean:
 	rm -f $(OBJ)
-
+	make clean -C my_checker
+	
 fclean: clean
 	rm -f $(NAME)
+	make fclean -C my_checker
 
 re: fclean all	
 
 bonus:
 	make -C my_checker
 
-.PHONY: clean fclean all re
+.PHONY: clean fclean all re bonus
