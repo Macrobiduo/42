@@ -6,7 +6,7 @@
 /*   By: dballini <dballini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 16:33:57 by dballini          #+#    #+#             */
-/*   Updated: 2023/01/30 18:29:08 by dballini         ###   ########.fr       */
+/*   Updated: 2023/01/31 17:52:20 by dballini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,19 +78,21 @@ int	ft_checkdouble(t_list *astack, long int i)
 	return (0);
 }
 
-t_list	*ft_free_list(t_list *list)
+void	ft_free_list(t_list *list)
 {
 	t_list	*next;
 
-	while (list->next)
+	if (list != NULL)
 	{
-		next = list->next;
-		free (list);
-		list = next;
+		while (list->next)
+		{
+			next = list->next;
+			free (list);
+			list = next;
+		}
 	}
 	free (list);
 	list = NULL;
-	return (list);
 }
 
 void	ft_insert(char *argv, t_list **a)
@@ -118,26 +120,96 @@ int	ft_strcmp(char *s1, char *s2)
 
 void    ft_do_moves(char *line, t_list **a, t_list **b)
 {
-    if (ft_strcmp(line, "sa"))
+    if (ft_strcmp(line, "sa\n") == 0)
         sa(*a);
-    else if (ft_strcmp(line, "sb"))
+    else if (ft_strcmp(line, "sb\n") == 0)
         sb(*b);
-    else if (ft_strcmp(line, "ra"))
+    else if (ft_strcmp(line, "ra\n") == 0)
         ra(a);
-    else if (ft_strcmp(line, "rb"))
+    else if (ft_strcmp(line, "rb\n") == 0)
         rb(b);
-    else if (ft_strcmp(line, "rr"))
+    else if (ft_strcmp(line, "rr\n") == 0)
         rr(a, b);
-    else if (ft_strcmp(line, "rra"))
+    else if (ft_strcmp(line, "rra\n") == 0)
         rra(a);
-    else if (ft_strcmp(line, "rrb"))
+    else if (ft_strcmp(line, "rrb\n") == 0)
         rrb(b);
-    else if (ft_strcmp(line, "rrr"))
+    else if (ft_strcmp(line, "rrr\n") == 0)
         rrr(a, b);
-    else if (ft_strcmp(line, "pa"))
+    else if (ft_strcmp(line, "pa\n") == 0)
         pa(a, b);
-    else if (ft_strcmp(line, "pb"))
+    else if (ft_strcmp(line, "pb\n") == 0)
         pb(a, b);
+}
+
+void	ft_get_line(t_list **a, t_list **b)
+{
+	char        *line;
+
+	line = get_next_line(0);
+	ft_do_moves(line, a, b);
+	while (line != NULL)
+	{
+		line = get_next_line(0);
+		if (line == NULL)
+			break ;
+		ft_do_moves(line, a, b);
+	}
+}
+
+int	ft_find_minmax(t_list **a, char c)
+{
+	int		nbr;
+	t_list	*temp;
+
+	temp = (*a);
+	nbr = temp->number;
+	if (c == 'M')
+	{
+		while (temp)
+		{
+			if (nbr < temp->number)
+				nbr = temp->number;
+			temp = temp->next;
+		}
+	}
+	if (c == 'm')
+	{
+		while (temp)
+		{
+			if (nbr > temp->number)
+				nbr = temp->number;
+			temp = temp->next;
+		}
+	}
+	return (nbr);
+}
+
+void	ft_okornot(t_list **a, t_list **b)
+{
+	int		prev;
+	int		min;
+	int		max;
+
+	min = ft_find_minmax(a, 'm');
+	max = ft_find_minmax(a, 'M');
+	if ((*b) != NULL || (*a)->number != min || ft_lstlast(*a)->number != max)
+	{
+		write(1, "KO\n", 3);
+		ft_free_list(*b);
+		exit (1);
+	}
+	prev = (*a)->number;
+	while ((*a)->next != NULL)
+	{
+		*a = (*a)->next;
+		if ((*a)->number < prev)
+		{
+			write(1, "KO\n", 3);
+			exit (1);
+		}
+	}
+	write (1, "OK\n", 3);
 }
 
 int	main(int argc, char *argv[])
@@ -145,7 +217,6 @@ int	main(int argc, char *argv[])
 	t_list		*a;
 	t_list		*b;
 	int			i;
-    char        *line;
 
 	a = NULL;
 	b = NULL;
@@ -161,12 +232,8 @@ int	main(int argc, char *argv[])
 		ft_insert(argv[i], &a);
 		i++;
 	}
-    while (line != NULL)
-    {
-        line = get_next_line(0);
-        ft_do_moves(line, &a, &b);
-        free (line);
-    }
-	a = ft_free_list(a);
+	ft_get_line(&a, &b);
+	ft_okornot(&a, &b);
+	ft_free_list(a);
 	return (0);
 }

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dballini <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dballini <dballini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 15:39:12 by dballini          #+#    #+#             */
-/*   Updated: 2022/11/25 15:39:12 by dballini         ###   ########.fr       */
+/*   Updated: 2023/01/30 18:36:58 by dballini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "checker.h"
 
 char	*ft_strdup(char *src)
 {

@@ -19,4 +19,7 @@ fclean: clean
 
 re: fclean all	
 
+bonus:
+	make -C my_checker
+
 .PHONY: clean fclean all re
