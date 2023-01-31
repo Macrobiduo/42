@@ -6,7 +6,7 @@
 /*   By: dballini <dballini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 16:33:57 by dballini          #+#    #+#             */
-/*   Updated: 2023/01/31 18:20:14 by dballini         ###   ########.fr       */
+/*   Updated: 2023/01/31 18:47:01 by dballini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,12 @@ void	ft_get_line(t_list **a, t_list **b)
 	{
 		line = get_next_line(0);
 		if (line == NULL)
+		{
+			free (line);
 			break ;
+		}
 		ft_do_moves(line, a, b);
+		free (line);
 	}
 }
 
@@ -56,6 +60,7 @@ void	ft_okornot(t_list **a, t_list **b)
 	int		prev;
 	int		min;
 	int		max;
+	t_list	*temp;
 
 	min = ft_find_minmax(a, 'm');
 	max = ft_find_minmax(a, 'M');
@@ -63,18 +68,21 @@ void	ft_okornot(t_list **a, t_list **b)
 	{
 		write(1, "KO\n", 3);
 		ft_free_list(*b);
+		ft_free_list(*a);
 		exit (1);
 	}
 	prev = (*a)->number;
+	temp = *a;
 	while ((*a)->next != NULL)
 	{
 		*a = (*a)->next;
 		if ((*a)->number < prev)
 		{
-			write(1, "KO\n", 3);
+			write(1, "KO\n", 3);			
 			exit (1);
 		}
 	}
+	ft_free_list(temp);
 	write (1, "OK\n", 3);
 }
 
@@ -100,6 +108,5 @@ int	main(int argc, char *argv[])
 	}
 	ft_get_line(&a, &b);
 	ft_okornot(&a, &b);
-	ft_free_list(a);
 	return (0);
 }
