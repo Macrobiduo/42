@@ -1,4 +1,4 @@
-CC=gcc
+CC=cc
 NAME=checker
 CFLAGS=-Wall -Wextra -Werror
 OPTIONS=-o

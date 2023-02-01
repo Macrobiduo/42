@@ -1,4 +1,4 @@
-CC=gcc
+CC=cc
 NAME=push_swap
 CFLAGS=-Wall -Wextra -Werror
 OPTIONS=-o
