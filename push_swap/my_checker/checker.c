@@ -6,7 +6,7 @@
 /*   By: dballini <dballini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 16:33:57 by dballini          #+#    #+#             */
-/*   Updated: 2023/02/01 14:53:29 by dballini         ###   ########.fr       */
+/*   Updated: 2023/02/09 15:13:22 by dballini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,15 @@ void	ft_get_line(t_list **a, t_list **b)
 	}
 }
 
+void	ft_free_checker(t_list **a, t_list **b)
+{
+	write(1, "KO\n", 3);
+	ft_free_list(*a);
+	if (*b)
+		ft_free_list(*b);
+	exit (1);
+}
+
 void	ft_okornot(t_list **a, t_list **b)
 {
 	int		prev;
@@ -66,22 +75,14 @@ void	ft_okornot(t_list **a, t_list **b)
 	min = ft_find_minmax(a, 'm');
 	max = ft_find_minmax(a, 'M');
 	if ((*b) != NULL || (*a)->number != min || ft_lstlast(*a)->number != max)
-	{
-		write(1, "KO\n", 3);
-		ft_free_list(*b);
-		ft_free_list(*a);
-		exit (1);
-	}
+		ft_free_checker(a, b);
 	prev = (*a)->number;
 	temp = *a;
 	while ((*a)->next != NULL)
 	{
 		*a = (*a)->next;
 		if ((*a)->number < prev)
-		{
-			write(1, "KO\n", 3);			
-			exit (1);
-		}
+			ft_free_checker(a, b);
 	}
 	ft_free_list(temp);
 	write (1, "OK\n", 3);

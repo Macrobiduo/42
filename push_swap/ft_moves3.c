@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_moves3.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dballini <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dballini <dballini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 22:11:35 by dballini          #+#    #+#             */
-/*   Updated: 2023/01/20 22:11:35 by dballini         ###   ########.fr       */
+/*   Updated: 2023/02/09 15:04:42 by dballini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ void	ft_insert(char *argv, t_list **a)
 	if (ft_checkdouble(*a, tmp) == 1)
 	{
 		write (1, "Error\n", 6);
+		*a = ft_free_list(*a);
 		exit (1);
 	}
 	ft_lstadd_back(a, ft_lstnew(tmp));

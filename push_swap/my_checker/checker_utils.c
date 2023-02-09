@@ -6,7 +6,7 @@
 /*   By: dballini <dballini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 18:06:53 by dballini          #+#    #+#             */
-/*   Updated: 2023/01/31 18:22:32 by dballini         ###   ########.fr       */
+/*   Updated: 2023/02/09 15:09:07 by dballini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,8 +99,9 @@ void	ft_insert(char *argv, t_list **a)
 	tmp = ft_atoi(argv);
 	if (ft_checkdouble(*a, tmp) == 1)
 	{
-		write (1, "Error\n", 6);
-		exit (1);
+		write(1, "Error\n", 6);
+		*a = ft_free_list(*a);
+		exit(1);
 	}
 	ft_lstadd_back(a, ft_lstnew(tmp));
 }

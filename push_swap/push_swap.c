@@ -6,7 +6,7 @@
 /*   By: dballini <dballini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 18:54:31 by dballini          #+#    #+#             */
-/*   Updated: 2023/01/31 18:42:36 by dballini         ###   ########.fr       */
+/*   Updated: 2023/02/09 15:09:07 by dballini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	ft_conclude(t_list	**a)
 	min = ft_find_minmax(a, 'm');
 	pos = ft_get_node_pos((*a), min);
 	if (pos == 0)
-		exit(0);
+		return ;
 	if (pos >= ft_lstsize(*a) / 2)
 		pos -= ft_lstsize(*a);
 	while (pos != 0)
@@ -106,7 +106,7 @@ int	main(int argc, char *argv[])
 	if (argc < 2 || check_arg(argv, argc) == 0)
 	{
 		write(1, "Error\n", 6);
-		ft_free_list(a);
+		a = ft_free_list(a);
 		return (0);
 	}
 	i = 1;
