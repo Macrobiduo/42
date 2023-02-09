@@ -6,7 +6,7 @@
 /*   By: dballini <dballini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 16:33:54 by dballini          #+#    #+#             */
-/*   Updated: 2023/02/09 15:06:01 by dballini         ###   ########.fr       */
+/*   Updated: 2023/02/09 15:15:04 by dballini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void		ft_do_moves(char *line, t_list **a, t_list **b);
 int			ft_strcmp(char *s1, char *s2);
 void		ft_insert(char *argv, t_list **a);
 t_list		*ft_free_list(t_list *list);
+void	ft_free_checker(t_list **a, t_list **b);
 int			ft_checkdouble(t_list *astack, long int i);
 int			check_arg(char **argv, int argc);
 void		ft_lstadd_front(t_list **lst, t_list *new);
