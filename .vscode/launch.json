@@ -9,10 +9,10 @@
             "name": "(gdb) Attach",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}\\push_swap\\my_checker\\checker",
+            "program": "${workspaceFolder}\\push_swap\\push_swap",
             "MIMode": "gdb",
             "cwd": "${workspaceFolder}",
-            "args": ["4","5","2","7"],
+            "args": ["478", "215", "-206", "898", "199"],
             "setupCommands": [
                 {
                     "description": "Enable pretty-printing for gdb",

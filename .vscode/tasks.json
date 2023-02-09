@@ -3,19 +3,19 @@
             {
                   "type": "cppbuild",
                   "label": "C/C++: cc build active file",
-                  "command": "gcc",
+                  "command": "cc",
                   "args": [
                         "-fdiagnostics-color=always",
                         "-g",
-                        "${workspaceFolder}/push_swap/my_checker/*.c",
+                        "${workspaceFolder}/push_swap/*.c",
                         "-o",
-                        "checker",
+                        "push_swap",
                   ],
                   "options": {
                         "cwd": "${fileDirname}"
                   },
                   "problemMatcher": [
-                        "$gcc"
+                        "$cc"
                   ],
                   "group": {
                         "kind": "build",

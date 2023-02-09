@@ -6,7 +6,7 @@
 /*   By: dballini <dballini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 18:54:29 by dballini          #+#    #+#             */
-/*   Updated: 2023/02/09 15:04:44 by dballini         ###   ########.fr       */
+/*   Updated: 2023/02/09 17:01:11 by dballini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,4 +66,5 @@ void		ft_start(t_list **a, t_list **b, int argc);
 void		ft_smart_push(int mov_a, int mov_b, t_list **a, t_list **b);
 int			ft_exe_moves(int mov_b, t_list **b);
 void		printflist(t_list *a);
+int			ft_ordered(t_list *a);
 #endif

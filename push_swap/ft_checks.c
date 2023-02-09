@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_checks.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dballini <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dballini <dballini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 22:31:23 by dballini          #+#    #+#             */
-/*   Updated: 2023/01/20 22:31:23 by dballini         ###   ########.fr       */
+/*   Updated: 2023/02/09 16:56:21 by dballini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,28 +104,9 @@ void	ft_for_3(t_list **a)
 
 void	ft_for_5(t_list **a, t_list **b)
 {
-	t_list	*last;
-
 	pb(a, b);
 	pb(a, b);
 	ft_for_3(a);
-	while ((*b) != NULL)
-	{
-		last = ft_lstlast(*a);
-		if ((*b)->number < (*a)->number)
-			pa(a, b);
-		else if ((*b)->number > last->number)
-		{
-			pa(a, b);
-			ra(a);
-		}
-		else if ((*b)->number > (*a)->number && (*b)->number < last->number)
-		{
-			while ((*b)->number > (*a)->number)
-				ra(a);
-			pa(a, b);
-			while ((*a)->number > ft_lstlast(*a)->number)
-				rra(a);
-		}
-	}
+	while (*b)
+		ft_eval_nbr(a, b, 0);
 }
