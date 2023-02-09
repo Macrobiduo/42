@@ -6,7 +6,7 @@
 /*   By: dballini <dballini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 18:54:31 by dballini          #+#    #+#             */
-/*   Updated: 2023/02/09 17:11:07 by dballini         ###   ########.fr       */
+/*   Updated: 2023/02/09 17:14:21 by dballini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,17 +57,6 @@ void	ft_smart_push(int mov_a, int mov_b, t_list **a, t_list **b)
 		mov_a++;
 	}
 	pa(a, b);
-}
-
-int		ft_ordered(t_list *a)
-{
-	while (a->next)
-	{
-		if (a->number > a->next->number)
-			return (0);
-		a = a->next;
-	}
-	return (1);
 }
 
 void	ft_start(t_list **a, t_list **b, int argc)

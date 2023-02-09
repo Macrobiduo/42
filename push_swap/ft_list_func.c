@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_list_func.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dballini <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dballini <dballini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 22:20:24 by dballini          #+#    #+#             */
-/*   Updated: 2023/01/20 22:20:24 by dballini         ###   ########.fr       */
+/*   Updated: 2023/02/09 17:15:26 by dballini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,4 +100,15 @@ t_list	*ft_find_next(t_list *a)
 		temp = temp->next;
 	}
 	return (temp);
+}
+
+int	ft_ordered(t_list *a)
+{
+	while (a->next)
+	{
+		if (a->number > a->next->number)
+			return (0);
+		a = a->next;
+	}
+	return (1);
 }
