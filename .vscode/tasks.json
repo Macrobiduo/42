@@ -7,9 +7,13 @@
                   "args": [
                         "-fdiagnostics-color=always",
                         "-g",
-                        "${workspaceFolder}/push_swap/*.c",
+                        "${workspaceFolder}/fractol/main.c",
+                        "${workspaceFolder}/fractol/minilibx-linux/libmlx.a",
+                        "-lX11",
+                        "-lXext",
+                        "-lm",
                         "-o",
-                        "push_swap",
+                        "fractol",
                   ],
                   "options": {
                         "cwd": "${fileDirname}"

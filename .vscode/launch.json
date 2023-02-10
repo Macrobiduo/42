@@ -9,10 +9,9 @@
             "name": "(gdb) Attach",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}\\push_swap\\push_swap",
+            "program": "${workspaceFolder}\\fractol\\fractol",
             "MIMode": "gdb",
             "cwd": "${workspaceFolder}",
-            "args": ["478", "215", "-206", "898", "199"],
             "setupCommands": [
                 {
                     "description": "Enable pretty-printing for gdb",
