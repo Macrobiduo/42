@@ -6,7 +6,7 @@
 /*   By: dballini <dballini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 16:32:47 by dballini          #+#    #+#             */
-/*   Updated: 2023/02/13 17:28:03 by dballini         ###   ########.fr       */
+/*   Updated: 2023/02/15 14:00:38 by dballini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,12 @@ typedef struct f_data
     float           z_re2;
     float           z_im2;
     int           	isInside;
-	double			zoom;
-	double			movex;
-	double			movey;
+	int				zoom;
+	float			movex;
+	float			movey;
+	float			y2;
+	float			x2;
+	int				x;
+	int				y;
 }       x_data;
-
 #endif
