@@ -2,7 +2,7 @@ CC=cc
 NAME=checker
 CFLAGS=-Wall -Wextra -Werror
 OPTIONS=-o
-SRC= checker_list_funct.c	checker_utils.c	checker.c	ft_moves.c	ft_moves2.c	ft_moves3.c	get_next_line.c	get_next_line_utils.c
+SRC= checker_list_funct.c	ft_split.c	ft_check_utils.c	checker_utils.c	checker.c	ft_moves.c	ft_moves2.c	ft_moves3.c	get_next_line.c	get_next_line_utils.c
 
 OBJ= $(SRC:.c=.o)
 

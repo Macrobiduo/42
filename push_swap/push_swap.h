@@ -6,7 +6,7 @@
 /*   By: dballini <dballini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 18:54:29 by dballini          #+#    #+#             */
-/*   Updated: 2023/02/09 17:01:11 by dballini         ###   ########.fr       */
+/*   Updated: 2023/02/21 17:17:28 by dballini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,19 @@ void		rrb(t_list **b);
 void		rrr(t_list **a, t_list **b);
 void		pb(t_list **a, t_list **b);
 void		pa(t_list **a, t_list **b);
-void		ft_conclude(t_list	**a);
+void		ft_conclude(t_list **a);
 void		ft_start(t_list **a, t_list **b, int argc);
 void		ft_smart_push(int mov_a, int mov_b, t_list **a, t_list **b);
 int			ft_exe_moves(int mov_b, t_list **b);
 void		printflist(t_list *a);
 int			ft_ordered(t_list *a);
+int			leng(char const *s, char c);
+char		**ft_split(char const *s, char c);
+int			ft_counter(char const *s, char c);
+void		*ft_calloc(size_t nelem, size_t elsize);
+size_t		ft_strlcpy(char *dst, const char *src, size_t size);
+void		ft_bzero(void *s, size_t n);
+int			ft_strlen(const char *s);
+int			ft_arrlen(char **arr);
+void		ft_free_argv(char **argv);
 #endif

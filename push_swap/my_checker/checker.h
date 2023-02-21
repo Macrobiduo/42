@@ -6,7 +6,7 @@
 /*   By: dballini <dballini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 16:33:54 by dballini          #+#    #+#             */
-/*   Updated: 2023/02/09 15:15:25 by dballini         ###   ########.fr       */
+/*   Updated: 2023/02/21 17:18:07 by dballini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,13 @@ char		*ft_cut(char *src);
 char		*ft_read(int fd, char *ret);
 char		*ft_getextra(char *extra);
 int			ft_find_minmax(t_list **a, char c);
+int			leng(char const *s, char c);
+char		**ft_split(char const *s, char c);
+int			ft_counter(char const *s, char c);
+void		*ft_calloc(size_t nelem, size_t elsize);
+size_t		ft_strlcpy(char *dst, const char *src, size_t size);
+void		ft_bzero(void *s, size_t n);
+int			ft_strlen(const char *s);
+int			ft_arrlen(char **arr);
+void		ft_free_argv(char **argv);
 #endif

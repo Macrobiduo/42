@@ -3,7 +3,7 @@ NAME=push_swap
 CFLAGS=-Wall -Wextra -Werror
 OPTIONS=-o
 SRC=	ft_analysis.c	ft_checks.c	ft_evaluation.c		ft_list_func.c		ft_list_func2.c \
-		ft_moves.c		ft_moves2.c	ft_moves3.c		push_swap.c \
+		ft_moves.c		ft_moves2.c	ft_moves3.c		push_swap.c  ft_split.c  ft_utils.c\
 
 OBJ= $(SRC:.c=.o)
 

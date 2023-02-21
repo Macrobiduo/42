@@ -6,7 +6,7 @@
 /*   By: dballini <dballini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 16:33:57 by dballini          #+#    #+#             */
-/*   Updated: 2023/02/09 15:20:21 by dballini         ###   ########.fr       */
+/*   Updated: 2023/02/21 17:19:30 by dballini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,26 +34,6 @@ void	ft_do_moves(char *line, t_list **a, t_list **b)
 		pa(a, b);
 	else if (ft_strcmp(line, "pb\n") == 0)
 		pb(a, b);
-}
-
-void	ft_get_line(t_list **a, t_list **b)
-{
-	char	*line;
-
-	line = get_next_line(0);
-	ft_do_moves(line, a, b);
-	free (line);
-	while (line != NULL)
-	{
-		line = get_next_line(0);
-		if (line == NULL)
-		{
-			free (line);
-			break ;
-		}
-		ft_do_moves(line, a, b);
-		free (line);
-	}
 }
 
 void	ft_free_checker(t_list **a, t_list **b)
@@ -88,6 +68,27 @@ void	ft_okornot(t_list **a, t_list **b)
 	write (1, "OK\n", 3);
 }
 
+void	ft_get_line(t_list **a, t_list **b)
+{
+	char	*line;
+
+	line = get_next_line(0);
+	ft_do_moves(line, a, b);
+	free (line);
+	while (line != NULL)
+	{
+		line = get_next_line(0);
+		if (line == NULL)
+		{
+			free (line);
+			break ;
+		}
+		ft_do_moves(line, a, b);
+		free (line);
+	}
+	ft_okornot(a, b);
+}
+
 int	main(int argc, char *argv[])
 {	
 	t_list		*a;
@@ -96,19 +97,21 @@ int	main(int argc, char *argv[])
 
 	a = NULL;
 	b = NULL;
+	i = 0;
+	if (argc == 2)
+	{
+		argv = ft_split(argv[1], ' ');
+		argc = ft_arrlen(argv);
+		i = -1;
+	}
 	if (argc < 2 || check_arg(argv, argc) == 0)
 	{
 		write(1, "Error\n", 6);
-		ft_free_list(a);
 		return (0);
 	}
-	i = 1;
-	while (i < argc)
-	{
+	while (++i < argc)
 		ft_insert(argv[i], &a);
-		i++;
-	}
+	ft_free_argv(argv);
 	ft_get_line(&a, &b);
-	ft_okornot(&a, &b);
 	return (0);
 }

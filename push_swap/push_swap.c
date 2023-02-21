@@ -6,7 +6,7 @@
 /*   By: dballini <dballini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 18:54:31 by dballini          #+#    #+#             */
-/*   Updated: 2023/02/09 17:14:21 by dballini         ###   ########.fr       */
+/*   Updated: 2023/02/21 17:42:12 by dballini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,9 +72,11 @@ void	ft_start(t_list **a, t_list **b, int argc)
 		ft_for_5(a, b);
 	else if ((argc - 1) > 5)
 		ft_for_100(a, b);
+	ft_conclude(a);
+	*a = ft_free_list(*a);
 }
 
-void	ft_conclude(t_list	**a)
+void	ft_conclude(t_list **a)
 {
 	int		min;
 	int		pos;
@@ -108,20 +110,21 @@ int	main(int argc, char *argv[])
 
 	a = NULL;
 	b = NULL;
+	i = 0;
+	if (argc == 2)
+	{
+		argv = ft_split(argv[1], ' ');
+		argc = ft_arrlen(argv);
+		i = -1;
+	}
 	if (argc < 2 || check_arg(argv, argc) == 0)
 	{
 		write(1, "Error\n", 6);
-		a = ft_free_list(a);
 		return (0);
 	}
-	i = 1;
-	while (i < argc)
-	{
+	while (++i < argc)
 		ft_insert(argv[i], &a);
-		i++;
-	}
+	ft_free_argv(argv);
 	ft_start(&a, &b, argc);
-	ft_conclude(&a);
-	a = ft_free_list(a);
 	return (0);
 }

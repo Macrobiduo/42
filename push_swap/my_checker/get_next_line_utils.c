@@ -6,7 +6,7 @@
 /*   By: dballini <dballini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 16:15:54 by dballini          #+#    #+#             */
-/*   Updated: 2023/02/01 14:50:17 by dballini         ###   ########.fr       */
+/*   Updated: 2023/02/21 16:16:06 by dballini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,23 +35,6 @@ char	*ft_strchr(char *s, int c)
 	if (c == '\0')
 		return ((char *)s);
 	return (NULL);
-}
-
-void	*ft_calloc(size_t count, size_t size)
-{
-	char	*memory;
-	size_t	i;
-
-	i = 0;
-	memory = malloc(count * size);
-	if (memory == NULL)
-		return (0);
-	while (i < count * size)
-	{
-		memory[i] = 0;
-		i++;
-	}
-	return (memory);
 }
 
 char	*ft_strjoin(char *s1, char *s2)
