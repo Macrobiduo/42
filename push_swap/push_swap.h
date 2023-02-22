@@ -6,7 +6,7 @@
 /*   By: dballini <dballini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 18:54:29 by dballini          #+#    #+#             */
-/*   Updated: 2023/02/21 17:17:28 by dballini         ###   ########.fr       */
+/*   Updated: 2023/02/22 14:46:33 by dballini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,4 +76,5 @@ void		ft_bzero(void *s, size_t n);
 int			ft_strlen(const char *s);
 int			ft_arrlen(char **arr);
 void		ft_free_argv(char **argv);
+void		ft_errors(int argc, char **argv, int k);
 #endif

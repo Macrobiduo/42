@@ -12,6 +12,17 @@
 
 #include "push_swap.h"
 
+void	ft_errors(int argc, char **argv, int k)
+{
+	if (argc < 2 || check_arg(argv, argc) == 0)
+	{
+		if (k == 1)
+			ft_free_argv(argv);
+		write(1, "Error\n", 6);
+		exit (0);
+	}
+}
+
 int	ft_counter(char const *s, char c)
 {
 	int		i;

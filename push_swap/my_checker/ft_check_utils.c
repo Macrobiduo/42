@@ -6,11 +6,22 @@
 /*   By: dballini <dballini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 14:44:46 by dballini          #+#    #+#             */
-/*   Updated: 2023/02/21 17:18:08 by dballini         ###   ########.fr       */
+/*   Updated: 2023/02/22 14:45:48 by dballini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "checker.h"
+
+void	ft_errors(int argc, char **argv, int k)
+{
+	if (argc < 2 || check_arg(argv, argc) == 0)
+	{
+		if (k == 1)
+			ft_free_argv(argv);
+		write(1, "Error\n", 6);
+		exit (0);
+	}
+}
 
 void	ft_free_argv(char **argv)
 {

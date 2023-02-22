@@ -6,12 +6,11 @@
 /*   By: dballini <dballini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 14:26:09 by dballini          #+#    #+#             */
-/*   Updated: 2023/02/15 15:47:42 by dballini         ###   ########.fr       */
+/*   Updated: 2023/02/21 18:29:01 by dballini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
-#include "minilibx-linux/mlx.h"
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {

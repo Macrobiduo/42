@@ -6,7 +6,7 @@
 /*   By: dballini <dballini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/16 18:54:31 by dballini          #+#    #+#             */
-/*   Updated: 2023/02/21 17:42:12 by dballini         ###   ########.fr       */
+/*   Updated: 2023/02/22 14:46:13 by dballini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,9 @@ int	main(int argc, char *argv[])
 	t_list		*a;
 	t_list		*b;
 	int			i;
+	int			k;
 
+	k = 0;
 	a = NULL;
 	b = NULL;
 	i = 0;
@@ -116,15 +118,13 @@ int	main(int argc, char *argv[])
 		argv = ft_split(argv[1], ' ');
 		argc = ft_arrlen(argv);
 		i = -1;
+		k = 1;
 	}
-	if (argc < 2 || check_arg(argv, argc) == 0)
-	{
-		write(1, "Error\n", 6);
-		return (0);
-	}
+	ft_errors(argc, argv, k);
 	while (++i < argc)
 		ft_insert(argv[i], &a);
-	ft_free_argv(argv);
+	if (k == 1)
+		ft_free_argv(argv);
 	ft_start(&a, &b, argc);
 	return (0);
 }
