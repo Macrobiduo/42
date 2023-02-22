@@ -6,11 +6,22 @@
 /*   By: dballini <dballini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 16:15:54 by dballini          #+#    #+#             */
-/*   Updated: 2023/02/21 16:16:06 by dballini         ###   ########.fr       */
+/*   Updated: 2023/02/22 14:57:42 by dballini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "checker.h"
+
+int	ft_ordered(t_list *a)
+{
+	while (a->next)
+	{
+		if (a->number > a->next->number)
+			return (0);
+		a = a->next;
+	}
+	return (1);
+}
 
 int	ft_strlen(const char *s)
 {

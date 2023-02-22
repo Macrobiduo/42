@@ -6,7 +6,7 @@
 /*   By: dballini <dballini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 16:33:57 by dballini          #+#    #+#             */
-/*   Updated: 2023/02/22 14:45:51 by dballini         ###   ########.fr       */
+/*   Updated: 2023/02/22 14:59:35 by dballini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,12 @@ void	ft_get_line(t_list **a, t_list **b)
 	char	*line;
 
 	line = get_next_line(0);
+	if (line == NULL && ft_ordered(*a) == 1)
+	{
+		write (1, "OK\n", 3);
+		*a = ft_free_list(*a);
+		exit (0);
+	}
 	ft_do_moves(line, a, b);
 	free (line);
 	while (line != NULL)
