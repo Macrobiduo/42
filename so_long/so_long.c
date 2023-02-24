@@ -6,7 +6,7 @@
 /*   By: dballini <dballini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 16:43:03 by dballini          #+#    #+#             */
-/*   Updated: 2023/02/24 17:26:01 by dballini         ###   ########.fr       */
+/*   Updated: 2023/02/24 17:45:44 by dballini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ void	ft_which_block(x_data *data, char c)
 	int		x;
 	int		y;
 
-	// if (c == 'c')
+	if (c == 'c')
+		data->img.img =  mlx_xpm_file_to_image(data->mlx, "/nfs/homes/dballini/Documents/42/so_long/sprite/Collectable.xpm", &x, &y);
 	if (c == '1')
 		data->img.img =  mlx_xpm_file_to_image(data->mlx, "/nfs/homes/dballini/Documents/42/so_long/sprite/WallTile.xpm", &x, &y);
 	if (c == '0')
