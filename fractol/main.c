@@ -6,7 +6,7 @@
 /*   By: dballini <dballini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 14:26:09 by dballini          #+#    #+#             */
-/*   Updated: 2023/02/21 18:29:01 by dballini         ###   ########.fr       */
+/*   Updated: 2023/02/22 15:44:54 by dballini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,14 +111,14 @@ void	ft_set_values(x_data *data)
 {
 	data->zoom = 1;
 	data->MinRe = -2;
-	data->MaxRe = 1.0;
+	data->MaxRe = 2.0;
 	data->MinIm = -1.2;
 	data->WindowsHeight = 500;
 	data->WindowsWidth = 600;
 	data->MaxIm = data->MinIm + (data->MaxRe - data->MinRe) * data->WindowsHeight / data->WindowsWidth;
 	data->Re_factor = (data->MaxRe - data->MinRe) / (data->WindowsWidth - 1);
 	data->Im_factor = (data->MaxIm - data->MinIm) / (data->WindowsHeight - 1);
-	data->MaxInteractions = 80;
+	data->MaxInteractions = 30;
 }
 
 void	ft_which_fractal(x_data *data, t_data img)
@@ -134,7 +134,7 @@ int	key_hook(int keyhook, x_data *data)
 	if (keyhook == 65307)
 		exit (0);
 	if (keyhook == 97)
-		zoomin(data, 0 , 0);
+		zoomin(data, 0, 0);
 	if (keyhook == 115)
 		zoomout(data, 0 , 0);
 	ft_calculate(data, data->img);
@@ -147,6 +147,8 @@ int	mouse_hook(int mouseHook, int x, int y, x_data *data)
 	if (x > 0 && y > 0 && x < data->WindowsWidth && y < data->WindowsHeight)
 	{
 		if (mouseHook == 4)
+			zoomin(data, x, y);
+		if (mouseHook == 5)
 			zoomin(data, x, y);
 		ft_calculate(data, data->img);
 		mlx_put_image_to_window(data->mlx, data->mlx_win, data->img.img, 0, 0);
