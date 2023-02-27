@@ -6,7 +6,7 @@
 /*   By: dballini <dballini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 16:43:29 by dballini          #+#    #+#             */
-/*   Updated: 2023/02/24 17:09:27 by dballini         ###   ########.fr       */
+/*   Updated: 2023/02/27 17:11:18 by dballini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,28 @@ typedef struct f_data
 	int			spritex;
 	int			spritey;
 	int			moves;
-	char			map[10][20];
+	int			xborder;
+	int			yborder;
+	int			collected;
+	char			**map;
 }		x_data;
 
+void	ft_rightmove(x_data *data);
+void	ft_leftmove(x_data *data);
+void	ft_downmove(x_data *data);
+void	ft_upmove(x_data *data);
+void	ft_check_map(x_data *data);
+int		ft_errors(x_data *data, int p, int c, int e);
+int		ft_move_check(x_data *data, char c);
+char	*ft_strjoin(char *s1, char *s2);
+char	*ft_strchr(const char *s, int c);
+int		ft_strlen(const char *s);
+void	ft_putnbr(int nb);
+void	ft_putchar(char c);
+void	ft_which_block(x_data *data, char c);
+void	ft_border_values(x_data *data, char *str);
+void	ft_initialize_map(int fd, x_data *data);
+void	ft_build_map(x_data *data, int fd);
+int		key_hook(int keyhook, x_data *data);
+void	ft_cleanclose(x_data *data);
 #endif

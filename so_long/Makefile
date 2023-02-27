@@ -2,7 +2,7 @@ CC=cc
 NAME=so_long
 FLAGS=-Wall -Wextra -Werror
 MLX=minilibx-linux/libmlx.a -lX11 -lXext -lm
-SRC=so_long.c
+SRC=so_long.c ft_checks.c ft_mapbuild.c ft_moves.c ft_solong_utils.c
 OBJ= $(SRC:.c=.o)
 
 all:	$(NAME) 
