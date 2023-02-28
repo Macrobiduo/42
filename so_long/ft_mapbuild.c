@@ -6,7 +6,7 @@
 /*   By: dballini <dballini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 17:07:39 by dballini          #+#    #+#             */
-/*   Updated: 2023/02/27 17:08:45 by dballini         ###   ########.fr       */
+/*   Updated: 2023/02/28 17:06:50 by dballini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	ft_which_block(x_data *data, char c)
 	int		x;
 	int		y;
 
+	x = 0;
+	y = 0;
 	if (c == 'C')
 		data->img.img = mlx_xpm_file_to_image(data->mlx, "sprite/Collectable.xpm", &x, &y);
 	if (c == '1')
@@ -44,6 +46,7 @@ void	ft_border_values(x_data *data, char *str)
 	xlen = 0;
 	ylen = 0;
 	data->collected = 0;
+	data->collectable = 0;
 	while (*str)
 	{
 		xlen++;
@@ -67,11 +70,10 @@ void	ft_initialize_map(int fd, x_data *data)
 
 	i = - 1;
 	data->moves = 0;
-	str = malloc (1);
+	str = ft_calloc (1, 1);
 	while (1)
 	{
-		red = malloc (2);
-		red[1] = '\0';
+		red = ft_calloc (1, 1);
 		check = read (fd, red, 1);
 		str = ft_strjoin(str, red);
 		if (check == 0)
@@ -95,7 +97,7 @@ void	ft_build_map(x_data *data, int fd)
 		data->x = 0;
 		while (data->x <= data->xborder)
 		{
-			str = malloc (1);
+			str = ft_calloc(1, 1);
 			check = read(fd, str, 1);
 			ft_which_block(data, str[0]);
 			data->map[data->y][data->x] = str[0];

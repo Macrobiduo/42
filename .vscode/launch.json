@@ -6,10 +6,11 @@
       "configurations": [
 
         {
-            "name": "(gdb) Attach",
+            "name": "(gdb) Launch",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}\\fractol\\fractol",
+            "program": "${workspaceFolder}\\so_long\\a.out",
+            "args": ["so_long/map/map.ber"],
             "MIMode": "gdb",
             "cwd": "${workspaceFolder}",
             "setupCommands": [

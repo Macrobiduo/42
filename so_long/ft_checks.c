@@ -6,7 +6,7 @@
 /*   By: dballini <dballini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 17:04:53 by dballini          #+#    #+#             */
-/*   Updated: 2023/02/27 17:06:32 by dballini         ###   ########.fr       */
+/*   Updated: 2023/02/28 17:04:07 by dballini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,16 @@ int	ft_move_check(x_data *data, char c)
 		nexty += 1;
 	if (c == 'd')
 		nextx += 1;
-	if (data->map[nexty][nextx] == 'E' && data->collected == 0)
-		return (1);
 	if (data->map[nexty][nextx] == 'C')
-		data->collected = 1;
+		data->collected++;
+	if (data->map[nexty][nextx] == 'E' && data->collected < data->collectable)
+		return (1);
 	if (data->map[nexty][nextx] == '1')
 		return (1);
 	return (0);
 }
 
-int	ft_errors(x_data *data, int p, int c, int e)
+int	ft_errors(x_data *data, int p, int e)
 {
 	int		i;
 	int		j;
@@ -53,12 +53,12 @@ int	ft_errors(x_data *data, int p, int c, int e)
 			if (data->map[i][j] == 'E')
 				e++;
 			if (data->map[i][j] == 'C')
-				c = 1;
+				data->collectable++;
 			if ((data->map[i][j] == 'P' && p > 1) || (data->map[i][j] == 'E' && e > 1))
 				return (2);
 		}
 	}
-	if (p == 0 || c == 0 || e == 0)
+	if (p == 0 || data->collectable == 0 || e == 0)
 		return (1);
 	return (0);
 }
@@ -66,14 +66,12 @@ int	ft_errors(x_data *data, int p, int c, int e)
 void	ft_check_map(x_data *data)
 {
 	int		p;
-	int		c;
 	int		e;
 	int		error;
 
 	p = 0;
-	c = 0;
 	e = 0;
-	error = ft_errors(data, p , c, e);
+	error = ft_errors(data, p, e);
 	if (error == 1)
 	{
 		write(1, "Error\n", 6);

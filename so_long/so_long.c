@@ -6,15 +6,28 @@
 /*   By: dballini <dballini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 16:43:03 by dballini          #+#    #+#             */
-/*   Updated: 2023/02/27 17:08:41 by dballini         ###   ########.fr       */
+/*   Updated: 2023/02/28 15:28:25 by dballini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
+void	ft_free_map(x_data *data)
+{
+	int	i;
+
+	i = 0;
+	while (i < data->yborder)
+	{
+		free (data->map[i]);
+		i++;
+	}
+}
+
 void	ft_cleanclose(x_data *data)
 {
-	free(data->mlx);
+	ft_free_map (data);
+	free (data->mlx);
 	exit (0);
 }
 
@@ -32,7 +45,7 @@ int	key_hook(int keyhook, x_data *data)
 		ft_rightmove(data);
 	ft_putnbr(data->moves);
 	write (1, "\n", 1);
-	if (data->map[data->spritey][data->spritex] == 'E' && data->collected == 1)
+	if (data->map[data->spritey][data->spritex] == 'E' && data->collected == data->collectable)
 		ft_cleanclose(data);
 	return (0);
 }
@@ -62,6 +75,7 @@ int	main(int ac, char *av[])
 		mlx_key_hook(data.mlx_win, key_hook, &data);
 		mlx_loop(data.mlx);
 		mlx_destroy_display(data.mlx_win);
+		
 	}
 	return (0);
 }
