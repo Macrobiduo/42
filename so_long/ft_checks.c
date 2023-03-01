@@ -6,7 +6,7 @@
 /*   By: dballini <dballini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 17:04:53 by dballini          #+#    #+#             */
-/*   Updated: 2023/03/01 16:27:11 by dballini         ###   ########.fr       */
+/*   Updated: 2023/03/01 16:31:56 by dballini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,18 +88,20 @@ void ft_put_errors(int error, x_data *data)
 	{
 		write(1, "Error\n", 6);
 		write(1, "Missing start, exit or collectable positions in map\n", 53);
+		ft_cleanclose(data);
 	}
 	else if (error == 2)
 	{
 		write(1, "Error\n", 6);
 		write(1, "Too many start/exit positions in map\n", 38);
+		ft_cleanclose(data);
 	}
 	else if (error == 3)
 	{
 		write(1, "Error\n", 6);
 		write(1, "Map has no route from start to exit\n", 37);
+		ft_cleanclose(data);
 	}
-	ft_cleanclose(data);
 }
 
 void	ft_check_map(x_data *data)
