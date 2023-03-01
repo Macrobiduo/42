@@ -6,7 +6,7 @@
 /*   By: dballini <dballini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 16:43:03 by dballini          #+#    #+#             */
-/*   Updated: 2023/02/28 15:28:25 by dballini         ###   ########.fr       */
+/*   Updated: 2023/03/01 14:47:53 by dballini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,8 @@ int	main(int ac, char *av[])
 		mlx_key_hook(data.mlx_win, key_hook, &data);
 		mlx_loop(data.mlx);
 		mlx_destroy_display(data.mlx_win);
-		
+		mlx_destroy_image(data.mlx, data.img.img);
+		mlx_destroy_window(data.mlx, data.mlx_win);	
 	}
 	return (0);
 }

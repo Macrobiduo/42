@@ -6,7 +6,7 @@
 /*   By: dballini <dballini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 17:05:23 by dballini          #+#    #+#             */
-/*   Updated: 2023/02/28 17:08:29 by dballini         ###   ########.fr       */
+/*   Updated: 2023/03/01 11:39:32 by dballini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ char	*ft_strjoin(char *s1, char *s2)
 	i = -1;
 	j = -1;
 	dst = malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
-	if (dst)
+	if (dst && s1 && s2)
 	{
 		while (s1[++i])
 			dst[i] = s1[i];

@@ -6,7 +6,7 @@
 /*   By: dballini <dballini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 17:07:39 by dballini          #+#    #+#             */
-/*   Updated: 2023/02/28 17:06:50 by dballini         ###   ########.fr       */
+/*   Updated: 2023/03/01 15:05:12 by dballini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ void	ft_which_block(x_data *data, char c)
 	int		x;
 	int		y;
 
-	x = 0;
-	y = 0;
 	if (c == 'C')
 		data->img.img = mlx_xpm_file_to_image(data->mlx, "sprite/Collectable.xpm", &x, &y);
 	if (c == '1')
@@ -45,15 +43,13 @@ void	ft_border_values(x_data *data, char *str)
 
 	xlen = 0;
 	ylen = 0;
-	data->collected = 0;
-	data->collectable = 0;
 	while (*str)
 	{
 		xlen++;
 		if (*str == '\n')
 		{
 			ylen++;
-			data->xborder = xlen - 1;
+			data->xborder = xlen;
 			xlen = 0;
 		}
 		str++;
@@ -70,10 +66,12 @@ void	ft_initialize_map(int fd, x_data *data)
 
 	i = - 1;
 	data->moves = 0;
+	data->collected = 0;
+	data->collectable = 0;
 	str = ft_calloc (1, 1);
 	while (1)
 	{
-		red = ft_calloc (1, 1);
+		red = ft_calloc (2, 1);
 		check = read (fd, red, 1);
 		str = ft_strjoin(str, red);
 		if (check == 0)
@@ -81,7 +79,7 @@ void	ft_initialize_map(int fd, x_data *data)
 	}
 	ft_border_values(data, str);
 	data->map = malloc (data->yborder * sizeof(char *));
-	while (++i <= data->yborder)
+	while (++i < data->yborder)
 		data->map[i] = malloc (data->xborder * sizeof(char));
 	free (str);
 }
@@ -92,10 +90,10 @@ void	ft_build_map(x_data *data, int fd)
 	char		*str;
 
 	data->y = 0;
-	while (data->y <= data->yborder)
+	while (data->y < data->yborder)
 	{
 		data->x = 0;
-		while (data->x <= data->xborder)
+		while (data->x < data->xborder)
 		{
 			str = ft_calloc(1, 1);
 			check = read(fd, str, 1);
