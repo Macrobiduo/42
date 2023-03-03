@@ -6,7 +6,7 @@
 /*   By: dballini <dballini@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 17:04:53 by dballini          #+#    #+#             */
-/*   Updated: 2023/03/02 21:06:00 by dballini         ###   ########.fr       */
+/*   Updated: 2023/03/03 12:07:35 by dballini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,33 +53,14 @@ int	ft_move_check(x_data *data, char c)
 	return (0);
 }
 
-int	ft_floodmoves(x_data *data, char **flmap, char c)
+void	ft_floodmoves(int x, int y, char wall, char **flmap)
 {
-	if (c == 'w')
-		data->fly -= 1;
-	if (c == 'a')
-		data->flx -= 1;
-	if (c == 's')
-		data->fly += 1;
-	if (c == 'd')
-		data->flx += 1;
-	if (flmap[data->fly][data->flx] == '1')
-		return (1);
-	return (0);
-}
-
-void	ft_squares(char **flmap, x_data *data)
-{
-	if (ft_floodmoves(data, flmap, 'k' == 0))
-		flmap[data->fly][data->flx] = 'F';
-	if (ft_floodmoves(data, flmap, 'w') == 0)
-		flmap[data->fly - 1][data->flx] = 'F';
-	if (ft_floodmoves(data, flmap, 's') == 0)
-		flmap[data->fly + 1][data->flx] = 'F';
-	if (ft_floodmoves(data, flmap, 'a') == 0)
-		flmap[data->fly][data->flx - 1] = 'F';
-	if (ft_floodmoves(data, flmap, 'd') == 0)
-		flmap[data->fly][data->flx + 1] = 'F';
+	if (flmap[y][x] != wall)
+		flmap[y][x] = 'F';
+	ft_floodmoves((x + 1), y, wall, flmap);
+	ft_floodmoves((x - 1), y, wall, flmap);
+	ft_floodmoves(x, (y + 1), wall, flmap);
+	ft_floodmoves(x, (y - 1), wall, flmap);
 }
 
 int	ft_route_check(x_data *data)
@@ -91,20 +72,9 @@ int	ft_route_check(x_data *data)
 	i = -1;
 	while (++i < data->yborder)
 		flmap[i] = ft_strdup(data->map[i]);
-	data->flx = 1;
-	data->fly = 1;
-	while (data->fly < data->yborder)
-	{
-		if (ft_floodmoves(data, flmap, 'k') == 0)
-			ft_squares(flmap, data);
-		while (ft_floodmoves(data, flmap, 'd') == 0)
-		{
-			ft_squares(flmap, data);
-			data->flx++;
-		}
-		data->fly++;
-		data->flx = 1;
-	}
+	data->flx = data->spritex;
+	data->fly = data->spritey;
+	ft_floodmoves(data->flx, data->fly, '1', flmap);
 	return (0);
 }
 
@@ -131,8 +101,8 @@ int	ft_get_errors(x_data *data, int p, int e)
 	}
 	if (p == 0 || data->collectable == 0 || e == 0)
 		return (1);
-	// if (ft_route_check(data) == 1)
-	// 	return (3);
+	if (ft_route_check(data) == 1)
+		return (3);
 	return (0);
 }
 
