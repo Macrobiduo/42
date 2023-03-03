@@ -6,7 +6,7 @@
 /*   By: dballini <dballini@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 16:43:29 by dballini          #+#    #+#             */
-/*   Updated: 2023/03/03 13:13:12 by dballini         ###   ########.fr       */
+/*   Updated: 2023/03/03 14:17:16 by dballini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,4 +75,6 @@ int		ft_route_check(x_data *data);
 void	ft_floodmoves(int x, int y, char wall, char **flmap);
 int 		ft_check_left(char **flmap, x_data *data);
 int	ft_move_check(x_data *data, char c);
+char	*ft_strdup(const char *s);
+
 #endif

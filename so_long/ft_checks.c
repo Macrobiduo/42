@@ -6,7 +6,7 @@
 /*   By: dballini <dballini@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 17:04:53 by dballini          #+#    #+#             */
-/*   Updated: 2023/03/03 13:10:54 by dballini         ###   ########.fr       */
+/*   Updated: 2023/03/03 14:23:21 by dballini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,18 @@ void	ft_floodmoves(int x, int y, char wall, char **flmap)
 		ft_floodmoves(x, (y - 1), wall, flmap);
 }
 
+void	ft_free_flmap(char **flmap, int limit)
+{
+	int		i;
+
+	i = 0;
+	while (i < limit)
+	{
+		free (flmap[i]);
+		i++;
+	}
+}
+
 int	ft_route_check(x_data *data)
 {
 	char	**flmap;
@@ -82,6 +94,10 @@ int	ft_route_check(x_data *data)
 	data->fly = data->spritey;
 	ft_floodmoves(data->flx, data->fly, '1', flmap);
 	if (ft_check_left(flmap, data) == 1)
+	{
+		ft_free_flmap(flmap, data->yborder);
 		return (1);
+	}
+	ft_free_flmap(flmap, data->yborder);
 	return (0);
 }
