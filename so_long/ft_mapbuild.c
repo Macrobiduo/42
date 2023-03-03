@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_mapbuild.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dballini <dballini@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dballini <dballini@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 17:07:39 by dballini          #+#    #+#             */
-/*   Updated: 2023/03/01 15:05:12 by dballini         ###   ########.fr       */
+/*   Updated: 2023/03/03 00:21:23 by dballini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,14 @@ void	ft_border_values(x_data *data, char *str)
 	ylen = 0;
 	while (*str)
 	{
-		xlen++;
 		if (*str == '\n')
 		{
+			str++;
 			ylen++;
 			data->xborder = xlen;
 			xlen = 0;
 		}
+		xlen++;
 		str++;
 	}
 	data->yborder = ylen + 1;
@@ -85,18 +86,17 @@ void	ft_initialize_map(int fd, x_data *data)
 }
 
 void	ft_build_map(x_data *data, int fd)
-{	
-	int			check;
+{
 	char		*str;
 
 	data->y = 0;
 	while (data->y < data->yborder)
 	{
 		data->x = 0;
-		while (data->x < data->xborder)
+		while (data->x <= data->xborder)
 		{
-			str = ft_calloc(1, 1);
-			check = read(fd, str, 1);
+			str = ft_calloc(2, 1);
+			read(fd, str, 1);
 			ft_which_block(data, str[0]);
 			data->map[data->y][data->x] = str[0];
 			free (str);

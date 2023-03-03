@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dballini <dballini@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dballini <dballini@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 16:43:29 by dballini          #+#    #+#             */
-/*   Updated: 2023/02/28 17:04:14 by dballini         ###   ########.fr       */
+/*   Updated: 2023/03/02 16:33:32 by dballini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ typedef struct f_data
 	int			yborder;
 	int			collected;
 	int			collectable;
+	int			flx;
+	int			fly;
 	char			**map;
 }		x_data;
 
