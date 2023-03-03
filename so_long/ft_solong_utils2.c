@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_solong_utils2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dballini <dballini@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dballini <dballini@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 17:01:51 by dballini          #+#    #+#             */
-/*   Updated: 2023/02/28 17:02:14 by dballini         ###   ########.fr       */
+/*   Updated: 2023/03/03 13:08:58 by dballini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,21 @@ void	*ft_calloc(size_t nelem, size_t elsize)
 		ft_bzero(p, nelem * elsize);
 		return (p);
 	}
+}
+
+char	*ft_strdup(const char *s)
+{
+	char	*str;
+	int		len;
+
+	len = 0;
+	while (s[len])
+		len++;
+	str = (char *) malloc (len);
+	if (!str)
+		return (NULL);
+	while (*s)
+		*str++ = *s++;
+	*str = '\0';
+	return (str - len);
 }

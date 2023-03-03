@@ -6,7 +6,7 @@
 /*   By: dballini <dballini@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 16:43:29 by dballini          #+#    #+#             */
-/*   Updated: 2023/03/02 16:33:32 by dballini         ###   ########.fr       */
+/*   Updated: 2023/03/03 13:13:12 by dballini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,4 +68,11 @@ int		key_hook(int keyhook, x_data *data);
 void	ft_cleanclose(x_data *data);
 void	*ft_calloc(size_t nelem, size_t elsize);
 void	ft_bzero(void *s, size_t n);
+int		ft_get_errors(x_data *data, int p, int e);
+void	ft_put_errors(int error, x_data *data);
+void	ft_check_map(x_data *data);
+int		ft_route_check(x_data *data);
+void	ft_floodmoves(int x, int y, char wall, char **flmap);
+int 		ft_check_left(char **flmap, x_data *data);
+int	ft_move_check(x_data *data, char c);
 #endif
