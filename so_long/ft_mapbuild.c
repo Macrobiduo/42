@@ -6,7 +6,7 @@
 /*   By: dballini <dballini@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 17:07:39 by dballini          #+#    #+#             */
-/*   Updated: 2023/03/03 00:21:23 by dballini         ###   ########.fr       */
+/*   Updated: 2023/03/06 16:27:11 by dballini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	ft_which_block(x_data *data, char c)
 	x = data->x * 80;
 	y = data->y * 80;
 	mlx_put_image_to_window(data->mlx, data->mlx_win, data->img.img, x, y);
+	mlx_destroy_image(data->mlx, data->img.img);
 }
 
 void	ft_border_values(x_data *data, char *str)
@@ -72,36 +73,51 @@ void	ft_initialize_map(int fd, x_data *data)
 	str = ft_calloc (1, 1);
 	while (1)
 	{
-		red = ft_calloc (2, 1);
-		check = read (fd, red, 1);
+		red = ft_calloc (10, 1);
+		check = read (fd, red, 9);
 		str = ft_strjoin(str, red);
 		if (check == 0)
 			break ;
 	}
 	ft_border_values(data, str);
-	data->map = malloc (data->yborder * sizeof(char *));
+	data->map = malloc ((data->yborder) * sizeof(char *));
 	while (++i < data->yborder)
-		data->map[i] = malloc (data->xborder * sizeof(char));
+		data->map[i] = malloc ((data->xborder * sizeof(char)) + 1);
 	free (str);
+}
+
+char	*ft_strcpy(char* destination, const char* source)
+{
+	char	*ptr;
+	if (destination == NULL)
+		return NULL;
+	ptr = destination;
+	while (*source != '\0' && *source != '\n')
+	{
+		*destination = *source;
+		destination++;
+		source++;
+	}
+	*destination = '\0';
+	return (ptr);
 }
 
 void	ft_build_map(x_data *data, int fd)
 {
+	int		check;
 	char		*str;
 
+	check = 1;
 	data->y = 0;
 	while (data->y < data->yborder)
 	{
-		data->x = 0;
-		while (data->x <= data->xborder)
-		{
-			str = ft_calloc(2, 1);
-			read(fd, str, 1);
-			ft_which_block(data, str[0]);
-			data->map[data->y][data->x] = str[0];
-			free (str);
-			data->x++;
-		}
+		str = ft_calloc(data->xborder + 2, 1);
+		check = read(fd, str, data->xborder + 1);
+		data->map[data->y] = ft_strcpy(data->map[data->y], str);
+		data->x = -1;
+		while (++data->x < data->xborder)
+			ft_which_block(data, data->map[data->y][data->x]);
+		free (str);
 		data->y++;
 	}
 }

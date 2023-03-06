@@ -6,7 +6,7 @@
 /*   By: dballini <dballini@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 16:43:03 by dballini          #+#    #+#             */
-/*   Updated: 2023/03/03 14:18:36 by dballini         ###   ########.fr       */
+/*   Updated: 2023/03/06 16:47:20 by dballini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,14 @@ void	ft_free_map(x_data *data)
 		free (data->map[i]);
 		i++;
 	}
+	free (data->map);
+	data->map = NULL;
 }
 
 void	ft_cleanclose(x_data *data)
 {
 	ft_free_map (data);
-	free (data->mlx);
+	mlx_destroy_window(data->mlx, data->mlx_win);
 	exit (0);
 }
 
@@ -74,9 +76,9 @@ int	main(int ac, char *av[])
 		ft_check_map(&data);
 		mlx_key_hook(data.mlx_win, key_hook, &data);
 		mlx_loop(data.mlx);
+		mlx_destroy_window(data.mlx, data.mlx_win);
 		mlx_destroy_display(data.mlx_win);
 		mlx_destroy_image(data.mlx, data.img.img);
-		mlx_destroy_window(data.mlx, data.mlx_win);	
 	}
 	return (0);
 }

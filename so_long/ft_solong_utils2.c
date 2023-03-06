@@ -6,7 +6,7 @@
 /*   By: dballini <dballini@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 17:01:51 by dballini          #+#    #+#             */
-/*   Updated: 2023/03/03 13:08:58 by dballini         ###   ########.fr       */
+/*   Updated: 2023/03/06 16:18:05 by dballini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,15 +48,17 @@ char	*ft_strdup(const char *s)
 {
 	char	*str;
 	int		len;
+	int		i;
 
+	i = - 1;
 	len = 0;
-	while (s[len])
+	while (s[len] && s[len] != '\n')
 		len++;
-	str = (char *) malloc (len);
+	str = (char *) malloc (len + 1);
 	if (!str)
 		return (NULL);
-	while (*s)
-		*str++ = *s++;
-	*str = '\0';
-	return (str - len);
+	while (s[++i] && s[i] != '\n')
+		str[i] = s[i];
+	str[i] = '\0';
+	return (str);
 }
