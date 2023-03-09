@@ -6,7 +6,7 @@
 /*   By: dballini <dballini@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 17:04:53 by dballini          #+#    #+#             */
-/*   Updated: 2023/03/06 16:22:27 by dballini         ###   ########.fr       */
+/*   Updated: 2023/03/09 14:36:31 by dballini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	ft_move_check(x_data *data, char c)
 	return (0);
 }
 
-int ft_check_left(char **flmap, x_data *data)
+int	ft_check_left(char **flmap, x_data *data)
 {
 	int	x;
 	int	y;
@@ -86,7 +86,7 @@ void	ft_free_flmap(char **flmap, int limit)
 int	ft_route_check(x_data *data)
 {
 	char	**flmap;
-	int	i;
+	int		i;
 
 	flmap = malloc ((data->yborder) * sizeof(char *));
 	i = -1;

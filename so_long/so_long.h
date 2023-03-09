@@ -6,7 +6,7 @@
 /*   By: dballini <dballini@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 16:43:29 by dballini          #+#    #+#             */
-/*   Updated: 2023/03/06 16:22:19 by dballini         ###   ########.fr       */
+/*   Updated: 2023/03/09 15:16:31 by dballini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@
 # include <fcntl.h>
 # include <unistd.h>
 
-typedef struct	s_data {
+typedef struct s_data {
 	void		*img;
-	void		*tempImg;
+	void		*tempimg;
 	char		*addr;
 	int			bits_per_pixel;
 	int			line_lenght;
@@ -77,4 +77,7 @@ int 		ft_check_left(char **flmap, x_data *data);
 int	ft_move_check(x_data *data, char c);
 char	*ft_strdup(const char *s);
 char	*ft_strcpy(char* destination, const char* source);
+void	ft_put_errors2(int error, x_data *data);
+int	ft_get_errors2(x_data *data);
+void	ft_init(x_data data, int fd);
 #endif

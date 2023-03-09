@@ -6,7 +6,7 @@
 /*   By: dballini <dballini@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 17:07:39 by dballini          #+#    #+#             */
-/*   Updated: 2023/03/06 16:27:11 by dballini         ###   ########.fr       */
+/*   Updated: 2023/03/09 17:42:25 by dballini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,25 @@
 
 void	ft_which_block(x_data *data, char c)
 {
-	int		x;
-	int		y;
+	char		*spath;
+	int			x;
+	int			y;
 
 	if (c == 'C')
-		data->img.img = mlx_xpm_file_to_image(data->mlx, "sprite/Collectable.xpm", &x, &y);
+		spath = "sprite/Collectable.xpm";
 	if (c == '1')
-		data->img.img = mlx_xpm_file_to_image(data->mlx, "sprite/WallTile.xpm", &x, &y);
+		spath = "sprite/WallTile.xpm";
 	if (c == '0')
-		data->img.img = mlx_xpm_file_to_image(data->mlx, "sprite/WalkTiles.xpm", &x, &y);
+		spath = "sprite/WalkTiles.xpm";
 	if (c == 'E')
-		data->img.img = mlx_xpm_file_to_image(data->mlx, "sprite/EndTile.xpm", &x, &y);
+		spath = "sprite/EndTile.xpm";
 	if (c == 'P')
 	{
-		data->img.img = mlx_xpm_file_to_image(data->mlx, "sprite/WalkTileDX.xpm", &x, &y);
+		spath = "sprite/WalkTileP.xpm";
 		data->spritex = data->x;
 		data->spritey = data->y;
 	}
+	data->img.img = mlx_xpm_file_to_image(data->mlx, spath, &x, &y);
 	x = data->x * 80;
 	y = data->y * 80;
 	mlx_put_image_to_window(data->mlx, data->mlx_win, data->img.img, x, y);
@@ -41,32 +43,38 @@ void	ft_border_values(x_data *data, char *str)
 {
 	int	xlen;
 	int	ylen;
+	int	prev;
 
 	xlen = 0;
 	ylen = 0;
 	while (*str)
 	{
-		if (*str == '\n')
+		if (*str == '\n' || *(str + 1) == '\0')
 		{
 			str++;
-			ylen++;
+			if (ylen > 0)
+				prev = data->xborder;
 			data->xborder = xlen;
+			if (prev != xlen && ylen > 0)
+				ft_put_errors2(5, data);
+			ylen++;
 			xlen = 0;
 		}
 		xlen++;
-		str++;
+		if (*str != '\0')
+			str++;
 	}
-	data->yborder = ylen + 1;
+	data->yborder = ylen;
 }
 
 void	ft_initialize_map(int fd, x_data *data)
 {
-	int	check;
-	char	*str;
-	char	*red;
-	int		i;
+	int			check;
+	int			i;
+	char		*str;
+	char		*red;
 
-	i = - 1;
+	i = -1;
 	data->moves = 0;
 	data->collected = 0;
 	data->collectable = 0;
@@ -86,11 +94,12 @@ void	ft_initialize_map(int fd, x_data *data)
 	free (str);
 }
 
-char	*ft_strcpy(char* destination, const char* source)
+char	*ft_strcpy(char *destination, const char *source)
 {
 	char	*ptr;
+
 	if (destination == NULL)
-		return NULL;
+		return (NULL);
 	ptr = destination;
 	while (*source != '\0' && *source != '\n')
 	{
@@ -104,7 +113,7 @@ char	*ft_strcpy(char* destination, const char* source)
 
 void	ft_build_map(x_data *data, int fd)
 {
-	int		check;
+	int			check;
 	char		*str;
 
 	check = 1;
