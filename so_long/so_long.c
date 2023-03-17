@@ -6,7 +6,7 @@
 /*   By: dballini <dballini@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 16:43:03 by dballini          #+#    #+#             */
-/*   Updated: 2023/03/09 16:42:22 by dballini         ###   ########.fr       */
+/*   Updated: 2023/03/14 13:03:32 by dballini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ void	ft_init(x_data data, int fd)
 			80 * data.yborder);
 	data.img.addr = mlx_get_data_addr(data.img.img, &data.img.bits_per_pixel,
 			&data.img.line_lenght, &data.img.endian);
-	mlx_destroy_image(data.mlx, data.img.img);
 	ft_build_map(&data, fd);
 	ft_check_map(&data);
 	mlx_key_hook(data.mlx_win, key_hook, &data);

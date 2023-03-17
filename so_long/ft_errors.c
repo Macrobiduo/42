@@ -6,7 +6,7 @@
 /*   By: dballini <dballini@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 13:10:01 by dballini          #+#    #+#             */
-/*   Updated: 2023/03/09 16:18:01 by dballini         ###   ########.fr       */
+/*   Updated: 2023/03/14 13:12:11 by dballini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	ft_put_errors2(int error, x_data *data)
 	{
 		write(1, "Error\n", 6);
 		write(1, "Map is not rectangular | lines are not equal\n", 46);
-		ft_cleanclose(data);
+		exit (0);
 	}
 }
 
@@ -103,7 +103,7 @@ void	ft_put_errors(int error, x_data *data)
 	{
 		write(1, "Error\n", 6);
 		write(1, "No route start to exit | collectable items cant be taken\n",
-			59);
+			58);
 		ft_cleanclose(data);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: dballini <dballini@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 17:07:39 by dballini          #+#    #+#             */
-/*   Updated: 2023/03/09 17:42:25 by dballini         ###   ########.fr       */
+/*   Updated: 2023/03/14 13:16:16 by dballini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,35 +36,39 @@ void	ft_which_block(x_data *data, char c)
 	x = data->x * 80;
 	y = data->y * 80;
 	mlx_put_image_to_window(data->mlx, data->mlx_win, data->img.img, x, y);
-	mlx_destroy_image(data->mlx, data->img.img);
+	// mlx_destroy_image(data->mlx, data->img.img);
 }
 
 void	ft_border_values(x_data *data, char *str)
 {
-	int	xlen;
-	int	ylen;
-	int	prev;
+	char	*to_free;
+	int		prev;
 
-	xlen = 0;
-	ylen = 0;
+	data->x = 0;
+	data->y = 0;
+	to_free = str;
 	while (*str)
 	{
-		if (*str == '\n' || *(str + 1) == '\0')
+		if (*str == '\n')
 		{
 			str++;
-			if (ylen > 0)
+			if (data->y > 0)
+			{
 				prev = data->xborder;
-			data->xborder = xlen;
-			if (prev != xlen && ylen > 0)
-				ft_put_errors2(5, data);
-			ylen++;
-			xlen = 0;
+				if (prev != data->x)
+					break ;
+			}
+			data->xborder = data->x;
+			data->y++;
+			data->x = 0;
 		}
-		xlen++;
-		if (*str != '\0')
-			str++;
+		data->x++;
+		str++;
 	}
-	data->yborder = ylen;
+	free (to_free);
+	if (prev != data->x && data->y > 0)
+		ft_put_errors2(5, data);
+	data->yborder = data->y + 1;
 }
 
 void	ft_initialize_map(int fd, x_data *data)
@@ -91,7 +95,6 @@ void	ft_initialize_map(int fd, x_data *data)
 	data->map = malloc ((data->yborder) * sizeof(char *));
 	while (++i < data->yborder)
 		data->map[i] = malloc ((data->xborder * sizeof(char)) + 1);
-	free (str);
 }
 
 char	*ft_strcpy(char *destination, const char *source)
