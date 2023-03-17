@@ -6,7 +6,7 @@
 /*   By: dballini <dballini@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 17:07:39 by dballini          #+#    #+#             */
-/*   Updated: 2023/03/14 13:16:16 by dballini         ###   ########.fr       */
+/*   Updated: 2023/03/17 14:58:21 by dballini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,11 @@ void	ft_which_block(x_data *data, char c)
 		data->spritex = data->x;
 		data->spritey = data->y;
 	}
+	mlx_destroy_image(data->mlx, data->img.img);
 	data->img.img = mlx_xpm_file_to_image(data->mlx, spath, &x, &y);
 	x = data->x * 80;
 	y = data->y * 80;
 	mlx_put_image_to_window(data->mlx, data->mlx_win, data->img.img, x, y);
-	// mlx_destroy_image(data->mlx, data->img.img);
 }
 
 void	ft_border_values(x_data *data, char *str)
