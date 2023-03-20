@@ -6,7 +6,7 @@
 /*   By: dballini <dballini@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 16:43:03 by dballini          #+#    #+#             */
-/*   Updated: 2023/03/17 15:00:56 by dballini         ###   ########.fr       */
+/*   Updated: 2023/03/20 12:35:05 by dballini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,24 @@ void	ft_cleanclose(x_data *data)
 {
 	if (data->map)
 		ft_free_map (data);
-	mlx_destroy_image(data->mlx, data->img.img);
-	mlx_destroy_window(data->mlx, data->mlx_win);
-	mlx_destroy_display(data->mlx);
+	if (data->img.img)
+		mlx_destroy_image(data->mlx, data->img.img);
+	if (data->mlx_win)
+		mlx_destroy_window(data->mlx, data->mlx_win);
 	data->mlx_win = NULL;
-	free(data->mlx);
+	if (data->mlx)
+	{
+		mlx_destroy_display(data->mlx);
+		free(data->mlx);
+	}
 	data->mlx = NULL;
 	exit (0);
+}
+
+int	close_cross(x_data *data)
+{
+	ft_cleanclose(data);
+	return (0);
 }
 
 int	key_hook(int keyhook, x_data *data)
@@ -72,6 +83,7 @@ void	ft_init(x_data data, int fd)
 	ft_build_map(&data, fd);
 	ft_check_map(&data);
 	mlx_key_hook(data.mlx_win, key_hook, &data);
+	mlx_hook(data.mlx_win, 17, 0, close_cross, &data);
 	mlx_loop(data.mlx);
 }
 

@@ -6,7 +6,7 @@
 /*   By: dballini <dballini@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 13:10:01 by dballini          #+#    #+#             */
-/*   Updated: 2023/03/14 13:12:11 by dballini         ###   ########.fr       */
+/*   Updated: 2023/03/20 13:05:00 by dballini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,6 @@ int	ft_borders_check(x_data *data)
 
 int	ft_get_errors2(x_data *data)
 {
-	if (data->xborder <= data->yborder)
-		return (5);
 	if (ft_borders_check(data) == 1)
 		return (4);
 	if (ft_route_check(data) == 1)
@@ -106,4 +104,5 @@ void	ft_put_errors(int error, x_data *data)
 			58);
 		ft_cleanclose(data);
 	}
+	ft_put_errors2(error, data);
 }

@@ -6,7 +6,7 @@
 /*   By: dballini <dballini@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 17:04:53 by dballini          #+#    #+#             */
-/*   Updated: 2023/03/09 14:36:31 by dballini         ###   ########.fr       */
+/*   Updated: 2023/03/20 11:27:13 by dballini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,10 @@ int	ft_move_check(x_data *data, char c)
 	if (c == 'd')
 		nextx += 1;
 	if (data->map[nexty][nextx] == 'C')
+	{
 		data->collected++;
+		data->map[nexty][nextx] = '0';
+	}
 	if (data->map[nexty][nextx] == 'E' && data->collected < data->collectable)
 		return (1);
 	if (data->map[nexty][nextx] == '1')

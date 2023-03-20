@@ -6,7 +6,7 @@
 /*   By: dballini <dballini@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 17:01:51 by dballini          #+#    #+#             */
-/*   Updated: 2023/03/09 14:53:29 by dballini         ###   ########.fr       */
+/*   Updated: 2023/03/20 13:05:09 by dballini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	ft_check_map(x_data *data)
 	p = 0;
 	e = 0;
 	error = ft_get_errors2(data);
-	ft_put_errors2(error, data);
+	ft_put_errors(error, data);
 	error = ft_get_errors(data, p, e);
 	ft_put_errors(error, data);
 }

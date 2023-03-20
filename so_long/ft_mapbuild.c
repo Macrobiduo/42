@@ -6,7 +6,7 @@
 /*   By: dballini <dballini@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 17:07:39 by dballini          #+#    #+#             */
-/*   Updated: 2023/03/17 14:58:21 by dballini         ###   ########.fr       */
+/*   Updated: 2023/03/20 12:56:46 by dballini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,9 @@ void	ft_border_values(x_data *data, char *str)
 		str++;
 	}
 	free (to_free);
-	if (prev != data->x && data->y > 0)
-		ft_put_errors2(5, data);
 	data->yborder = data->y + 1;
+	if (prev != data->x || data->xborder <= data->yborder)
+		ft_put_errors2(5, data);
 }
 
 void	ft_initialize_map(int fd, x_data *data)
