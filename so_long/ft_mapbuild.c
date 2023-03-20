@@ -6,13 +6,13 @@
 /*   By: dballini <dballini@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 17:07:39 by dballini          #+#    #+#             */
-/*   Updated: 2023/03/20 12:56:46 by dballini         ###   ########.fr       */
+/*   Updated: 2023/03/20 15:26:38 by dballini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	ft_which_block(x_data *data, char c)
+void	ft_which_block(t_dat *data, char c)
 {
 	char		*spath;
 	int			x;
@@ -39,14 +39,11 @@ void	ft_which_block(x_data *data, char c)
 	mlx_put_image_to_window(data->mlx, data->mlx_win, data->img.img, x, y);
 }
 
-void	ft_border_values(x_data *data, char *str)
+void	ft_border_values(t_dat *data, char *str)
 {
-	char	*to_free;
 	int		prev;
 
-	data->x = 0;
-	data->y = 0;
-	to_free = str;
+	data->to_free = str;
 	while (*str)
 	{
 		if (*str == '\n')
@@ -58,20 +55,19 @@ void	ft_border_values(x_data *data, char *str)
 				if (prev != data->x)
 					break ;
 			}
-			data->xborder = data->x;
-			data->y++;
-			data->x = 0;
+			ft_upgrade_values(data);
 		}
 		data->x++;
-		str++;
+		if (*str)
+			str++;
 	}
-	free (to_free);
+	free (data->to_free);
 	data->yborder = data->y + 1;
 	if (prev != data->x || data->xborder <= data->yborder)
 		ft_put_errors2(5, data);
 }
 
-void	ft_initialize_map(int fd, x_data *data)
+void	ft_initialize_map(int fd, t_dat *data)
 {
 	int			check;
 	int			i;
@@ -82,6 +78,8 @@ void	ft_initialize_map(int fd, x_data *data)
 	data->moves = 0;
 	data->collected = 0;
 	data->collectable = 0;
+	data->x = 0;
+	data->y = 0;
 	str = ft_calloc (1, 1);
 	while (1)
 	{
@@ -114,7 +112,7 @@ char	*ft_strcpy(char *destination, const char *source)
 	return (ptr);
 }
 
-void	ft_build_map(x_data *data, int fd)
+void	ft_build_map(t_dat *data, int fd)
 {
 	int			check;
 	char		*str;

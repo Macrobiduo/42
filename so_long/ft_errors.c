@@ -6,13 +6,13 @@
 /*   By: dballini <dballini@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 13:10:01 by dballini          #+#    #+#             */
-/*   Updated: 2023/03/20 13:05:00 by dballini         ###   ########.fr       */
+/*   Updated: 2023/03/20 15:26:58 by dballini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int	ft_get_errors(x_data *data, int p, int e)
+int	ft_get_errors(t_dat *data, int p, int e)
 {
 	int		i;
 	int		j;
@@ -39,7 +39,7 @@ int	ft_get_errors(x_data *data, int p, int e)
 	return (0);
 }
 
-int	ft_borders_check(x_data *data)
+int	ft_borders_check(t_dat *data)
 {
 	data->y = -1;
 	data->x = -1;
@@ -58,7 +58,7 @@ int	ft_borders_check(x_data *data)
 	return (0);
 }
 
-int	ft_get_errors2(x_data *data)
+int	ft_get_errors2(t_dat *data)
 {
 	if (ft_borders_check(data) == 1)
 		return (4);
@@ -67,7 +67,7 @@ int	ft_get_errors2(x_data *data)
 	return (0);
 }
 
-void	ft_put_errors2(int error, x_data *data)
+void	ft_put_errors2(int error, t_dat *data)
 {
 	if (error == 4)
 	{
@@ -83,7 +83,7 @@ void	ft_put_errors2(int error, x_data *data)
 	}
 }
 
-void	ft_put_errors(int error, x_data *data)
+void	ft_put_errors(int error, t_dat *data)
 {
 	if (error == 1)
 	{

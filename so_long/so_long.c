@@ -6,13 +6,13 @@
 /*   By: dballini <dballini@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 16:43:03 by dballini          #+#    #+#             */
-/*   Updated: 2023/03/20 12:35:05 by dballini         ###   ########.fr       */
+/*   Updated: 2023/03/20 15:26:46 by dballini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	ft_free_map(x_data *data)
+void	ft_free_map(t_dat *data)
 {
 	int	i;
 
@@ -26,7 +26,7 @@ void	ft_free_map(x_data *data)
 	data->map = NULL;
 }
 
-void	ft_cleanclose(x_data *data)
+void	ft_cleanclose(t_dat *data)
 {
 	if (data->map)
 		ft_free_map (data);
@@ -44,13 +44,7 @@ void	ft_cleanclose(x_data *data)
 	exit (0);
 }
 
-int	close_cross(x_data *data)
-{
-	ft_cleanclose(data);
-	return (0);
-}
-
-int	key_hook(int keyhook, x_data *data)
+int	key_hook(int keyhook, t_dat *data)
 {
 	if (keyhook == 65307)
 		ft_cleanclose(data);
@@ -70,7 +64,7 @@ int	key_hook(int keyhook, x_data *data)
 	return (0);
 }
 
-void	ft_init(x_data data, int fd)
+void	ft_init(t_dat data, int fd)
 {
 	data.mlx = mlx_init();
 	data.mlx_win = mlx_new_window(data.mlx, 80 * data.xborder,
@@ -90,7 +84,7 @@ void	ft_init(x_data data, int fd)
 int	main(int ac, char *av[])
 {
 	int		fd;
-	x_data	data;
+	t_dat	data;
 
 	if (ac < 2)
 		return (1);
