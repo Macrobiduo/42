@@ -12,14 +12,15 @@ all:	$(NAME)
 
 $(NAME): $(OBJ)
 	$(CC) $(SRC) $(MLX) $(FLAGS) -o $(NAME)
+	mkdir obj
 	mv $(SRC:.c=.o) obj
 
 clean:
 	rm -f $(OBJS)
+	rm -rf obj
 	
 fclean: clean
 	rm -f $(NAME)
-re:
-	fclean all
+re: fclean all
 
 .PHONY: all clean fclean re

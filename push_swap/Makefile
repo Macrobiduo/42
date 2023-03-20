@@ -17,7 +17,7 @@ $(NAME): $(OBJ)
 clean:
 	rm -f $(OBJS)
 	make clean -C my_checker
-	
+
 fclean: clean
 	rm -f $(NAME) checker
 	make fclean -C my_checker
