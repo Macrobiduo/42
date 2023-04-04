@@ -6,7 +6,7 @@
 /*   By: dballini <dballini@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 16:43:03 by dballini          #+#    #+#             */
-/*   Updated: 2023/03/20 15:26:46 by dballini         ###   ########.fr       */
+/*   Updated: 2023/03/21 12:31:40 by dballini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,10 @@ int	main(int ac, char *av[])
 	t_dat	data;
 
 	if (ac < 2)
+	{
+		write(1, "Error\n Few arguments\n", 22);
 		return (1);
+	}
 	else
 	{
 		fd = open(av[1], O_RDONLY);
