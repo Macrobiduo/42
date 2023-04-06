@@ -1,64 +1,50 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_utils.c                                         :+:      :+:    :+:   */
+/*   ft_utils2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dballini <dballini@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/23 14:35:07 by dballini          #+#    #+#             */
-/*   Updated: 2023/04/04 16:44:39 by dballini         ###   ########.fr       */
+/*   Created: 2023/04/04 16:46:01 by dballini          #+#    #+#             */
+/*   Updated: 2023/04/04 16:46:47 by dballini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-int	ft_strncmp(const char *s1, const char *s2, unsigned int n)
+int	emsg(char *err)
 {
-	unsigned int	i;
-	unsigned char	*p;
-	unsigned char	*z;
-
-	p = (unsigned char *) s1;
-	z = (unsigned char *) s2;
-	i = 0;
-	if (n == 0)
-		return (0);
-	while (p[i] != '\0' && p[i] == z[i] && i < n - 1)
-	{
-		i++;
-	}
-	return (p[i] - z[i]);
+	write(2, err, ft_strlen(err));
+	return (1);
 }
 
-void	ft_putchar_fd(char c, int fd)
+void	msg_error(char *err)
 {
-	write(fd, &c, 1);
+	perror(err);
+	exit (1);
 }
 
-void	ft_putstr_fd(char *s, int fd)
+static char	*ft_get_cmd(char **paths, char *cmd)
 {
-	size_t		i;
+	char	*tmp;
+	char	*command;
 
-	i = 0;
-	if (s)
+	while (*paths)
 	{
-		while (s[i])
-		{
-			ft_putchar_fd(s[i], fd);
-			i++;
-		}
+		tmp = ft_strjoin(*paths, "/");
+		command = ft_strjoin(tmp, cmd);
+		free (tmp);
+		if (access(command, 0) == 0)
+			return (command);
+		free (command);
+		paths++;
 	}
+	return (NULL);
 }
 
-void	ft_free_tab(char **tab)
+char	*ft_get_path(char **envp)
 {
-	int		i;
-
-	i = 0;
-	while (tab[i])
-	{
-		free(tab[i]);
-		i++;
-	}
-	free(tab);
+	while (ft_strcmp("PATH", *envp, 4))
+		envp++;
+	return (*envp + 5);
 }
