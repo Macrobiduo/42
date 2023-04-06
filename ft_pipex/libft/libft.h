@@ -13,6 +13,9 @@
 #ifndef LIBFT_H
 # define LIBFT_H
 # include <string.h>
+# include <stdio.h>
+# include <stdlib.h>
+
 
 typedef struct s_list
 {
@@ -22,6 +25,8 @@ typedef struct s_list
 
 char	**ft_split(char const *s, char c);
 int		ft_strlen(const char *s);
+int		leng(char const *s, char c);
+int		ft_counter(char const *s, char c);
 char	*ft_strchr(const char *s, int c);
 char	*ft_strtrim(char const *s1, char const *set);
 int		ft_isalpha(int c);

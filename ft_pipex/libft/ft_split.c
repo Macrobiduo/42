@@ -11,8 +11,6 @@
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdio.h>
-#include <stdlib.h>
 
 int	ft_counter(char const *s, char c)
 {
@@ -69,17 +67,3 @@ char	**ft_split(char const *s, char c)
 	}
 	return (arr);
 }
-/*int     main()
-{
-    char    **arr;
-    char    *s = "      split		this for   me  !       ";
-    char    t = ' ';
-    int     i = 0;
-    arr = ft_split(s, t);
-    while(arr[i])
-   {    
-        printf("%s\n", arr[i]);
-        i++;
-   }
-    return (0);    
-}*/
