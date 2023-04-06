@@ -6,7 +6,7 @@
 /*   By: dballini <dballini@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 12:48:29 by dballini          #+#    #+#             */
-/*   Updated: 2023/04/04 16:50:38 by dballini         ###   ########.fr       */
+/*   Updated: 2023/04/06 14:38:11 by dballini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <sys/stat.h>
 # include <fcntl.h>
 # include <stdlib.h>
+# include "libft/libft.h"
 
 # define ERR_INFILE "Infile"
 # define ERR_OUTFILE "Outfile"
@@ -42,11 +43,13 @@ typedef struct pipex_t
 }           pipex_t;
 
 int	      emsg(char *err);
-static char	*ft_get_cmd(char **paths, char *cmd);
+char	*ft_get_cmd(char **paths, char *cmd);
 char	*ft_get_path(char **envp);
 void	ft_free_tab(char **tab);
 void	msg_error(char *err);
 void	ft_child(pipex_t piper, char *av[], char *envp[]);
 void	ft_parent(pipex_t piper, char *av[], char *envp[]);
 void	ft_pipex(pipex_t piper, char *av[], char *envp[]);
+void	ft_free_child(pipex_t piper);
+void	ft_free_parent(pipex_t piper);
 #endif

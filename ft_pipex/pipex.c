@@ -6,7 +6,7 @@
 /*   By: dballini <dballini@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 12:48:31 by dballini          #+#    #+#             */
-/*   Updated: 2023/04/04 16:46:46 by dballini         ###   ########.fr       */
+/*   Updated: 2023/04/06 14:26:50 by dballini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	ft_child(pipex_t piper, char *av[], char *envp[])
 	piper.my_cmd = ft_get_cmd(piper.cmd_paths, piper.cmd_args[0]);
 	if (!piper.my_cmd)
 	{
-		ft_free_child(&piper);
+		ft_free_child(piper);
 		emsg(ERR_CMD);
 		exit(1);
 	}
@@ -37,7 +37,7 @@ void	ft_parent(pipex_t piper, char *av[], char *envp[])
 	piper.my_cmd = ft_get_cmd(piper.cmd_paths, piper.cmd_args[0]);
 	if (!piper.my_cmd)
 	{
-		ft_free_child(&piper);
+		ft_free_child(piper);
 		emsg(ERR_CMD);
 		exit(1);
 	}
@@ -46,8 +46,6 @@ void	ft_parent(pipex_t piper, char *av[], char *envp[])
 
 void	ft_pipex(pipex_t piper, char *av[], char *envp[])
 {
-	int	status;
-
 	if(pipe(piper.end) < 0)
 		msg_error(ERR_PIPE);
 	piper.child1 = fork();
@@ -60,7 +58,7 @@ void	ft_pipex(pipex_t piper, char *av[], char *envp[])
 	close(piper.end[1]);
 	waitpid(piper.child1, NULL, 0);
 	waitpid(piper.child2, NULL, 0);
-	ft_free_parent(&piper);
+	ft_free_parent(piper);
 }
 
 int   main(int ac, char *av[], char *envp[])

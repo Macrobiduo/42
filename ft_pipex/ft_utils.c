@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_utils2.c                                        :+:      :+:    :+:   */
+/*   ft_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dballini <dballini@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 16:46:01 by dballini          #+#    #+#             */
-/*   Updated: 2023/04/04 16:46:47 by dballini         ###   ########.fr       */
+/*   Updated: 2023/04/06 14:38:29 by dballini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@ int	emsg(char *err)
 void	msg_error(char *err)
 {
 	perror(err);
-	exit (1);
+	exit(1);
 }
 
-static char	*ft_get_cmd(char **paths, char *cmd)
+char	*ft_get_cmd(char **paths, char *cmd)
 {
 	char	*tmp;
 	char	*command;
@@ -33,10 +33,10 @@ static char	*ft_get_cmd(char **paths, char *cmd)
 	{
 		tmp = ft_strjoin(*paths, "/");
 		command = ft_strjoin(tmp, cmd);
-		free (tmp);
+		free(tmp);
 		if (access(command, 0) == 0)
 			return (command);
-		free (command);
+		free(command);
 		paths++;
 	}
 	return (NULL);
@@ -44,7 +44,7 @@ static char	*ft_get_cmd(char **paths, char *cmd)
 
 char	*ft_get_path(char **envp)
 {
-	while (ft_strcmp("PATH", *envp, 4))
+	while (ft_strncmp("PATH", *envp, 4))
 		envp++;
 	return (*envp + 5);
 }
