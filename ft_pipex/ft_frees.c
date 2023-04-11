@@ -6,7 +6,7 @@
 /*   By: dballini <dballini@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 14:35:07 by dballini          #+#    #+#             */
-/*   Updated: 2023/04/06 14:25:11 by dballini         ###   ########.fr       */
+/*   Updated: 2023/04/11 12:41:14 by dballini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	ft_free_child(pipex_t piper)
 	int	i;
 
 	i = 0;
+	ft_free_parent(piper);
 	while (piper.cmd_args[i])
 	{
 		free(piper.cmd_args[i]);

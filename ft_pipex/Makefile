@@ -19,12 +19,12 @@ clean:
 	make clean -C libft/ 
 	rm -f $(OBJS)
 	rm -rf obj
-	@echo pipex objects cleaned
+	@echo pipex objects cleaned!
 	
 fclean: clean
 	make fclean -C libft/
 	rm -f $(NAME)
-	@echo pipex compiled files cleaned
+	@echo pipex compiled files cleaned!
 
 re: fclean all
 	make re -C libft/
