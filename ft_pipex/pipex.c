@@ -6,13 +6,13 @@
 /*   By: dballini <dballini@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 12:48:31 by dballini          #+#    #+#             */
-/*   Updated: 2023/04/06 14:26:50 by dballini         ###   ########.fr       */
+/*   Updated: 2023/04/11 13:03:40 by dballini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	ft_child(pipex_t piper, char *av[], char *envp[])
+void	ft_child(t_pipex piper, char *av[], char *envp[])
 {
 	dup2(piper.end[1], 1);
 	close(piper.end[0]);
@@ -28,7 +28,7 @@ void	ft_child(pipex_t piper, char *av[], char *envp[])
 	execve(piper.my_cmd, piper.cmd_args, envp);
 }
 
-void	ft_parent(pipex_t piper, char *av[], char *envp[])
+void	ft_parent(t_pipex piper, char *av[], char *envp[])
 {
 	dup2(piper.end[0], 0);
 	close(piper.end[1]);
@@ -44,9 +44,9 @@ void	ft_parent(pipex_t piper, char *av[], char *envp[])
 	execve(piper.my_cmd, piper.cmd_args, envp);
 }
 
-void	ft_pipex(pipex_t piper, char *av[], char *envp[])
+void	ft_pipex(t_pipex piper, char *av[], char *envp[])
 {
-	if(pipe(piper.end) < 0)
+	if (pipe(piper.end) < 0)
 		msg_error(ERR_PIPE);
 	piper.child1 = fork();
 	if (piper.child1 == 0)
@@ -61,9 +61,9 @@ void	ft_pipex(pipex_t piper, char *av[], char *envp[])
 	ft_free_parent(piper);
 }
 
-int   main(int ac, char *av[], char *envp[])
+int	main(int ac, char *av[], char *envp[])
 {
-	pipex_t	piper;
+	t_pipex	piper;
 
 	if (ac != 5)
 		return (emsg(ERR_INPUT));

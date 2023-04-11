@@ -6,7 +6,7 @@
 /*   By: dballini <dballini@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 12:48:29 by dballini          #+#    #+#             */
-/*   Updated: 2023/04/06 14:38:11 by dballini         ###   ########.fr       */
+/*   Updated: 2023/04/11 13:03:09 by dballini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,27 +29,27 @@
 # define ERR_PIPE "Pipe"
 # define ERR_CMD "Command not found\n"
 
-typedef struct pipex_t
+typedef struct t_pipex
 {
-      int   end[2];
-      pid_t       child1;
-      pid_t       child2;
-      int         f1;
-      int         f2;
-      char        *paths;
-      char        *my_cmd;
-      char        **cmd_paths;
-      char        **cmd_args;
-}           pipex_t;
+	int		end[2];
+	pid_t	child1;
+	pid_t	child2;
+	int		f1;
+	int		f2;
+	char	*paths;
+	char	*my_cmd;
+	char	**cmd_paths;
+	char	**cmd_args;
+}		t_pipex;
 
-int	      emsg(char *err);
+int		emsg(char *err);
 char	*ft_get_cmd(char **paths, char *cmd);
 char	*ft_get_path(char **envp);
 void	ft_free_tab(char **tab);
 void	msg_error(char *err);
-void	ft_child(pipex_t piper, char *av[], char *envp[]);
-void	ft_parent(pipex_t piper, char *av[], char *envp[]);
-void	ft_pipex(pipex_t piper, char *av[], char *envp[]);
-void	ft_free_child(pipex_t piper);
-void	ft_free_parent(pipex_t piper);
+void	ft_child(t_pipex piper, char *av[], char *envp[]);
+void	ft_parent(t_pipex piper, char *av[], char *envp[]);
+void	ft_pipex(t_pipex piper, char *av[], char *envp[]);
+void	ft_free_child(t_pipex piper);
+void	ft_free_parent(t_pipex piper);
 #endif

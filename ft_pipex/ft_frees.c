@@ -6,13 +6,13 @@
 /*   By: dballini <dballini@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 14:35:07 by dballini          #+#    #+#             */
-/*   Updated: 2023/04/11 12:41:14 by dballini         ###   ########.fr       */
+/*   Updated: 2023/04/11 13:03:27 by dballini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	ft_free_child(pipex_t piper)
+void	ft_free_child(t_pipex piper)
 {
 	int	i;
 
@@ -27,7 +27,7 @@ void	ft_free_child(pipex_t piper)
 	free(piper.my_cmd);
 }
 
-void	ft_free_parent(pipex_t piper)
+void	ft_free_parent(t_pipex piper)
 {
 	int	i;
 

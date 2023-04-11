@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dballini <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dballini <dballini@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 15:53:30 by dballini          #+#    #+#             */
-/*   Updated: 2022/10/19 14:23:34 by dballini         ###   ########.fr       */
+/*   Updated: 2023/04/11 13:00:16 by dballini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 # include <string.h>
 # include <stdio.h>
 # include <stdlib.h>
-
 
 typedef struct s_list
 {

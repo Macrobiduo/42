@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dballini <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dballini <dballini@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 16:45:16 by dballini          #+#    #+#             */
-/*   Updated: 2022/05/23 16:45:17 by dballini         ###   ########.fr       */
+/*   Updated: 2023/04/11 13:00:49 by dballini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 long int	ft_atoi(const char *str)
 {
-	int	i;
-	int	sign;
-	long int	result;
+	int				i;
+	int				sign;
+	long int		result;
 
 	i = 0;
 	sign = 1;
