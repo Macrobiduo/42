@@ -1,6 +1,6 @@
 CC = cc -g
 NAME = philo
-SRC = philo.c philo_utils.c philo_frees.c
+SRC = philo.c philo_utils.c philo_frees.c philo_init.c
 FLAG = -Wall -Wextra -Werror
 OBJ= $(SRC:.c=.o)
 OBJDIR = obj/
