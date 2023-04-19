@@ -6,7 +6,7 @@
 /*   By: dballini <dballini@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 14:15:26 by dballini          #+#    #+#             */
-/*   Updated: 2023/04/13 15:31:47 by dballini         ###   ########.fr       */
+/*   Updated: 2023/04/18 15:54:48 by dballini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ long int	ft_get_time(t_philo *philos)
 
 	gettimeofday(&current_time, NULL);
 	time = current_time.tv_sec + current_time.tv_usec;
-	if (philos->params->start_time == 0)	
+	if (philos->params->start_time == 0)
 	{
 		philos->params->start_time = time;
 		return (0);
@@ -39,19 +39,18 @@ long int	ft_get_time(t_philo *philos)
 
 int   main(int ac, char *av[])
 {
-	t_philo	philos;
+	t_philo	*philos;
+	t_param	*params;
 
+	philos = NULL;
+	params = NULL;
 	if (ac < 5 || ac > 6)
 	{
 		printf("Error\nNot enough arguments\n");
-		return (1);
+		return ((void)ft_free_mem(params, philos), 1);
 	}
-	ft_init_timings(av, &philos);
-	ft_init(&philos);
-	for (int i = 0; i < 10; i++)
-	{
-		ft_print_status( &philos, "is eating");
-		usleep(1000000);
-	}
-      return (0);
+	if (ft_init(av, philos, params) != SUCCESS)
+		return ((void)ft_free_mem(params, philos), 1);
+	
+      return ((void)ft_free_mem(params, philos), 0);
 }

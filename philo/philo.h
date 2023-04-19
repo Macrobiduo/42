@@ -6,7 +6,7 @@
 /*   By: dballini <dballini@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 14:15:22 by dballini          #+#    #+#             */
-/*   Updated: 2023/04/13 15:46:45 by dballini         ###   ########.fr       */
+/*   Updated: 2023/04/18 15:39:02 by dballini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef struct s_param
 	long int		time_to_die;
 	long int		time_to_eat;
 	long int		time_to_sleep;
+	long int		time_to_think;
 	int		n_eating;
 	pthread_mutex_t	*mutex;
 }		t_param;
@@ -40,9 +41,27 @@ typedef struct s_philo
 	t_param	*params;
 }		t_philo;
 
+typedef enum e_mutexes
+{
+	PRINT,
+	MEAL,
+	DONE,
+	DIED,
+	M_NUM
+}	t_mutexes;
+
+typedef enum s_exit
+{
+	SUCCESS,
+	FAILURE
+}	t_exit;
+
+
 long int	ft_atoi(const char *str);
-void  ft_init_timings(char *av[], t_philo *philos);
-void	ft_init(t_philo *philos);
+int  ft_init_params(char *av[], t_param *params);
+int	ft_init(char *av[], t_philo *philos, t_param *params);
 void	ft_print_status(t_philo *philos, char *status);
 long int	ft_get_time(t_philo *philos);
+void  ft_free_mem(t_param *params, t_philo *philos);
+
 #endif
