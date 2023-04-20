@@ -1,6 +1,6 @@
-CC = cc -g
+CC = cc -g -pthread
 NAME = philo
-SRC = philo.c philo_utils.c philo_frees.c philo_init.c
+SRC = philo.c philo_utils.c philo_frees.c philo_init.c philo_dinner.c philo_check.c
 FLAG = -Wall -Wextra -Werror
 OBJ= $(SRC:.c=.o)
 OBJDIR = obj/

@@ -6,7 +6,7 @@
 /*   By: dballini <dballini@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 14:15:22 by dballini          #+#    #+#             */
-/*   Updated: 2023/04/18 15:39:02 by dballini         ###   ########.fr       */
+/*   Updated: 2023/04/20 16:44:50 by dballini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,15 @@ typedef struct s_param
 	long int		time_to_sleep;
 	long int		time_to_think;
 	int		n_eating;
+	int		died;
+	int		done;
 	pthread_mutex_t	*mutex;
 }		t_param;
 
 typedef struct s_philo
 {
-	int		eaten;
+	unsigned long		last_meal;
+	int		eaten_counter;
 	int		lfork;
 	int		rfork;
 	int		philo_ID;
@@ -58,11 +61,26 @@ typedef enum s_exit
 }	t_exit;
 
 
-long int	ft_atoi(const char *str);
-int  ft_init_params(char *av[], t_param *params);
-int	ft_init(char *av[], t_philo *philos, t_param *params);
 void	ft_print_status(t_philo *philos, char *status);
 long int	ft_get_time(t_philo *philos);
+long int	ft_atoi(const char *str);
+int	ft_min(int a, int b);
+int	ft_max(int a, int b);
+
+int  ft_init_params(char *av[], t_param **params);
+int	ft_init(char *av[], t_philo **philos, t_param **params);
+int	ft_init_mutex(t_param **params);
+
 void  ft_free_mem(t_param *params, t_philo *philos);
+void	ft_waiter(long int to_wait);
+void  ft_destroy_mutex(t_philo *philos, t_param *params);
+int   ft_check_done(t_philo *philos);
+int   ft_check_died(t_philo *philos);
+void  ft_died(t_param *params);
+void  ft_done(t_param *params);
+int   ft_dinnner(t_param *params, t_philo *philos);
+void  *ft_simulate_dinner(void *arg);
+
+
 
 #endif

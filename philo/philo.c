@@ -6,7 +6,7 @@
 /*   By: dballini <dballini@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 14:15:26 by dballini          #+#    #+#             */
-/*   Updated: 2023/04/18 15:54:48 by dballini         ###   ########.fr       */
+/*   Updated: 2023/04/20 16:47:43 by dballini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,9 @@ int   main(int ac, char *av[])
 		printf("Error\nNot enough arguments\n");
 		return ((void)ft_free_mem(params, philos), 1);
 	}
-	if (ft_init(av, philos, params) != SUCCESS)
+	if (ft_init(av, &philos, &params) != SUCCESS)
 		return ((void)ft_free_mem(params, philos), 1);
-	
+	if (ft_dinnner(params, philos) != SUCCESS)
+		return ((void)ft_free_mem(params, philos), 1);
       return ((void)ft_free_mem(params, philos), 0);
 }

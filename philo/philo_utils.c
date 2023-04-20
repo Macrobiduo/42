@@ -6,7 +6,7 @@
 /*   By: dballini <dballini@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 14:15:31 by dballini          #+#    #+#             */
-/*   Updated: 2023/04/13 15:34:51 by dballini         ###   ########.fr       */
+/*   Updated: 2023/04/20 17:08:49 by dballini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,32 @@ long int	ft_atoi(const char *str)
 	return (result * sign);
 }
 
-void	ft_waiter(t_param *params, long int to_wait)
+void	ft_waiter(long int to_wait)
 {
-	usleep(1000 * to_wait);
+	usleep(to_wait);
 }
 
 void	ft_print_status(t_philo *philos, char *status)
 {
-	printf("[%ld]ms Philo %d %s\n", ft_get_time(philos), philos->philo_ID, status);
+	pthread_mutex_lock(&philos->params->mutex[PRINT]);
+	if (((!ft_check_died(philos)) && (!ft_check_done(philos))))
+		printf("[%ld]ms Philo %d %s\n", ft_get_time(philos), philos->philo_ID, status);
+	pthread_mutex_unlock(&philos->params->mutex[PRINT]);
+
+}
+
+int	ft_min(int a, int b)
+{
+	if (a > b)
+		return (b);
+	else
+		return (a);
+}
+
+int	ft_max(int a, int b)
+{
+	if (a < b)
+		return (b);
+	else
+		return (a);
 }
