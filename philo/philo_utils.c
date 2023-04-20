@@ -37,6 +37,11 @@ long int	ft_atoi(const char *str)
 	return (result * sign);
 }
 
+void	ft_waiter(t_param *params, long int to_wait)
+{
+	usleep(1000 * to_wait);
+}
+
 void	ft_print_status(t_philo *philos, char *status)
 {
 	printf("[%ld]ms Philo %d %s\n", ft_get_time(philos), philos->philo_ID, status);

@@ -34,6 +34,7 @@ int	ft_init_philo(t_param *params, t_philo *philos)
 			philos[i].rfork = i - 1;
 		philos[i].fork = fork;
 		philos[i].params = params;
+		philos[i].eaten = 0;
 		i++;
 	}
 	return (SUCCESS);

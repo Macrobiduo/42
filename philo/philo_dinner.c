@@ -12,6 +12,18 @@
 
 #include "philo.h"
 
+void  ft_sleeping()
+{
+
+}
+
+void  ft_eating()
+{
+      pthread_mutex_lock(&mutex[MEAL]);
+
+      pthread_mutex_unlock(&mutex[MEAL]);
+}
+
 void  ft_simulate_dinner(void *arg)
 {
       t_philo     *self;
