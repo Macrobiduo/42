@@ -6,7 +6,7 @@
 /*   By: dballini <dballini@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 14:15:22 by dballini          #+#    #+#             */
-/*   Updated: 2023/04/20 16:44:50 by dballini         ###   ########.fr       */
+/*   Updated: 2023/04/26 17:25:51 by dballini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 # include <stdlib.h>
 # include <sys/time.h>
 # include <stdio.h>
-#include <unistd.h>
-#include <pthread.h>
+# include <unistd.h>
+# include <pthread.h>
 
 typedef struct s_param
 {
@@ -27,7 +27,6 @@ typedef struct s_param
 	long int		time_to_die;
 	long int		time_to_eat;
 	long int		time_to_sleep;
-	long int		time_to_think;
 	int		n_eating;
 	int		died;
 	int		done;
@@ -70,6 +69,8 @@ int	ft_max(int a, int b);
 int  ft_init_params(char *av[], t_param **params);
 int	ft_init(char *av[], t_philo **philos, t_param **params);
 int	ft_init_mutex(t_param **params);
+int	ft_init_philos(t_philo **philos, t_param *params);
+
 
 void  ft_free_mem(t_param *params, t_philo *philos);
 void	ft_waiter(long int to_wait);

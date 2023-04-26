@@ -6,7 +6,7 @@
 /*   By: dballini <dballini@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 16:05:07 by dballini          #+#    #+#             */
-/*   Updated: 2023/04/20 17:11:52 by dballini         ###   ########.fr       */
+/*   Updated: 2023/04/26 16:36:34 by dballini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void  *ft_simulate_dinner(void *arg)
             if (ft_eating(self) != SUCCESS)
                   break ;
             ft_print_status(self, "is thinking");
-            ft_waiter(self->params->time_to_think);
+            ft_waiter(self->params->time_to_eat);
       }
       return (NULL);
 }
@@ -121,7 +121,7 @@ static int	ft_watch(t_philo *philos, t_param *params)
 			ft_died(params);
 			break ;
 		}
-		i = (i + 1) & params->n_philosophers;
+		i = (i + 1) % params->n_philosophers;
 		usleep(200);
 	}
 	return (SUCCESS);

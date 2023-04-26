@@ -6,7 +6,7 @@
 /*   By: dballini <dballini@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 14:15:26 by dballini          #+#    #+#             */
-/*   Updated: 2023/04/20 16:47:43 by dballini         ###   ########.fr       */
+/*   Updated: 2023/04/26 16:33:21 by dballini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,22 @@
 long int	ft_get_time(t_philo *philos)
 {
 	struct timeval current_time;
-	long int	time;
+	long int	t;
+	long int	s;
+	long int	ret;
 
-	gettimeofday(&current_time, NULL);
-	time = current_time.tv_sec + current_time.tv_usec;
+	if (gettimeofday(&current_time, NULL) == -1)
+		printf("Error getting time\n");
+	t = current_time.tv_sec * 1000;
+	s = current_time.tv_usec / 1000;
 	if (philos->params->start_time == 0)
 	{
-		philos->params->start_time = time;
+		philos->params->start_time = t + s;
 		return (0);
 	}
 	else
-		philos->params->current_sec = time - philos->params->start_time;
-	return (philos->params->current_sec);
+		ret = t + s - philos->params->start_time;
+	return (ret);	
 }
 
 /* 

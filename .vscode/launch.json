@@ -9,8 +9,8 @@
             "name": "(gdb) Launch",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}\\so_long\\a.out",
-            "args": ["so_long/map/map.ber"],
+            "program": "${workspaceFolder}\\philo\\a.out",
+            "args": ["4 410 200 200"],
             "MIMode": "gdb",
             "cwd": "${workspaceFolder}",
             "setupCommands": [
