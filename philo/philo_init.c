@@ -6,7 +6,7 @@
 /*   By: dballini <dballini@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 15:14:43 by dballini          #+#    #+#             */
-/*   Updated: 2023/04/26 18:02:47 by dballini         ###   ########.fr       */
+/*   Updated: 2023/04/27 14:25:22 by dballini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,15 +41,15 @@ int	ft_init_philos(t_philo **philos, t_param *params)
 	i = 0;
 	while (i < params->n_philosophers)
 	{
-		philos[i]->philo_ID = i + 1;
-		philos[i]->lfork = i;
+		(*philos)[i].philo_ID = i + 1;
+		(*philos)[i].lfork = i;
 		if (i - 1 < 0)
-			philos[i]->rfork = params->n_philosophers - 1;
+			(*philos)[i].rfork = params->n_philosophers - 1;
 		else
-			philos[i]->rfork = i - 1;
-		philos[i]->fork = fork;
-		philos[i]->eaten_counter = 0;
-		philos[i]->params = params;
+			(*philos)[i].rfork = i - 1;
+		(*philos)[i].fork = fork;
+		(*philos)[i].eaten_counter = 0;
+		(*philos)[i].params = params;
 		i++;
 	}
 	return (SUCCESS);

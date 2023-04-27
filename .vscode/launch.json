@@ -10,7 +10,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}\\philo\\a.out",
-            "args": ["4 410 200 200"],
+            "args": ["4","410","200","200",],
             "MIMode": "gdb",
             "cwd": "${workspaceFolder}",
             "setupCommands": [
