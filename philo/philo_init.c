@@ -6,7 +6,7 @@
 /*   By: dballini <dballini@student.42firenze.it    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 15:14:43 by dballini          #+#    #+#             */
-/*   Updated: 2023/04/27 14:25:22 by dballini         ###   ########.fr       */
+/*   Updated: 2023/04/28 14:57:34 by dballini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ int	ft_init_philos(t_philo **philos, t_param *params)
 		(*philos)[i].fork = fork;
 		(*philos)[i].eaten_counter = 0;
 		(*philos)[i].params = params;
+		(*philos)[i].last_meal = 0;
 		i++;
 	}
 	return (SUCCESS);
@@ -81,7 +82,7 @@ int	ft_init(char *av[], t_philo **philos, t_param **params)
 	(*params)->mutex = NULL;
 	if (ft_init_params(av, params) != SUCCESS)
 		return (FAILURE);
-	(*philos) = (t_philo *) malloc (sizeof(t_philo) * (*params)->n_philosophers);
+	*philos = malloc (sizeof(t_philo) * (size_t)(*params)->n_philosophers);
 	if (*philos == NULL)
 		return (FAILURE);
 	(*philos)->fork = NULL;
